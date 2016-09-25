@@ -73,7 +73,7 @@ plot.sampbias <- function(x, gaz = NULL, sealine = T, ...){
   plo.biasras.out <- list()
 
   for(i in 1:length(plo.biasras)){
-    plo.biasras.out[[i]] <- ggplot()+
+    plo.biasras.out[[i]] <- ggplot2::ggplot()+
       ggplot2::geom_raster(data=plo.biasras[[i]], aes_string(y="Latitude", x="Longitude", fill="Val"))+
       ggplot2::coord_fixed()+
       ggplot2::theme_bw()+
@@ -88,7 +88,7 @@ plot.sampbias <- function(x, gaz = NULL, sealine = T, ...){
   out <- c(list(occ.plo, spe.plo), plo.biasras.out)
 
   if(sealine == T){
-    wrld <- raster::crop(SampBias::landmass, extent(x$occurrences))
+    wrld <- raster::crop(sampbias::landmass, extent(x$occurrences))
     wrld <- ggplot2::fortify(wrld)
     out <- lapply(out, function(k){
       k + ggplot2::geom_polygon(data=wrld, aes_string(x="long", y="lat", group = "group"),
@@ -102,7 +102,7 @@ plot.sampbias <- function(x, gaz = NULL, sealine = T, ...){
       k+
         ggplot2::geom_path(mapping = aes_string(x = "long", y = "lat", linetype = "bias", group = "group"), data = line.gaz,  col = "grey40")+
         ggplot2::geom_point(mapping = aes_string(x = "long", y = "lat", shape = "bias"), data = point.gaz,  col = "grey10")+
-        ggplot::labs(shape = "", color = "Bias Effect", linetype = "")
+        ggplot2::labs(shape = "", color = "Bias Effect", linetype = "")
       })
   }
 

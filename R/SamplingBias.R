@@ -59,7 +59,7 @@ SamplingBias <- function(x, gaz = NULL, res = 1, buffer = 1, convexhull = F, bin
     dis.ras <- DisRast(gaz = gaz, ras = dum.ras, buffer = buffer, ncores = ncores)
 
     if(terrestrial){
-      wrld <- raster::crop(SampBias::landmass, extent(dum.ras))
+      wrld <- raster::crop(sampbias::landmass, extent(dum.ras))
       wrld <- raster::rasterize(wrld, dum.ras)
       dis.ras <- lapply(dis.ras, function(k) mask(k, wrld))
     }

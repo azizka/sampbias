@@ -40,7 +40,7 @@ DisRast <- function(gaz, ras, buffer, ncores){ #get empirical distace distributi
 
   #create dummy raster
   r <- raster(cut.off)
-  res(r) <- res(ras)
+  res(r) <- raster::res(ras)
   r[] <- 0
 
   ##rasterize gazeteers, parallelized if desired

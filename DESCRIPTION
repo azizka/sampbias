@@ -1,4 +1,4 @@
-Package: SampBias
+Package: sampbias
 Type: Package
 Title: Evaluating Geographic Sampling Bias in Biological Collections
 Version: 0.1.0

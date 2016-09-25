@@ -3,7 +3,7 @@ exportPattern("^[^\\.]")
 S3method(plot, sampbias)
 S3method(summary, sampbias)
 
-importFrom("raster", raster, crop, ncell, rasterize, extent, mask, "extent<-", "res<-", values )
+importFrom("raster", raster, crop, ncell, rasterize, extent, mask, "extent<-", "res<-", values, res )
 importFrom("sp", SpatialPoints, SpatialPolygons, Polygons, Polygon, CRS, proj4string, coordinates)
 importFrom("ggplot2", element_blank, aes_string, ggplot, geom_raster, coord_fixed, theme_bw, ggtitle, theme, fortify, geom_path, geom_point, labs)
 importFrom("viridis", scale_fill_viridis)

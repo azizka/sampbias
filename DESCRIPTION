@@ -8,6 +8,6 @@ Authors@R: c(person("Alexander", "Zizka", email = "alexander.zizka@bioenv.gu.se"
              person("Daniele", "Silvestro", role = "aut"))
 Description: Evaluating the biasing impact of geographic features such as airports, cities, roads, rivers in datasets of coordinates based biological collection datasets, by using maximum likelihood comparisons of the statistical distribution of observed and expected distances to the feature. Enables also spatial visualization of sampling bias and includes a set of convenience functions for publication level plotting. Also available as shiny app.
 License: GPL-3
-Depends: R(>= 2.10), ggplot2, raster, viridis, sp, methods, stats, grDevices, graphics, 
+Depends: R(>= 2.10), ggplot2, graphics, grDevices, methods, raster, rgeos, sp, stats, viridis
 Suggests: geosphere, parallel
 LazyData: TRUE

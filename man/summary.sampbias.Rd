@@ -1,69 +1,56 @@
 \name{summary.sampbias}
 \alias{summary.sampbias}
-%- Also NEED an '\alias' for EACH other topic documented here.
+
 \title{
-Summary Method for Class sampbias~
+Summary Method for Class sampbias
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Summary method for objects of the class \code{sampbias}.
 }
 \usage{
-summary.sampbias(object, ...)
+\method{summary}{sampbias}(object, ...)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
   \item{object}{
-%%     ~~Describe \code{object} here~~
+An object of the class \code{sampbias}
 }
   \item{\dots}{
-%%     ~~Describe \code{\dots} here~~
+Additional arguments passed to summary.
 }
-}
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
-\value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
-\references{
-%% ~put references to the literature/web site here ~
-}
-\author{
-%%  ~~who you are~~
-}
-\note{
-%%  ~~further notes~~
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
+\value{
+Summary printed to screen.
+}
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\code{\link{SamplingBias}}
+\code{\link{is.sampbias}}
+\code{\link{plot.sampbias}}
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+#simulate data
+occ <- data.frame(species = rep(sample(x = LETTERS, size = 5), times = 10),
+                  decimallongitude = runif(n = 50, min = -5, max = 5),
+                  decimallatitude = runif(n = 50, min = -4, max = 4))
 
-## The function is currently defined as
-function (object, ...) 
-{
-    cat("Number of occurences: ", object$summa$total_occ, "\n")
-    cat("Number of species: ", object$summa$total_sp, "\n")
-    cat("Raster resolution: ", object$summa$res, "\n")
-    cat("Distance binsize: ", object$summa$binsize, "\n")
-    cat("Convexhull: ", object$summa$convexhull, "\n")
-    cat("Geographic extent:\n")
-    print(object$summa$extent)
-    cat("Bias effect at distance:\n")
-    print(object$biastable)
-  }
+
+#create point gazetteer
+pts <- data.frame(long = runif(n = 5, min = -5, max = 5),
+                  lat = runif(n = 5, min = -4, max = 4),
+                  dat = rep("A", 5))
+pts <- SpatialPointsDataFrame(coords = pts[,1:2], data = data.frame(pts[,3]))
+
+lin <- data.frame(long = seq(-5, 5, by = 1),
+                  lat = rep(2, times = 11))
+lin <- SpatialLinesDataFrame(sl = SpatialLines(list(Lines(Line(lin), ID="B1"))),
+                             data = data.frame("B", row.names = "B1"))
+
+gaz <- list(lines.strucutre = lin, point.structure = pts)
+
+out <- SamplingBias(x = occ, gaz = gaz, terrestrial = FALSE)
+summary(out)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+
+\keyword{ methods }

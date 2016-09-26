@@ -1,5 +1,5 @@
-SamplingBias <- function(x, gaz = NULL, res = 1, buffer = 1, convexhull = F, binsize = NULL,
-                         biasdist = c(0,10), terrestrial = T, ncores = 1, plotextra = F,
+SamplingBias <- function(x, gaz = NULL, res = 1, buffer = NULL, convexhull = F, binsize = NULL,
+                         biasdist = c(0,10000), terrestrial = T, ncores = 1, plotextra = F,
                          plotextrafile = "samp_bias_extra_plots.pdf", verbose = T){
   # x = a table with occurrence as downloaded from gbif, but possibly also a data.frame with only three columns: species, decimallongitude, decimallatitude
   #res = raster resolution in degree,
@@ -17,8 +17,9 @@ SamplingBias <- function(x, gaz = NULL, res = 1, buffer = 1, convexhull = F, bin
   #helpers that will be used throughout the function
   ##create dummy raster
   dat.pts <- sp::SpatialPoints(x[,c("decimallongitude", "decimallatitude")])
-  dum.ras <- raster::raster(extent(dat.pts))
+  dum.ras <- raster::raster(round(extent(dat.pts), .DecimalPlaces(res)))
   res(dum.ras) <- res
+
 
   #warning if combination of resolution and extent exceed 1mio gridcells
   if(raster::ncell(dum.ras) > 1000000){
@@ -58,10 +59,15 @@ SamplingBias <- function(x, gaz = NULL, res = 1, buffer = 1, convexhull = F, bin
     ##create distance raster for all gazeteers
     dis.ras <- DisRast(gaz = gaz, ras = dum.ras, buffer = buffer, ncores = ncores)
 
-    if(terrestrial){
+      if(terrestrial){
       wrld <- raster::crop(sampbias::landmass, extent(dum.ras))
       wrld <- raster::rasterize(wrld, dum.ras)
       dis.ras <- lapply(dis.ras, function(k) mask(k, wrld))
+      }
+
+    #check if there are values in the distance raster
+    if(all(is.na(values(dis.ras[[1]])))){
+      stop("No valid distances found. Consider setting terrestrial = F")
     }
 
     dis.mat <- lapply(dis.ras, "as.matrix")
@@ -88,8 +94,9 @@ SamplingBias <- function(x, gaz = NULL, res = 1, buffer = 1, convexhull = F, bin
 
     #run Danieles shit
     if(verbose){cat("Calculating likelihood...")}
+    biasdist2 <- biasdist / 1000
 
-    results <- .RunSampBias(dists = dis.vec, distmats = dis.mat, plotextra = plotextra, biasdist = biasdist, plotextrafile = plotextrafile)
+    results <- .RunSampBias(dists = dis.vec, distmats = dis.mat, plotextra = plotextra, biasdist = biasdist2, plotextrafile = plotextrafile)
 
     #crop output rasters to landmass by using the distance rasters
     for(i in 1:length(results)){

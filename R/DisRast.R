@@ -1,9 +1,12 @@
 #Distance raster for all gazeteers
-DisRast <- function(gaz, ras, buffer, ncores){ #get empirical distace distribution from gazetteers, rasterbased
+DisRast <- function(gaz, ras, buffer = NULL , ncores = 1){ #get empirical distace distribution from gazetteers, rasterbased
+
+  #create buffer, if none is supplied
+  if(is.null(buffer)){buffer <-  res(ras)[1] *2}
 
   #intiate cluster if multiple cores are used
   if(ncores > 1){
-    if (!requireNamespace("geosphere", quietly = TRUE)) {
+    if (!requireNamespace("parallel", quietly = TRUE)) {
       stop("parallel needed for multithreading. Please install the package.",
            call. = FALSE)
     }else{
@@ -65,7 +68,14 @@ DisRast <- function(gaz, ras, buffer, ncores){ #get empirical distace distributi
   }
 
   ##crop resulting distance raster to study area
-  dist.out <- lapply(dist.d, function(k) raster::crop(k, extent(ras)))
+  if(buffer %% res(ras)[1] == 0){
+    dist.out <- lapply(dist.d, function(k) raster::crop(k, extent(ras)))
+  }else{
+    warning("buffer is not a multiple of res, rasters resampled. Results will be imprecise. Set buffer to multiple of res." )
+    dist.out <- lapply(dist.d, function(k) raster::resample(k, ras))
+  }
+
+
 
   return(dist.out)
 }

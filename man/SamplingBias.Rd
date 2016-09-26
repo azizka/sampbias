@@ -5,183 +5,105 @@
 Evaluating Sampling Bias in Species Distribution Data
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+The major function of the package, calculating the bias effect of sampling bias due to geographic structures, such as the vicinity to cities, airports, rivers and roads. Results are projected to space, and can be compared numerically.
 }
 \usage{
-SamplingBias(x, gaz = NULL, res = 1, buffer = 1, convexhull = F, binsize = NULL, biasdist = c(0, 10), terrestrial = T, ncores = 1, plotextra = F, plotextrafile =
-                 "samp_bias_extra_plots.pdf", verbose = T)
+SamplingBias(x, gaz = NULL, res = 1, buffer = NULL, convexhull = F, binsize = NULL,
+             biasdist = c(0, 10000), terrestrial = T, ncores = 1, plotextra = F,
+             plotextrafile = "samp_bias_extra_plots.pdf", verbose = T)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
   \item{x}{
-%%     ~~Describe \code{x} here~~
+an object of the class \code{data.frame}, with one species occurrence record per line, and at least three columns, named \sQuote{species}, \sQuote{decimallongitude}, and \sQuote{decimallatitude}.
 }
   \item{gaz}{
-%%     ~~Describe \code{gaz} here~~
+a list of geographic gazetteers as \code{SpatialPointDataFrame} or \code{SpatialLinesDataFrame}.  If NULL, a set of default gazetteers, representing large scale occurrence of airports, cities, rivers and roads is used.  See Details.
 }
   \item{res}{
-%%     ~~Describe \code{res} here~~
+numerical.  The resolution of the rasters used for distance calculation and the output maps in decimal degrees.  Default is to 1.
 }
   \item{buffer}{
-%%     ~~Describe \code{buff} here~~
+ numerical.  The size of the geographic buffer around the extent of \code{ras} for the distance calculations in degrees, to account for geographic structures neighbouring the study area (such as a road right outside the study area). Should be a multiple of res.  Default is to res. See Details.
 }
   \item{convexhull}{
-%%     ~~Describe \code{convexhull} here~~
+logical.  If TRUE, the empirical distribution (and the output maps) is calculated exclusively from cells within a convex hull polygon around \code{x}. If FALSE a rectangle around \code{x} is used.  Default = FALSE.
 }
   \item{binsize}{
-%%     ~~Describe \code{binsize} here~~
+numeric.  Indicating the distance bin size (in meters!) for approximating the empirical and observed sample distributions. Should be slightly larger than res (which is in degrees). Default = res * 100000 * 1.1.
 }
   \item{biasdist}{
-%%     ~~Describe \code{biasdist} here~~
+numerical.  A numeric vector indicating the distance at which the average bias should be calculated for the output table in meters. Can also be a single number.  See details.  Default = c(0,10000)
 }
   \item{terrestrial}{
-%%     ~~Describe \code{terrestrial} here~~
+logical.  Indicates if the empirical distribution (and the output maps) should be calculated from terrestrial areas only.  Uses the \code{\link{landmass}} to define what is terrestrial.  Default is to T
 }
   \item{ncores}{
-%%     ~~Describe \code{ncores} here~~
+numerical.  The number of cores used for parallel computing. Must be lower than the available number of cores. Not finally implemented in version 0.1.0.
 }
   \item{plotextra}{
 %%     ~~Describe \code{plotextra} here~~
 }
   \item{plotextrafile}{
-%%     ~~Describe \code{plotextra} here~~
+character.  Indicates the full path where the extra plot should be saved.
 }
   \item{verbose}{
-%%     ~~Describe \code{verbose} here~~
+logical.  If TRUE, progress is reported.  Default = TRUE
 }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+The default gazetteers delivered with the package are simplified from http://www.naturalearthdata.com/downloads/. They include major features, and for small scale analyses custom gazetteers should be used.
+
+For computational convenience, the gazetteers are cropped to the extent of the point occurrence datasets. To account for the fact, that, relevant structures might lay directly outside this extent, but still influencing the distribution of samples in the study area, the buffer option, gives the area, around the extent that should be included in the distance calculation.
+
+The \code{biasdist} options defines at which distance the bias effect should be recorded. These values are comparable between different biasing factors and give an estimate of bias severity. For instance, if \code{biasdist} = c(0, 10000), XXX DANIELE HOW TO DISCRIBE THIS CORRECTLY.
+
+Text here in detail how the bias is calculated and how it is projected into space, copy from the gitHub tutorial
+
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
-\references{
-%% ~put references to the literature/web site here ~
-}
-\author{
-%%  ~~who you are~~
-}
-\note{
-%%  ~~further notes~~
+An object of the S3-class \sQuote{sampbias}, which is a list including the following objects:
+\item{summa}{A list with with summary statistics for the object, including the total number of occurrence points in \code{x}, the total number of species in \code{x}, the extent of the output rasters, \code{res}, \code{binsize}, and \code{convexhull}}
+\item{occurrences}{a \code{raster} with resolution \code{res} and values according to the number of occurrence records from \code{x}, per gridcell}
+\item{species}{an object of the class \code{raster} with resolution \code{res} and values according to the number of species from \code{x}, per gridcell}
+\item{biasmaps}{a list of raster objects, with the same length as \code{gaz}. Each element corresponds to the spatial visulaization of the bias effect for the corresponding element in \code{gaz}.  The last raster in the list is the average bias effect.}
+\item{biastable}{a \code{data.frame}, with the estimated bias effect for each element in\code{gaz}, at the distances specified by \code{biasdist}}
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
+\note{
+Check https://github.com/azizka/sampbias/wiki for a tutorial on sampbias.
+}
+
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\code{\link{summary.sampbias}}
+\code{\link{is.sampbias}}
+\code{\link{plot.sampbias}}
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+#simulate data
+occ <- data.frame(species = rep(sample(x = LETTERS, size = 5), times = 10),
+                  decimallongitude = runif(n = 50, min = -5, max = 5),
+                  decimallatitude = runif(n = 50, min = -4, max = 4))
 
-## The function is currently defined as
-function (x, gaz = NULL, res = 1, buff = 1, convexhull = F, binsize = NULL, 
-    biasdist = c(0, 10), terrestrial = T, ncores = 1, plotextra = F, 
-    verbose = T) 
-{
-    dat.pts <- sp::SpatialPoints(x[, c("decimallongitude", "decimallatitude")])
-    dum.ras <- raster::raster(extent(dat.pts))
-    res(dum.ras) <- res
-    if (ncell(dum.ras) > 1e+06) {
-        warning("huge raster size")
-    }
-    if (verbose) {
-        cat("Creating occurrence raster...")
-    }
-    occ.out <- .OccRast(x = dat.pts, ras = dum.ras)
-    if (verbose) {
-        cat(" Done\n")
-    }
-    if (verbose) {
-        cat("Creating species raster...")
-    }
-    spe.out <- .SpeRast(x, ras = dum.ras, ncores = ncores)
-    if (verbose) {
-        cat(" Done\n")
-    }
-    if (verbose) {
-        cat("Calculating distance raster...")
-    }
-    if (is.null(gaz)) {
-        warnings("gaz not found, using standard gazeteers")
-        gaz <- list(airports = sampbias::airports, cities = sampbias::cities, 
-            rivers = sampbias::waterbodies, roads = sampbias::roads)
-    }
-    check <- all(sapply(gaz, is.raster))
-    if (all(check)) {
-        dis.ras <- gaz
-    }
-    else {
-        dis.ras <- DisRast(gaz = gaz, ras = dum.ras, buffer = buffer, 
-            ncores = ncores)
-        if (terrestrial) {
-            wrld <- crop(SampBias::landmass, extent(dum.ras))
-            wrld <- rasterize(wrld, dum.ras)
-            dis.ras <- lapply(dis.ras, function(k) mask(k, wrld))
-        }
-        dis.mat <- lapply(dis.ras, "as.matrix")
-    }
-    if (verbose) {
-        cat(" Done\n")
-    }
-    if (is.logical(dis.ras)) {
-        out <- c(Occurences = occ.out, Species = spe.out, results)
-        class(out) <- append("sampbias", class(out))
-        return(out)
-    }
-    else {
-        if (is.null(binsize)) {
-            binsize = res * 1e+05 * 1.1
-        }
-        if (verbose) {
-            cat("Extracting values...")
-        }
-        dis.vec <- .DisVect(x = dat.pts, dist = dis.ras, convexhull = convexhull, 
-            binsize = binsize)
-        if (verbose) {
-            cat(" Done\n")
-        }
-        if (verbose) {
-            cat("Calculating likelihood...")
-        }
-        results <- .RunSampBias(dists = dis.vec, distmats = dis.mat, 
-            plotextra = plotextra, biasdist = biasdist)
-        for (i in 1:length(results)) {
-            results[[i]]$bias_matrix <- raster(results[[i]]$bias_matrix)
-            extent(results[[i]]$bias_matrix) <- extent(dis.ras[[1]])
-            results[[i]]$bias_matrix <- mask(results[[i]]$bias_matrix, 
-                dis.ras[[1]])
-        }
-        biastable <- lapply(results, "[", "bias_vector")
-        biastable <- lapply(biastable, "data.frame")
-        biastable <- lapply(biastable, function(k) t(k))
-        biastable <- biastable[!is.na(biastable)]
-        biastable <- do.call("rbind.data.frame", biastable)
-        if (verbose) {
-            cat(" Done\n")
-        }
-        if (verbose) {
-            cat("Preparing output...")
-        }
-        out <- list(summa = list(total_occ = nrow(x), total_sp = length(unique(x$species)), 
-            extent = extent(dat.pts), res = res, binsize = binsize, 
-            convexhull = convexhull), occurrences = occ.out, 
-            species = spe.out, biasmaps = results, biastable = biastable)
-        class(out) <- append("sampbias", class(out))
-        if (verbose) {
-            cat(" Done\n")
-        }
-        return(out)
-    }
-  }
+
+
+#create point gazetteer
+pts <- data.frame(long = runif(n = 5, min = -5, max = 5),
+                  lat = runif(n = 5, min = -4, max = 4),
+                  dat = rep("A", 5))
+pts <- SpatialPointsDataFrame(coords = pts[,1:2], data = data.frame(pts[,3]))
+
+lin <- data.frame(long = seq(-5, 5, by = 1),
+                  lat = rep(2, times = 11))
+lin <- SpatialLinesDataFrame(sl = SpatialLines(list(Lines(Line(lin), ID="B1"))),
+                             data = data.frame("B", row.names = "B1"))
+
+gaz <- list(lines.strucutre = lin, point.structure = pts)
+
+out <- SamplingBias(x = occ, gaz = gaz, terrestrial = FALSE)
+summary(out)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+
+\keyword{ maths }
+\keyword{ spatial }

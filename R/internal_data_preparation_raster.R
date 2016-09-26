@@ -77,11 +77,11 @@
 
   ##check if the number of raster cells for the empirical distribution is high enough (> 10,000) if not, sample randomly
   check <- length(na.omit(emp.out[[1]]))
-  if(check < 5000){stop("Low resolution, increase resolution or switch to absolute distance calculation")  }
+  if(check < 5000){warning("Low resolution, increase resolution or switch to absolute distance calculation")  }
 
   ##get empirical distribution
-  emp.out <- lapply(emp.out, function(x) hist(na.omit(values(x)),
-                                              breaks = seq(0, (max(values(x), na.rm = T) + 2*binsize),by = binsize),
+  emp.out <- lapply(emp.out, function(k) hist(na.omit(values(k)),
+                                              breaks = seq(0, (max(values(k), na.rm = T) + 2*binsize), by = binsize),
                                               plot = F))
 
   #output data
@@ -94,5 +94,14 @@
   names(out) <- names(dist)
 
   return(out)
+}
+
+#get number of decimal places
+.DecimalPlaces <- function(x) {
+  if ((x %% 1) != 0) {
+    nchar(strsplit(sub('0+$', '', as.character(x)), ".", fixed=TRUE)[[1]][[2]])
+  } else {
+    return(0)
+  }
 }
 

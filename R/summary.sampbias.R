@@ -1,4 +1,4 @@
-summary.sampbias <- function(object, ...){
+summary.sampbias <- function(object, ...) {
   cat("Number of occurences: ", object$summa$total_occ, "\n")
   cat("Number of species: ", object$summa$total_sp, "\n")
   cat("Raster resolution: ", object$summa$res, "\n")

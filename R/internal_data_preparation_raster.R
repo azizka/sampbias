@@ -76,15 +76,16 @@
 
 
   ##check if the number of raster cells for the empirical distribution is high enough (> 10,000) if not, sample randomly
-  check <- length(na.omit(emp.out[[1]]))
-  if(check < 5000){warning("Low resolution, increase resolution or switch to absolute distance calculation")  }
 
   ##get empirical distribution
-  emp.out <- lapply(emp.out, function(k) hist(na.omit(values(k)),
-                                              breaks = seq(0, (max(values(k), na.rm = T) + 2*binsize), by = binsize),
-                                              plot = F))
-
-  #output data
+  if(binsize == "default"){
+    emp.out <- lapply(emp.out, function(k){hist(na.omit(values(k)), plot = F)})
+  }else{
+    emp.out <- lapply(emp.out, function(k){hist(na.omit(values(k)),
+                                                breaks = seq(0, max(values(k), na.rm = T) + binsize, by = binsize),
+                                                plot = F, right = F)})
+  }
+    #output data
   out <- list()
 
   for(i in 1:length(dist)){
@@ -92,6 +93,9 @@
   }
 
   names(out) <- names(dist)
+
+  check <- unlist(lapply(emp.out, function(k) length(k$mids)))
+  if(any(check) < 100){warning("Low resolution, increase resolution or switch to absolute distance calculation")  }
 
   return(out)
 }

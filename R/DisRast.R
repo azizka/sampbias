@@ -54,7 +54,7 @@ DisRast <- function(gaz, ras, buffer = NULL, ncores = 1) {
     dist.r <- lapply(gaz.crop, function(k) raster::rasterize(x = k, y = r,
                                                              field = 1, fun = "count"))
     # calculate distance for all gazeteers
-    dist.d <- lapply(dist.r, function(k) raster::distance(k))
+    dist.d <- lapply(dist.r, function(k) suppressWarnings(raster::distance(k)))
   } else {
     parallel::clusterExport(cl, "gaz.crop")
     parallel::clusterExport(cl, "r")
@@ -64,7 +64,7 @@ DisRast <- function(gaz, ras, buffer = NULL, ncores = 1) {
                                                                               y = r, field = 1, fun = "count"))
 
     # calculate distance for all gazeteers
-    dist.d <- parallel::parLapply(cl, dist.r, function(k) raster::distance(k))
+    dist.d <- parallel::parLapply(cl, dist.r, function(k) suppressWarnings(raster::distance(k)))
     parallel::stopCluster(cl)
   }
 

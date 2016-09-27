@@ -2,11 +2,32 @@ SamplingBias <- function(x, gaz = NULL, res = 1, buffer = NULL, convexhull = F, 
                          binsize = NULL, biasdist = c(0, 10000), ncores = 1, plotextra = F,
                          plotextrafile = "samp_bias_extra_plots.pdf", verbose = T) {
 
-  # create dummy raster
+  #convert x to SpatialPoints
   dat.pts <- sp::SpatialPoints(x[, c("decimallongitude", "decimallatitude")])
+  # create dummy raster
   dum.ras <- raster::raster(round(extent(dat.pts), .DecimalPlaces(res)))
   res(dum.ras) <- res
 
+  #exclude occurrences in the sea and recreate dummy raster
+  if(terrestrial){
+    cat("Adjusting to terrestrial surface...")
+    wrld <- raster::crop(sampbias::landmass, extent(dum.ras))
+    wrld <- raster::rasterize(wrld, dum.ras)
+
+    excl <- raster::extract(wrld, x[,c("decimallongitude", "decimallatitude")])
+    x <- x[!is.na(excl), c("species", "decimallongitude", "decimallatitude")]
+    rownames(x) <- NULL
+    x$species <- as.factor(as.character(x$species))
+
+    dat.pts <- sp::SpatialPoints(x[, c("decimallongitude", "decimallatitude")])
+
+    dum.ras <- raster::raster(round(extent(dat.pts), .DecimalPlaces(res)))
+    res(dum.ras) <- res
+
+    wrld <- raster::crop(sampbias::landmass, extent(dum.ras))
+    wrld <- raster::rasterize(wrld, dum.ras)
+    cat(" Done.\n")
+  }
 
   # warning if combination of resolution and extent exceed 1mio gridcells
   if (raster::ncell(dum.ras) > 1e+06) {
@@ -55,8 +76,6 @@ SamplingBias <- function(x, gaz = NULL, res = 1, buffer = NULL, convexhull = F, 
     dis.ras <- DisRast(gaz = gaz, ras = dum.ras, buffer = buffer, ncores = ncores)
 
     if (terrestrial) {
-      wrld <- raster::crop(sampbias::landmass, extent(dum.ras))
-      wrld <- raster::rasterize(wrld, dum.ras)
       dis.ras <- lapply(dis.ras, function(k) mask(k, wrld))
     }
 
@@ -83,7 +102,7 @@ SamplingBias <- function(x, gaz = NULL, res = 1, buffer = NULL, convexhull = F, 
     # optimization set binsize based on raster resolution, if no binsize is
     # provided, roughly assuming 1 deg = 100 km
     if (is.null(binsize)) {
-      binsize <- res * 1e+05 * 1.1
+      binsize <- res * 1e+05
     }
     if (verbose) {
       cat("Extracting values...")
@@ -94,7 +113,7 @@ SamplingBias <- function(x, gaz = NULL, res = 1, buffer = NULL, convexhull = F, 
       cat(" Done\n")
     }
 
-    # run Danieles shit
+    # run likelihood calculation
     if (verbose) {
       cat("Calculating likelihood...")
     }
@@ -116,6 +135,7 @@ SamplingBias <- function(x, gaz = NULL, res = 1, buffer = NULL, convexhull = F, 
     biastable <- lapply(biastable, function(k) t(k))
     biastable <- biastable[!is.na(biastable)]
     biastable <- do.call("rbind.data.frame", biastable)
+    names(biastable) <- as.numeric(names(biastable)) * 1000
 
     if (verbose) {
       cat(" Done\n")

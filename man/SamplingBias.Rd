@@ -8,8 +8,8 @@ Evaluating Sampling Bias in Species Distribution Data
 The major function of the package, calculating the bias effect of sampling bias due to geographic structures, such as the vicinity to cities, airports, rivers and roads. Results are projected to space, and can be compared numerically.
 }
 \usage{
-SamplingBias(x, gaz = NULL, res = 1, buffer = NULL, convexhull = F, binsize = NULL,
-             biasdist = c(0, 10000), terrestrial = T, ncores = 1, plotextra = F,
+SamplingBias(x, gaz = NULL, res = 1, buffer = NULL, convexhull = F, terrestrial = T,
+             binsize = NULL, biasdist = c(0, 10000), ncores = 1, plotextra = F,
              plotextrafile = "samp_bias_extra_plots.pdf", verbose = T)
 }
 
@@ -21,44 +21,44 @@ an object of the class \code{data.frame}, with one species occurrence record per
 a list of geographic gazetteers as \code{SpatialPointDataFrame} or \code{SpatialLinesDataFrame}.  If NULL, a set of default gazetteers, representing large scale occurrence of airports, cities, rivers and roads is used.  See Details.
 }
   \item{res}{
-numerical.  The resolution of the rasters used for distance calculation and the output maps in decimal degrees.  Default is to 1.
+numerical.  The raster resolution for the distance calculation to the geographic features and the data visualization, in decimal degrees. The default is to one degree, but higher resolution will be desirable for most analyses. Res together with the extent of the input data determine computation time and memory requirements.
 }
   \item{buffer}{
  numerical.  The size of the geographic buffer around the extent of \code{ras} for the distance calculations in degrees, to account for geographic structures neighbouring the study area (such as a road right outside the study area). Should be a multiple of res.  Default is to res. See Details.
 }
   \item{convexhull}{
-logical.  If TRUE, the empirical distribution (and the output maps) is calculated exclusively from cells within a convex hull polygon around \code{x}. If FALSE a rectangle around \code{x} is used.  Default = FALSE.
-}
-  \item{binsize}{
-numeric.  Indicating the distance bin size (in meters!) for approximating the empirical and observed sample distributions. Should be slightly larger than res (which is in degrees). Default = res * 100000 * 1.1.
-}
-  \item{biasdist}{
-numerical.  A numeric vector indicating the distance at which the average bias should be calculated for the output table in meters. Can also be a single number.  See details.  Default = c(0,10000)
+logical.  If TRUE, the empirical distribution (and the output maps) is restricted to cells within a convex hull polygon around \code{x}. If FALSE a rectangle around \code{x} is used.  Default = FALSE.
 }
   \item{terrestrial}{
-logical.  Indicates if the empirical distribution (and the output maps) should be calculated from terrestrial areas only.  Uses the \code{\link{landmass}} to define what is terrestrial.  Default is to T
+logical.  If TRUE, the empirical distribution (and the output maps) are restricted to terrestrial areas.  Uses the \code{\link{landmass}} to define what is terrestrial.  Default = TRUE.
+}
+  \item{binsize}{
+numerical.  Indicating the distance bin size (in meters!) for approximating the empirical and observed sample distributions. Should be slightly larger than res (which is in degrees). Default = res * 100000 * 1.1.
+}
+  \item{biasdist}{
+numerical.  A vector indicating the distance at which the average bias should be calculated for the output table (in meters). Can also be a single number.  See details.  Default = c(0, 10000).
 }
   \item{ncores}{
 numerical.  The number of cores used for parallel computing. Must be lower than the available number of cores. Not finally implemented in version 0.1.0.
 }
   \item{plotextra}{
-%%     ~~Describe \code{plotextra} here~~
+logical. logical. If TRUE, creates a .pdf file with plots of the statistical distance distributions and bias effects
 }
   \item{plotextrafile}{
-character.  Indicates the full path where the extra plot should be saved.
+character.  The full path where the extra plot should be saved.
 }
   \item{verbose}{
-logical.  If TRUE, progress is reported.  Default = TRUE
+logical.  If TRUE, progress is reported.  Default = TRUE.
 }
 }
 \details{
 The default gazetteers delivered with the package are simplified from http://www.naturalearthdata.com/downloads/. They include major features, and for small scale analyses custom gazetteers should be used.
 
-For computational convenience, the gazetteers are cropped to the extent of the point occurrence datasets. To account for the fact, that, relevant structures might lay directly outside this extent, but still influencing the distribution of samples in the study area, the buffer option, gives the area, around the extent that should be included in the distance calculation.
+For computational convenience, the gazetteers are cropped to the extent of the point occurrence data sets. To account for the fact, that, relevant structures might lay directly outside this extent, but still influencing the distribution of samples in the study area, the buffer option, gives the area, around the extent that should be included in the distance calculation.
 
 The \code{biasdist} options defines at which distance the bias effect should be recorded. These values are comparable between different biasing factors and give an estimate of bias severity. For instance, if \code{biasdist} = c(0, 10000), XXX DANIELE HOW TO DISCRIBE THIS CORRECTLY.
 
-Text here in detail how the bias is calculated and how it is projected into space, copy from the gitHub tutorial
+DETAILS ON MATHS HERE
 
 }
 \value{

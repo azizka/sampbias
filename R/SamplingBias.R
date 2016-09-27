@@ -1,5 +1,5 @@
-SamplingBias <- function(x, gaz = NULL, res = 1, buffer = NULL, convexhull = F,
-                         binsize = NULL, biasdist = c(0, 10000), terrestrial = T, ncores = 1, plotextra = F,
+SamplingBias <- function(x, gaz = NULL, res = 1, buffer = NULL, convexhull = F, terrestrial = T,
+                         binsize = NULL, biasdist = c(0, 10000), ncores = 1, plotextra = F,
                          plotextrafile = "samp_bias_extra_plots.pdf", verbose = T) {
 
   # create dummy raster

@@ -95,13 +95,15 @@
     cat(c("\nrescale factor:", rescale, max(dists$X0), "\n"))
   }
   X0 <- dists$X0/rescale  # binned distances - unit is set to 10,000 Km
+  cell_size <- min(X0)
+  X0 <- X0 + cell_size
   P0 <- dists$P0  # prob of binned distances # THEY SHOULD SUM UP TO 1 (maybe instead of $density we should take $counts/sum($counts))
   # normalized P0
   nP0 <- P0/sum(P0)
   x <- dists$X/rescale  # samples (observed distances) - unit is set to 10,000 Km
   x <- x[!is.na(x)]
-  x <- sort(x)
-  # x[x<min(X0)] <- min(X0) # to avoid x values < than min X0
+  #x <- sort(x) + cell_size
+  #x[x<min(X0)] <- min(X0) # to avoid x values < than min X0
 
   # NOTES: SMALLER RATE (=GREATER SCALE) -> SMALLER BIAS
   Px <- .ConstructPxVector(x = x, X0 = X0, nP0 = nP0, rescale = rescale, Px = Px, plotextra = plotextra)
@@ -122,7 +124,7 @@
   }
 
   OPT <- stats::optim(par = ML.rate, fn = .CalcProbSampleEXPOptim, method = "Brent",
-               lower = 1e-05, upper = 10000)
+               lower = 1e-02, upper = 10000)
   ML.rate <- 1/OPT$par
   print(ML.rate)
   bias1 <- stats::dexp(0, rate = ML.rate)

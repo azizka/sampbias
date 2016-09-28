@@ -21,17 +21,17 @@ Example datasets for the R package are provided in the example_data folder. Furt
 #For the impatient
 
 ```{r}
-#install the package
+#installing the package
 install.packages("devtools")
 require("devtools")
 install_github("azizka/sampbias")
 library(sampbias)
 
 #reading a csv file as downloaded from GBIF and provided in the example data folder
-example.in <- read.csv("example_data/mammals_borneo.csv"",sep = "\t")
+example.in <- read.csv("example_data/mammals_borneo.csv",sep = "\t")
 
-#using the default gazetteers
-example.out <- SamplingBias(x = example.in)
+#running sampbias
+example.out <- SamplingBias(x = example.in, res = 0.1)
 
 summary(example.out)
 plot(example.out)

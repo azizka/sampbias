@@ -2,8 +2,8 @@ name: sampbias
 account: azizka
 server: shinyapps.io
 appId: 128298
-bundleId: 570799
+bundleId: 570860
 url: https://azizka.shinyapps.io/sampbias/
-when: 1475061010.9484
+when: 1475064900.0861
 asMultiple: FALSE
 asStatic: FALSE

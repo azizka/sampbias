@@ -3,6 +3,7 @@ library(maptools)
 library(raster)
 library(ggplot2)
 library(viridis)
+library(rgeos)
 
 data("wrld_simpl")
 
@@ -17,26 +18,16 @@ ui <- shinyUI(fluidPage(
    sidebarLayout(
       sidebarPanel(
 
-        fileInput("file1", label = h3("File input")),
-        
-        fileInput("file2", label = h3("Gazetteer Input")),
-        
+        fileInput("file1", label = h3("Occurence File")),
+
         radioButtons("type", label = h3("Bias Type"),
-                     choices = list("Species" = "spe",
+                     choices = list("None" = "non",
+                                    "Species" = "spe",
                                     "Cities" = "cit", "Airports" = "air",
                                     "Rivers" = "riv", "Roads" = "roa",
-                                    "Combined" = "comb"), selected = "spe"),
-       
-        # selectInput("select", label = h3("Calculation method"), 
-        #             choices = list("Raster" = 1, "Distance" = 2)),
-       
-        numericInput("num", label = h3("Raster resolution [deg]"), value = 1)
-        
-        
-        # checkboxGroupInput("checkGroup", label = h3("Show"), 
-        #                    choices = list("Airports" = "air", "Cities" = "cit", "Rivers" = "riv", "Roads" = "roa"),
-        #                    selected = 1)
+                                    "Combined" = "comb"), selected = "non"),
 
+        numericInput("num", label = h3("Raster resolution [deg]"), value = 1)
       ),
       
       # Show plots
@@ -60,25 +51,12 @@ server <- shinyServer(function(input, output) {
 
     read.csv(inFile$datapath, sep = "\t")
   })
-  
-  # gazInput <- reactive({
-  #   inFile2 <- input$file2
-  # 
-  #   load(inFile2$datapath, envir = environment())
-  # })
 
     #create a spatialPOints data.frame version of the input dataset
   datPts <- reactive({
    SpatialPoints(dataInput()[,c("decimallongitude", "decimallatitude")])
   })
-  
-  #load and crop backround country border map
-  # wrldMap <- reactive({
-  #   wrld <- crop(wrld_simpl, extent(datPts()))
-  #   fortify(wrld)
-  # })
 
-  
   #this is the first plot
    output$plo1 <- renderPlot({
      
@@ -86,29 +64,18 @@ server <- shinyServer(function(input, output) {
      if (is.null(input$file1)){
        return(NULL)
        }else{
-       if (is.null(input$file2)){ 
-         print(PlotOccRast(datPts(), res = input$num, gaz = NULL))
-       }else{
-         load(input$file2$datapath, envir = environment())
+         load("default_gazetteers.R")
          print(PlotOccRast(datPts(), res = input$num, gaz = gazetteers))
-       }
      }
-
-
-     
-
    })
    
    output$plo2 <- renderPlot({
      #do not display anything if no file is selected
      if (is.null(input$file1)){return(NULL)
        }else{
-         if(is.null(input$file2)){return(NULL)
-           }else{
-     # load(input$file2$datapath, envir = environment())
-     
-     
+     load("default_gazetteers.R")
      dist <- switch(input$type,
+                    non = "NULL",
                     spe = PlotSpRast(dataInput(), res = input$num, wrld = gazetteers$landmass),
                     cit = BiasPlot(x = dataInput(), gaz = list(cities = gazetteers$cities), 
                                    res = input$num, terrestrial.cut = gazetteers$landmass),
@@ -123,9 +90,7 @@ server <- shinyServer(function(input, output) {
      
      print(dist)
            }
-       }
    })
-
 })
 
 # Run the application 

@@ -251,7 +251,7 @@ DisRast <- function(gaz, ras, buffer = NULL, ncores = 1) {
     buffer <- res(ras)[1]
   }
   #adapt buffer to resolution, buffer always has to be a multiple of resolution
-  decs <- .DecimalPlaces(res)
+  decs <- .DecimalPlaces(res(ras))
   if(.DecimalPlaces(buffer) != decs){
     buffer <- round(buffer, decs)
     warning(sprintf("Adapting buffer precision to resolution. Buffer set to %s", buffer))
@@ -433,36 +433,12 @@ SamplingBias <- function(x, gaz = NULL, res = 1, buffer = NULL, convexhull = F, 
     warning("huge raster size")
   }
   
-  # occurrence raster
-  # if (verbose) {
-  #   cat("Creating occurrence raster...")
-  # }
-  # occ.out <- .OccRast(x = dat.pts, ras = dum.ras)
-  # if (verbose) {
-  #   cat(" Done\n")
-  # }
-  # 
-  # # species raster
-  # if (verbose) {
-  #   cat("Creating species raster...")
-  # }
-  # spe.out <- .SpeRast(x, ras = dum.ras, ncores = ncores)
-  # if (verbose) {
-  #   cat(" Done\n")
-  # }
-  # 
   # Distance raster calculation check if gazeteers are provided, replace by
   # standard gazeteers if necessary
   if (verbose) {
     cat("Calculating distance raster...")
   }
-  # if (is.null(gaz)) {
-  #   warning("gaz not found, using standard gazeteers")
-  #   
-  #   gaz <- list(airports = sampbias::airports, cities = sampbias::cities,
-  #               rivers = sampbias::waterbodies, roads = sampbias::roads)
-  # }
-  
+
   # check if gaz are provided as distance rasters, if so, this function will
   # run much faster
   check <- all(sapply(gaz, is.raster))
@@ -589,36 +565,9 @@ plot.sampbias <- function(x, gaz = NULL, sealine = T, terrestrial.cut,  ...) {
     line.gaz <- do.call("rbind.data.frame", line.gaz)
     }
   }
-  
-  # # Occurrence raster
-  # rast <- data.frame(sp::coordinates(x$occurrences), as.data.frame(x$occurrences))
-  # colnames(rast) <- c("Longitude", "Latitude", "val")
-  # 
-  # occ.plo <- ggplot2::ggplot()+
-  #   ggplot2::geom_raster(data = rast, aes_string(y = "Latitude", x = "Longitude", fill = "val"))+
-  #   ggplot2::coord_fixed()+
-  #   ggplot2::theme_bw()+
-  #   viridis::scale_fill_viridis(na.value = "transparent", option = "viridis",
-  #                               direction = -1, discrete = F)+
-  #   ggplot2::ggtitle("Occurrences")+
-  #   ggplot2::theme(legend.title = element_blank())
-  # 
-  # # Species raster
-  # rast <- data.frame(sp::coordinates(x$species), as.data.frame(x$species))
-  # colnames(rast) <- c("Longitude", "Latitude", "val")
-  # 
-  # spe.plo <- ggplot2::ggplot()+
-  #   ggplot2::geom_raster(data = rast, aes_string(y = "Latitude", x = "Longitude", fill = "val"))+
-  #   ggplot2::coord_fixed()+
-  #   ggplot2::theme_bw()+
-  #   viridis::scale_fill_viridis(na.value = "transparent", option = "viridis",
-  #                               direction = -1, name = "Species\nnumber", discrete = F)+
-  #   ggplot2::ggtitle("Species")+
-  #   ggplot2::theme(legend.title = element_blank())
-  
+
   # Bias rasters
   plo.biasras <- lapply(x$biasmaps, function(k) {
-    # ra <- raster(k$bias_matrix)
     out <- data.frame(sp::coordinates(k$bias_matrix), as.data.frame(k$bias_matrix))  # use species as all rasters have the same extent, to get the coordinates back
     names(out) <- c("Longitude", "Latitude", "Val")
     return(out)
@@ -633,8 +582,7 @@ plot.sampbias <- function(x, gaz = NULL, sealine = T, terrestrial.cut,  ...) {
       ggplot2::theme_bw()+
       viridis::scale_fill_viridis(na.value = "transparent",option = "viridis",
                                   direction = 1, name = "Bias effect", discrete = F,
-                                  limits = c(0, 1))+
-      ggplot2::ggtitle(names(x$biasmaps)[i])
+                                  limits = c(0, 1))
     
   }
   

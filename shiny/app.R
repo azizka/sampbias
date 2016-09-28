@@ -20,7 +20,7 @@ ui <- shinyUI(fluidPage(
 
         fileInput("file1", label = h3("Occurence File")),
         
-        actionButton("Load Example", label = "exmp"),
+        # actionButton("Load Example", label = "exmp"),
 
         radioButtons("type", label = h3("Bias Type"),
                      choices = list("None" = "non",

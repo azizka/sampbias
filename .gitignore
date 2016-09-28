@@ -2,4 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
+.Rhistory
 SampBias.Rproj
+shiny/shiny.Rproj

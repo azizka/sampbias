@@ -84,7 +84,6 @@ PlotSpRast <- function(x, res, wrld){
 #####################################################################################################
 #sampbias functions for likelihood calculation
 ####################################################################################################
-
 .RunSampBias <- function(dists, distmats, biasdist = c(0, 10), plotextra = F, plotextrafile = "samp_bias_extra_plots.pdf") {
   
   names.dists <- names(dists)
@@ -251,7 +250,7 @@ DisRast <- function(gaz, ras, buffer = NULL, ncores = 1) {
     buffer <- res(ras)[1]
   }
   #adapt buffer to resolution, buffer always has to be a multiple of resolution
-  decs <- .DecimalPlaces(res(ras))
+  decs <- .DecimalPlaces(res(ras)[1])
   if(.DecimalPlaces(buffer) != decs){
     buffer <- round(buffer, decs)
     warning(sprintf("Adapting buffer precision to resolution. Buffer set to %s", buffer))

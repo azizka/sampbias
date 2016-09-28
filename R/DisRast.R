@@ -84,8 +84,7 @@ DisRast <- function(gaz, ras, buffer = NULL, ncores = 1) {
     if (buffer%%as.numeric(as.character(res(ras)[1])) == 0) {
       dist.out <- lapply(dist.d, function(k) raster::crop(k, extent(ras)))
     } else {
-      warning("buffer is not a multiple of res, rasters resampled. Results will be imprecise. Set buffer to multiple of res.")
-      dist.out <- lapply(dist.d, function(k) raster::resample(k, ras))
+      stop("buffer is not a multiple of res, rasters resampled. Results will be imprecise. Set buffer to multiple of res.")
     }
 
   return(dist.out)

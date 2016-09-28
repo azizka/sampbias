@@ -10,7 +10,7 @@ SamplingBias <- function(x, gaz = NULL, res = 1, buffer = NULL, convexhull = F, 
 
   #exclude occurrences in the sea and recreate dummy raster
   if(terrestrial){
-    cat("Adjusting to terrestrial surface...")
+    if(verbose{cat("Adjusting to terrestrial surface...")}
     wrld <- raster::crop(sampbias::landmass, extent(dum.ras))
     wrld <- raster::rasterize(wrld, dum.ras)
 
@@ -26,7 +26,7 @@ SamplingBias <- function(x, gaz = NULL, res = 1, buffer = NULL, convexhull = F, 
 
     wrld <- raster::crop(sampbias::landmass, extent(dum.ras))
     wrld <- raster::rasterize(wrld, dum.ras)
-    cat(" Done.\n")
+    if(verbose{cat(" Done.\n")}
   }
 
   # warning if combination of resolution and extent exceed 1mio gridcells
@@ -58,7 +58,7 @@ SamplingBias <- function(x, gaz = NULL, res = 1, buffer = NULL, convexhull = F, 
     cat("Calculating distance raster...")
   }
   if (is.null(gaz)) {
-    warnings("gaz not found, using standard gazeteers")
+    warning("gaz not found, using standard gazeteers")
 
     gaz <- list(airports = sampbias::airports, cities = sampbias::cities,
                 rivers = sampbias::waterbodies, roads = sampbias::roads)
@@ -146,7 +146,7 @@ SamplingBias <- function(x, gaz = NULL, res = 1, buffer = NULL, convexhull = F, 
       cat("Preparing output...")
     }
     out <- list(summa = list(total_occ = nrow(x), total_sp = length(unique(x$species)),
-                             extent = extent(dat.pts), res = res, binsize = binsize, convexhull = convexhull),
+                             extent = extent(dum.ras), res = res, binsize = binsize, convexhull = convexhull),
                 occurrences = occ.out, species = spe.out, biasmaps = results, biastable = biastable)
     class(out) <- append("sampbias", class(out))
     if (verbose) {

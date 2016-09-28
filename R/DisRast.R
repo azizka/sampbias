@@ -4,7 +4,19 @@ DisRast <- function(gaz, ras, buffer = NULL, ncores = 1) {
 
   # create buffer, if none is supplied
   if (is.null(buffer)) {
-    buffer <- res(ras)[1] * 2
+    buffer <- res(ras)[1]
+  }
+  #adapt buffer to resolution, buffer always has to be a multiple of resolution
+  decs <- .DecimalPlaces(res)
+  if(.DecimalPlaces(buffer) != decs){
+    buffer <- round(buffer, decs)
+    warning(sprintf("Adapting buffer precision to resolution. Buffer set to %s", buffer))
+  }
+  
+  #make buffer even in case it is odd
+  if((buffer * 10^decs) %%2 != 0  ){
+    buffer  <- buffer + 1/10^decs
+    warning(sprintf("Evening buffer. Buffer set to %s", buffer))
   }
 
   # intiate cluster if multiple cores are used

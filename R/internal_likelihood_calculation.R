@@ -1,6 +1,10 @@
 .RunSampBias <- function(dists, distmats, biasdist = c(0, 10), plotextra = F, plotextrafile = "samp_bias_extra_plots.pdf") {
 
   names.dists <- names(dists)
+  if(is.null(names.dists)){
+    names(dists) <- paste("Unnamed", seq(1, length(dists)), sep = "")
+    names.dists <- names(dists)
+  }
 
   if (plotextra == T) {
     pdf(file = plotextrafile, width = 5 * 4 * 0.75, height = 5 * 4 * 0.75)

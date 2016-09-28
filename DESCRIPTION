@@ -1,8 +1,8 @@
 Package: sampbias
 Type: Package
 Title: Evaluating Geographic Sampling Bias in Biological Collections
-Version: 0.1.0
-Date: 2016-09-21
+Version: 0.1.1
+Date: 2016-09-28
 Authors@R: c(person("Alexander", "Zizka", email = "alexander.zizka@bioenv.gu.se",
              role = c("aut", "cre")),
              person("Daniele", "Silvestro", role = "aut"))

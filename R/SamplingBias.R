@@ -10,7 +10,7 @@ SamplingBias <- function(x, gaz = NULL, res = 1, buffer = NULL, convexhull = F, 
 
   #exclude occurrences in the sea and recreate dummy raster
   if(terrestrial){
-    if(verbose{cat("Adjusting to terrestrial surface...")}
+    if(verbose){cat("Adjusting to terrestrial surface...")}
     wrld <- raster::crop(sampbias::landmass, extent(dum.ras))
     wrld <- raster::rasterize(wrld, dum.ras)
 
@@ -26,7 +26,7 @@ SamplingBias <- function(x, gaz = NULL, res = 1, buffer = NULL, convexhull = F, 
 
     wrld <- raster::crop(sampbias::landmass, extent(dum.ras))
     wrld <- raster::rasterize(wrld, dum.ras)
-    if(verbose{cat(" Done.\n")}
+    if(verbose){cat(" Done.\n")}
   }
 
   # warning if combination of resolution and extent exceed 1mio gridcells

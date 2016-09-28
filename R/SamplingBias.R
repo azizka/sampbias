@@ -21,7 +21,7 @@ SamplingBias <- function(x, gaz = NULL, res = 1, buffer = NULL, convexhull = F, 
 
     dat.pts <- sp::SpatialPoints(x[, c("decimallongitude", "decimallatitude")])
 
-    dum.ras <- raster::raster(round(extent(dat.pts), .DecimalPlaces(res)))
+    dum.ras <- raster::raster(round(extent(dat.pts) + res, .DecimalPlaces(res)))
     res(dum.ras) <- res
 
     wrld <- raster::crop(sampbias::landmass, extent(dum.ras))

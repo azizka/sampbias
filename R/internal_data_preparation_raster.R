@@ -70,13 +70,11 @@
 
     emp.out <- lapply(dist, function(k) raster::rasterize(poly, k, mask = T))
   }else{
-    e <- extent(x)
+    e <- extent(dist[[1]])
     emp.out <- lapply(dist, function(k) raster::crop(k, e))
   }
 
-
   ##check if the number of raster cells for the empirical distribution is high enough (> 10,000) if not, sample randomly
-
   ##get empirical distribution
   if(binsize == "default"){
     emp.out <- lapply(emp.out, function(k){hist(na.omit(values(k)), plot = F)})

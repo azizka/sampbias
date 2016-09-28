@@ -8,7 +8,7 @@ DisRast <- function(gaz, ras, buffer = NULL, ncores = 1) {
   }
   #adapt buffer to resolution, buffer always has to be a multiple of resolution
   decs <- .DecimalPlaces(res(ras)[1])
-  if(.DecimalPlaces(buffer) != decs){
+  if(.DecimalPlaces(buffer) > decs){
     buffer <- round(buffer, decs)
     warning(sprintf("Adapting buffer precision to resolution. Buffer set to %s", buffer))
   }
@@ -81,12 +81,12 @@ DisRast <- function(gaz, ras, buffer = NULL, ncores = 1) {
   }
 
   ## crop resulting distance raster to study area
-  if (buffer%%res(ras)[1] == 0) {
-    dist.out <- lapply(dist.d, function(k) raster::crop(k, extent(ras)))
-  } else {
-    warning("buffer is not a multiple of res, rasters resampled. Results will be imprecise. Set buffer to multiple of res.")
-    dist.out <- lapply(dist.d, function(k) raster::resample(k, ras))
-  }
+    if (buffer%%as.numeric(as.character(res(ras)[1])) == 0) {
+      dist.out <- lapply(dist.d, function(k) raster::crop(k, extent(ras)))
+    } else {
+      warning("buffer is not a multiple of res, rasters resampled. Results will be imprecise. Set buffer to multiple of res.")
+      dist.out <- lapply(dist.d, function(k) raster::resample(k, ras))
+    }
 
   return(dist.out)
 }

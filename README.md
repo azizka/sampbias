@@ -25,9 +25,10 @@ Example datasets for the R package are provided in the example_data folder. Furt
 install.packages("devtools")
 require("devtools")
 install_github("azizka/sampbias")
+library(sampbias)
 
 #reading a csv file as downloaded from GBIF and provided in the example data folder
-example.in <- read.csv("example_data/mammals_borneo_0008817-160822134323880.csv",sep = "\t")
+example.in <- read.csv("example_data/mammals_borneo.csv"",sep = "\t")
 
 #using the default gazetteers
 example.out <- SamplingBias(x = example.in)

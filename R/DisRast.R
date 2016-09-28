@@ -7,12 +7,12 @@ DisRast <- function(gaz, ras, buffer = NULL, ncores = 1) {
     buffer <- res(ras)[1]
   }
   #adapt buffer to resolution, buffer always has to be a multiple of resolution
-  decs <- .DecimalPlaces(res)
+  decs <- .DecimalPlaces(res(ras))
   if(.DecimalPlaces(buffer) != decs){
     buffer <- round(buffer, decs)
     warning(sprintf("Adapting buffer precision to resolution. Buffer set to %s", buffer))
   }
-  
+
   #make buffer even in case it is odd
   if((buffer * 10^decs) %%2 != 0  ){
     buffer  <- buffer + 1/10^decs

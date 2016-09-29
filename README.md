@@ -36,4 +36,9 @@ example.out <- SamplingBias(x = example.in, res = 0.1)
 summary(example.out)
 plot(example.out)
 
+#writing plots to a .pdf file
+pdf("Your_file_name.pdf")
+plot(example.out)
+dev.off()
+
 ```

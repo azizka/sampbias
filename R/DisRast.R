@@ -41,19 +41,18 @@ DisRast <- function(gaz, ras, buffer = NULL, ncores = 1) {
 
   if (any(check)) {
     gaz.crop <- gaz.crop[check]
-    warning(paste("no reference found for ", names(gaz.crop)[!check], " Increase buffer."))
+    warning(paste("No reference found for ", names(gaz.crop)[!check], " Increase 'buffer'."))
   }
 
   if (all(check)) {
-    warning("no references found within study boundaries. Increase buffer")
-    warning("falling back to species and occurence raster")
+    warning("No references found within study boundaries. Increase buffer. Falling back to species and occurrence raster")
     return(FALSE)
   }
 
   # check if gazeteers have na values in the first column, which will cause
   check2 <- lapply(gaz.crop, function(k) sum(is.na(k@data[, 1])))
   if (any(check2 > 0)) {
-    warnings("gazeteers have NA values in first column, the corresponding entries will be ignored")
+    warning("Gazetteers have NA values in first column, the corresponding entries will be ignored")
   }
 
   # create dummy raster
@@ -84,7 +83,7 @@ DisRast <- function(gaz, ras, buffer = NULL, ncores = 1) {
     if (buffer%%as.numeric(as.character(res(ras)[1])) == 0) {
       dist.out <- lapply(dist.d, function(k) raster::crop(k, extent(ras)))
     } else {
-      stop("buffer is not a multiple of res, rasters resampled. Results will be imprecise. Set buffer to multiple of res.")
+      stop("'Buffer' is not a multiple of res. Set 'buffer' to a multiple of res")
     }
 
   return(dist.out)

@@ -56,18 +56,18 @@ The default gazetteers delivered with the package are simplified from http://www
 
 For computational convenience, the gazetteers are cropped to the extent of the point occurrence data sets. To account for the fact, that, relevant structures might lay directly outside this extent, but still influencing the distribution of samples in the study area, the buffer option, gives the area, around the extent that should be included in the distance calculation.
 
-The \code{biasdist} options defines at which distance the bias effect should be recorded. These values are comparable between different biasing factors and give an estimate of bias severity. For instance, if \code{biasdist} = c(0, 10000), XXX DANIELE HOW TO DISCRIBE THIS CORRECTLY.
+The \code{biasdist} options defines at which distance the bias effect should be recorded. These values are comparable between different biasing factors and give an estimate of bias severity. For instance, if \code{biasdist} = c(0, 10000), the \code{biastable} will indicate the bias effect at distances 0 and 10000 meters from all sources of bias. The bias effect is the fraction of samples expected to be missed at a given distance relative to distance 0.  A high bias effect means a high fraction of missed records. The fractions are comparable between sources of bias and different datasets and the bias at any given distance can thus inform on the relative severity of a biasing source.
 
 DETAILS ON MATHS HERE
 
 }
 \value{
 An object of the S3-class \sQuote{sampbias}, which is a list including the following objects:
-\item{summa}{A list with with summary statistics for the object, including the total number of occurrence points in \code{x}, the total number of species in \code{x}, the extent of the output rasters, \code{res}, \code{binsize}, and \code{convexhull}}
-\item{occurrences}{a \code{raster} with resolution \code{res} and values according to the number of occurrence records from \code{x}, per gridcell}
-\item{species}{an object of the class \code{raster} with resolution \code{res} and values according to the number of species from \code{x}, per gridcell}
-\item{biasmaps}{a list of raster objects, with the same length as \code{gaz}. Each element corresponds to the spatial visulaization of the bias effect for the corresponding element in \code{gaz}.  The last raster in the list is the average bias effect.}
-\item{biastable}{a \code{data.frame}, with the estimated bias effect for each element in\code{gaz}, at the distances specified by \code{biasdist}}
+\item{summa}{A list of summary statistics for the sampbias analyses, including the total number of occurrence points in \code{x}, the total number of species in \code{x}, the extent of the output rasters as well as the settings for \code{res}, \code{binsize}, and \code{convexhull} used in the analyses.}
+\item{occurrences}{a \code{raster} indicating occurrence records per grid cell, with resolution res.}
+\item{species}{a \code{raster} with indicating the number of species per grid cell, with resolution res.}
+\item{biasmaps}{a list of \code{rasters}, with the same length as gaz. Each element is the spatial projection of the bias effect for a sources of bias in \code{gaz}. The last raster in the list is the average over all bias sources.}
+\item{biastable}{a \code{data.frame}, with the estimated bias effect for each bias source in \code{gaz}, at the distances specified by \code{biasdist}.}
 }
 
 \note{

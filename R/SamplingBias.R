@@ -31,7 +31,7 @@ SamplingBias <- function(x, gaz = NULL, res = 1, buffer = NULL, convexhull = F, 
 
   # warning if combination of resolution and extent exceed 1mio gridcells
   if (raster::ncell(dum.ras) > 1e+06) {
-    warning("huge raster size")
+    warning("Huge raster size")
   }
 
   # occurrence raster
@@ -58,7 +58,7 @@ SamplingBias <- function(x, gaz = NULL, res = 1, buffer = NULL, convexhull = F, 
     cat("Calculating distance raster...")
   }
   if (is.null(gaz)) {
-    warning("gaz not found, using standard gazeteers")
+    warning("'gaz' not found, using standard gazetteers")
 
     gaz <- list(airports = sampbias::airports, cities = sampbias::cities,
                 rivers = sampbias::waterbodies, roads = sampbias::roads)

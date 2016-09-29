@@ -58,7 +58,7 @@ For computational convenience, the gazetteers are cropped to the extent of the p
 
 The \code{biasdist} options defines at which distance the bias effect should be recorded. These values are comparable between different biasing factors and give an estimate of bias severity. For instance, if \code{biasdist} = c(0, 10000), the \code{biastable} will indicate the bias effect at distances 0 and 10000 meters from all sources of bias. The bias effect is the fraction of samples expected to be missed at a given distance relative to distance 0.  A high bias effect means a high fraction of missed records. The fractions are comparable between sources of bias and different datasets and the bias at any given distance can thus inform on the relative severity of a biasing source.
 
-DETAILS ON MATHS HERE
+Visit \link{https://github.com/azizka/sampbias/wiki} for more information on distance calculation and the math behind sampbias.
 
 }
 \value{

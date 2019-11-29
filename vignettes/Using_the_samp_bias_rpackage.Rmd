@@ -1,27 +1,30 @@
 ---
-title: "Untitled"
-output: html_document
+title: "Using the sampbias R package"
+output: rmarkdown::pdf_document
+vignette: >
+  %\VignetteIndexEntry{Using the sampbias R package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
 ```
 
 
 #Installing sampbias
-To install the *sampbias* R-package, you can either download the latest build version from the gitHub folder:
+To install the *sampbias* R-package, you can either download the latest build version from gitHub use the `devtools` package:
 
-```{r}
-install.packages("sampbias_0.1.0.zip", repos = NULL)
-library(sampbias)
-```
-
-or use the `devtools` package to install directly from R:
-
-```{r}
+```{r, eval = FALSE}
 require(devtools)
 install_github(repo = "azizka/sampbias")
 library(sampbias)
+library(maptools)
+```
+
+```{r, echo = FALSE}
+library(sampbias)
+library(maptools)
 ```
 
 #Input data
@@ -39,21 +42,18 @@ Text files can easily be loaded into R as data.frame using the `read.csv()` func
 
 ```{r}
 #loading a text file to R
-occ <- read.csv("data/mammals_borneo.csv", sep = "\t")
-head(occ)
+occ <-read.csv(system.file("extdata", "mammals_borneo.csv", package="sampbias"), sep = "\t")
 ```
 **Note**: *Sampbias* evaluates the bias by comparing to a random sampling, meaning that the tool is not designed for single species data sets, as distribution of the records might then reflect ecological preferences, but rather for multi-species data sets. In general, the more species and the more records, the more reliable the results will be.
 
 ##Geographic gazetteers
-*Sampbias* evaluates the distribution of the sampled species occurrences in relation to geographic features that might bias sampling effort. These are generally related to accessibility or means of travel. *Sampbias* includes a set of sefault gazetteers for cities, airports, roads and rivers (Natural Earth, 2016), which can give fair estimates of bias for large and medium scale analyses. These are  used by default, if no other gazetteers are provided by the user. However, these defaults include major features only and if available high resolution user-provided gazetteers are preferable.
+*Sampbias* evaluates the distribution of the sampled species occurrences in relation to geographic features that might bias sampling effort. These are generally related to accessibility or means of travel. *Sampbias* includes a set of default gazetteers for cities, airports, roads and rivers (Natural Earth, 2016), which can give fair estimates of bias for large and medium scale analyses. These are  used by default, if no other gazetteers are provided by the user. However, these defaults include major features only and if available high resolution user-provided gazetteers are preferable.
 
 Any number of gazetteers can be provided to *sampbias* via the `gaz` argument as a list of `SpatialPointsDataFrame` and `SpatialLinesDataFrame` objects. These objects can easily be loaded into R from standard shape files using the `maptools` package: 
 
 ```{r}
-require(maptools)
-
-cit <- readShapeSpatial("Borneo_major_cities.shp")
-roa <- readShapeSpatial("Borneo_major_roads.shp")
+cit <- readShapeSpatial(system.file("extdata", "Borneo_major_cities.shp", package="sampbias"))
+roa <- readShapeSpatial(system.file("extdata", "Borneo_major_roads.shp", package="sampbias"))
 
 gazetteers <- list(cities = cit,
                    roads = roa)
@@ -73,7 +73,7 @@ In addition to the input from above, `SamplingBias` offers a set of options to c
 |Option | Description|
 |---|---|
 |res|the raster resolution for the distance calculation to the geographic features and the data visualization in decimal degrees. The default is to one degree, but higher resolution will be desirable for most analyses. Res together with the extent of the input data determine computation time and memory requirements.|
-|convexhull|logical. If TRUE, the empirical distribution (and the output maps) is restricted to cells within a convex hull polygon around \code{x}. If FALSE a rectangle around \code{x} is used.  Default = FALSE.|
+|convexhull|logical. If TRUE, the empirical distribution (and the output maps) is restricted to cells within a convex hull polygon around `x`. If FALSE a rectangle around `x` is used.  Default = FALSE.|
 |terrestrial|logical. If TRUE, the empirical distribution (and the output maps) are restricted to terrestrial areas.  Default = TRUE.|
 |biasdist|numerical.  A vector indicating the distance at which the average bias should be calculated for the output table (in meters). Can also be a single number. Default = c(0, 10000).|
 
@@ -94,20 +94,11 @@ The package includes summary and plot methods for an easy exploration of the res
 
 ```{r}
 summary(bias.out)
-plot(bias.out)
+#plot(bias.out)
 ```
 
-
-```{r, out.width = "7in", echo = FALSE, fig.cap = "XXX.", eval = TRUE}
-knitr::include_graphics(path = "img/visualization_rpackage_application_githubtutorial.jpg")
-```
-
-
-
-The plot function creates a set of publication level plots using the `ggplot2` package, including the number of occurrence per gridcell, the number of species per gridcell, a visualization of the bias for sources provided via the gazetteers in `gaz` and the average bias over all sources. To write the plots to a file, use `pdf` and `dev.off`:
+The plot function creates a set of publication level plots using the `ggplot2` package, including the number of occurrence per gridcell, the number of species per gridcell, a visualization of the bias for sources provided via the gazetteers in `gaz` and the average bias over all sources:
 
 ```{r}
-pdf("Your_file_name.pdf")
-plot(bias.out, gaz = gazetteers)
-dev.off()
+#plot(bias.out, gaz = gazetteers)
 ```

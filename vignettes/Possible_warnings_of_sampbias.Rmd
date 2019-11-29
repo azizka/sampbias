@@ -1,6 +1,10 @@
 ---
 title: "Possible warnings of sampbias and solutions"
-output: html_document
+output: rmarkdown::pdf_document
+vignette: >
+  %\VignetteIndexEntry{Possible warnings of sampbias and solutions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}

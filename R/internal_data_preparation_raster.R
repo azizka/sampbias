@@ -1,3 +1,10 @@
+
+#'@importFrom stats na.omit
+#'@importFrom graphics hist
+#'@importFrom sp CRS Polygons SpatialPoints
+#'@importFrom raster extract rasterize
+
+
 #Occurrence raster
 .OccRast <- function(x, ras){
   rast <- raster::rasterize(x, ras, fun = "count")
@@ -29,7 +36,6 @@
     parallel::clusterExport(cl, "ras")
     parallel::clusterEvalQ(cl, library(raster))
     parallel::clusterEvalQ(cl, library(sp))
-    parallel::clusterEvalQ(cl, library(rgeos))
 
     rast <- parallel::parLapply(cl,
                                   inp,

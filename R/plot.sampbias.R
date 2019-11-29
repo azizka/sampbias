@@ -1,3 +1,55 @@
+#' Mapping Occurrence and Bias Rasters in an Object of the Class Sampbias
+#'
+#' Plotting method for class \code{sampbias}, generating a rasterized plots
+#' showing the number of occurrences and the number of species per gridcell,
+#' one bias raster indicating the effect strength for each gazetteer provided to
+#' \code{SamplingBias}, and a average bias raster indicating the average bias
+#' for each gridcell.
+#'
+#'
+#' @param x an object of the class \code{sampbias}.
+#' @param gaz a list of SpatialObjects, to be printed on the maps.  Should be
+#' the same objects provided to \code{SamplingBias} when creating the Object.
+#' If \code{gaz} is not supplied, the sampbias package standard gazetteers are
+#' used.
+#' @param sealine logical. Should the sealine be added to the plots? Default is
+#' to TRUE.
+#' @param ...  Additional arguments to be passed to \code{\link{plot}}.
+#' @return A series of R plots based on ggplot2.
+#' @note Check https://github.com/azizka/sampbias/wiki for a tutorial on
+#' sampbias.
+#' @seealso \code{\link{SamplingBias}}, \code{\link{summary.sampbias}}
+#' @keywords methods
+#' @examples
+#'
+#' #simulate data
+#' occ <- data.frame(species = rep(sample(x = LETTERS, size = 5), times = 10),
+#'                   decimallongitude = runif(n = 50, min = -5, max = 5),
+#'                   decimallatitude = runif(n = 50, min = -4, max = 4))
+#'
+#'
+#' #create point gazetteer
+#' pts <- data.frame(long = runif(n = 5, min = -5, max = 5),
+#'                   lat = runif(n = 5, min = -4, max = 4),
+#'                   dat = rep("A", 5))
+#' pts <- SpatialPointsDataFrame(coords = pts[,1:2], data = data.frame(pts[,3]))
+#'
+#' lin <- data.frame(long = seq(-5, 5, by = 1),
+#'                   lat = rep(2, times = 11))
+#' lin <- SpatialLinesDataFrame(sl = SpatialLines(list(Lines(Line(lin), ID="B1"))),
+#'                              data = data.frame("B", row.names = "B1"))
+#'
+#' gaz <- list(lines.strucutre = lin, point.structure = pts)
+#'
+#' out <- SamplingBias(x = occ, gaz = gaz, terrestrial = FALSE)
+#' plot(out)
+#'
+#'@export
+#'@importFrom ggplot2 aes_string coord_fixed element_blank fortify geom_path geom_point geom_polygon geom_raster ggplot ggtitle labs theme theme_bw
+#'@importFrom raster as.data.frame crop extent
+#'@importFrom sp coordinates
+#'@importFrom viridis scale_fill_viridis
+#'
 plot.sampbias <- function(x, gaz = NULL, sealine = T, ...) {
 
   # prepare gazetteers to be included for plotting
@@ -28,11 +80,11 @@ plot.sampbias <- function(x, gaz = NULL, sealine = T, ...) {
   }
 
   # Occurrence raster
-  rast <- data.frame(sp::coordinates(x$occurrences), as.data.frame(x$occurrences))
+  rast <- data.frame(sp::coordinates(x$occurrences), raster::as.data.frame(x$occurrences))
   colnames(rast) <- c("Longitude", "Latitude", "val")
 
   occ.plo <- ggplot2::ggplot()+
-    ggplot2::geom_raster(data = rast, aes_string(y = "Latitude", x = "Longitude", fill = "val"))+
+    ggplot2::geom_raster(data = rast, ggplot2::aes_string(y = "Latitude", x = "Longitude", fill = "val"))+
     ggplot2::coord_fixed()+
     ggplot2::theme_bw()+
     viridis::scale_fill_viridis(na.value = "transparent", option = "viridis",
@@ -41,7 +93,7 @@ plot.sampbias <- function(x, gaz = NULL, sealine = T, ...) {
     ggplot2::theme(legend.title = element_blank())
 
   # Species raster
-  rast <- data.frame(sp::coordinates(x$species), as.data.frame(x$species))
+  rast <- data.frame(sp::coordinates(x$species), raster::as.data.frame(x$species))
   colnames(rast) <- c("Longitude", "Latitude", "val")
 
   spe.plo <- ggplot2::ggplot()+
@@ -56,7 +108,8 @@ plot.sampbias <- function(x, gaz = NULL, sealine = T, ...) {
   # Bias rasters
   plo.biasras <- lapply(x$biasmaps, function(k) {
     # ra <- raster(k$bias_matrix)
-    out <- data.frame(sp::coordinates(k$bias_matrix), as.data.frame(k$bias_matrix))  # use species as all rasters have the same extent, to get the coordinates back
+    out <- data.frame(sp::coordinates(k$bias_matrix),
+                      raster::as.data.frame(k$bias_matrix))  # use species as all rasters have the same extent, to get the coordinates back
     names(out) <- c("Longitude", "Latitude", "Val")
     return(out)
   })
@@ -78,11 +131,16 @@ plot.sampbias <- function(x, gaz = NULL, sealine = T, ...) {
   out <- c(list(occ.plo, spe.plo), plo.biasras.out)
 
   if (sealine == T) {
-    wrld <- raster::crop(sampbias::landmass, extent(x$occurrences))
+    wrld <- raster::crop(sampbias::landmass,
+                         raster::extent(x$occurrences))
     wrld <- ggplot2::fortify(wrld)
     out <- lapply(out, function(k) {
-      k + ggplot2::geom_polygon(data = wrld, aes_string(x = "long", y = "lat",group = "group"),
-                                lwd = 0.5, col = "grey40", fill = "transparent")
+      k + ggplot2::geom_polygon(data = wrld,
+                                aes_string(x = "long",
+                                           y = "lat",
+                                           group = "group"),
+                                lwd = 0.5,
+                                col = "grey40", fill = "transparent")
     })
   }
 

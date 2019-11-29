@@ -1,6 +1,10 @@
 ---
 title: "Using the sampbias shiny app"
-output: html_document
+output: rmarkdown::pdf_document
+vignette: >
+  %\VignetteIndexEntry{Using the sampbias shiny app}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
@@ -13,14 +17,14 @@ Shiny is a new package from RStudio that makes it easy to build interactive web 
 Figure 1 one shows the apps interface. To run an analyses, just upload a .csv file with occurrence information via the "Occurrence File" menu (A). The occurrence file must be a tab separated table including the column headers "species", "decimallongitude" and "decimallatitude", as for instance files downloaded from www.gbif.org. An example input file can be found here. Currently only the default gazetteers are implemented, for custom gazetteers refer to the R package. Once the input data set is loaded the plot panel 1 (B) will show a rasterized image of the number of occurrence records, giving an overview on sampling effort. Depending on the size of the dataset the plot might need a few moments to load.
 
 ```{r, out.width = "7in", echo = FALSE, fig.cap = "XXX."}
-knitr::include_graphics(path = "img/gitTutorialShiny_1.png")
+knitr::include_graphics(system.file("img", "gitTutorialShiny_1.png", package="sampbias"))
 ```
 
 As soon as the data are loaded and the Occurrence number plot is shown, the radio buttons (C) can be used to chose different bias plots for plot panel 2 (D). The "Species" option shows a grid with Species number per gridcell, the options "Cities", "Airports", "Rivers", "Roads" show the bias effect of these features, the "Combined" option shows the average bias effect for all four features in space. See 02 Background and theory for more details on the sampbias method. 
 
 
 ```{r, out.width = "7in", echo = FALSE, fig.cap = "XXX."}
-knitr::include_graphics(path = "img/gitTutorialShiny_2.png")
+knitr::include_graphics(system.file("img", "gitTutorialShiny_2.png", package="sampbias"))
 ```
 
 
@@ -28,7 +32,7 @@ The resolution of the analyses and plots can be change via the "Raster Resolutio
 
 
 ```{r, out.width = "7in", echo = FALSE, fig.cap = "XXX."}
-knitr::include_graphics(path = "img/gitTutorialShiny_3.png")
+knitr::include_graphics(system.file("img", "gitTutorialShiny_3.png", package="sampbias"))
 ```
 
 

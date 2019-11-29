@@ -1,3 +1,7 @@
+#'@importFrom stats dexp median
+#'@importFrom graphics par plot
+#'@importFrom grDevices dev.off pdf
+
 .RunSampBias <- function(dists, distmats, biasdist = c(0, 10), plotextra = F, plotextrafile = "samp_bias_extra_plots.pdf") {
 
   names.dists <- names(dists)

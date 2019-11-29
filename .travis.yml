@@ -1,0 +1,24 @@
+language: r
+cache: packages
+
+r_packages: covr
+
+env:
+   global:
+     - R_BUILD_ARGS="--no-build-vignettes"
+     - R_CHECK_ARGS="--no-build-vignettes --as-cran"
+
+after_success:
+- Rscript -e 'library(covr); codecov()'
+
+addons:
+  apt:
+    sources:
+      - sourceline: 'ppa:ubuntugis/ppa'
+    packages:
+    - libudunits2-dev
+    - libproj-dev
+    - libgeos-dev
+    - libgdal-dev
+    - libv8-dev
+    - netcdf-bin

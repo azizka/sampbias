@@ -121,8 +121,6 @@ re-run empirical analysis
 
 test units
 
-add badges to the repository
-
 # Data accessibility
 The software presented here is available under a GPL-3 license. The *sampbias* R package and the source code for the shiny app are available via https://github.com/azizka/sampbias, the shiny app can be accessed at https://azizka.shinyapps.io/sampbias/. The R package includes an example dataset as well as vignettes detailing the use of the R package, the use of the shiny app and possibly warnings produced by the package (Appendix S3).
 

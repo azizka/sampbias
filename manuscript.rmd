@@ -84,6 +84,17 @@ The distribution of samples, in the absence of bias, should therefore represent 
 
 [[*I wonder if we shouldn't use " $b(x,l) = \exp(-lx)$" so the Y-value is always 1 at a distance of 0. That would require normalizing the likelihood based on the integral of the curve though, as it will be different from 1* ]
 
+get the dsitribution from all grid cells and normalize by the number of all available grid cells, not downsampled to the same number of points ignore the starting at 1/intercept
+
+a possion likelihood where the rate i
+two paramters, 
+1. speed of decae
+2. how high is the bias at distance zero
+
+ $b(x,l) = \exp(-lx)$
+ $q * exp(-lambda x) / \int_0^\infty (q * exp(-lambda x))$
+
+Average the bias by Akaike wheights, or likelihood
 
 The rate parameter $l$ describes the strength of the bias effect. When  $l$ is large the expected probability of sampling occurrences decreases very quickly as you move away from a bias source (Fig. \ref{fig:distdi}). In contrast, when the $l$ parameter is small, the resulting exponential distribution effectively becomes more and more similar to a uniform distribution (Fig. \ref{fig:distdi}), indicating that increasing distance from e.g. a city does not affect the sampling probability. We treat $l$ as an unknown variable and estimate it using maximum likelihood from the data based on the probability density function described by $g(x,l)$. This essentially means finding the value of $l$ that best explains any discrepancies between the expected distribution ($f(x)$) and the observed occurrences.
 [[*I think this is in fact a posterior probability where f(x) is the empirical prior and b(x,l) the likelihood and we do a maximum a posteriori optimization*]]

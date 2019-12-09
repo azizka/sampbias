@@ -211,7 +211,6 @@ SamplingBias <- function(x, gaz = NULL, res = 1, buffer = NULL, convexhull = F, 
   if (is.logical(dis.ras)) {
     out <- c(Occurences = occ.out, Species = spe.out, results)
     class(out) <- append("sampbias", class(out))
-
     return(out)
   } else {
     # empirical and observed values in the input format for the likelihood

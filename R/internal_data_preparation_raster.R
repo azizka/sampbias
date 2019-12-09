@@ -93,7 +93,7 @@
   out <- list()
 
   for(i in 1:length(dist)){
-    out[[i]] <- list(X0 = emp.out[[i]]$mids, P0 = emp.out[[i]]$density, X = obs.out[[i]])
+    out[[i]] <- list(X0 = emp.out[[i]]$mids, X0counts = emp.out[[i]]$counts, P0 = emp.out[[i]]$density, X = obs.out[[i]])
   }
 
   names(out) <- names(dist)

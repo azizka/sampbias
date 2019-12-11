@@ -156,11 +156,18 @@ SamplingBias <- function(x, gaz = NULL, res = 1, buffer = NULL, convexhull = F, 
     cat("Creating occurrence raster...")
   }
   occ.out <- .OccRast(x = dat.pts, ras = dum.ras)
+
+  if (terrestrial) {
+    occ.out <-  mask(occ.out, wrld)
+  }
+
+  occ.out[is.na(occ.out)] <- 0
+
   if (verbose) {
     cat(" Done\n")
   }
 
-  # species raster
+  # # species raster
   if (verbose) {
     cat("Creating species raster...")
   }
@@ -190,7 +197,7 @@ SamplingBias <- function(x, gaz = NULL, res = 1, buffer = NULL, convexhull = F, 
     dis.ras <- gaz
   } else {
     ## create distance raster for all gazeteers
-    dis.ras <- DisRast(gaz = gaz, ras = dum.ras, buffer = buffer, ncores = ncores)
+    dis.ras <- DisRast(gaz = gaz, ras = occ.out, buffer = buffer, ncores = ncores)
     if (terrestrial) {
       dis.ras <- lapply(dis.ras, function(k) mask(k, wrld))
     }
@@ -200,7 +207,7 @@ SamplingBias <- function(x, gaz = NULL, res = 1, buffer = NULL, convexhull = F, 
       stop("No valid distances found. Consider setting terrestrial = F")
     }
 
-    dis.mat <- lapply(dis.ras, function(k){out <- raster::as.matrix(k); return(out)})
+    #dis.mat <- lapply(dis.ras, function(k){out <- raster::as.matrix(k); return(out)})
   }
   if (verbose) {
     cat(" Done\n")
@@ -213,6 +220,21 @@ SamplingBias <- function(x, gaz = NULL, res = 1, buffer = NULL, convexhull = F, 
     class(out) <- append("sampbias", class(out))
     return(out)
   } else {
+
+    # Generate the data.frame with the counts and distances
+    dis.vec <- lapply(dis.ras, "getValues")
+    dis.vec <- as.data.frame(do.call(cbind, dis.vec))
+    names(dis.vec) <- names(dis.ras)
+
+    dis.vec <- data.frame(cell_id = 1:nrow(dis.vec),
+                          record_count = getValues(occ.out),
+                          dis.vec)
+    dis.vec <- dis.vec[complete.cases(dis.vec),]
+    save(dis.vec, file = "record_count_and_Distances_dataframe.rda")
+
+
+    # FROM HERE ON ALL NEEDS TO BE REPLACED!
+
     # empirical and observed values in the input format for the likelihood
     # optimization set binsize based on raster resolution, if no binsize is
     # provided, roughly assuming 1 deg = 100 km

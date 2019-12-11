@@ -82,18 +82,25 @@
 
   ##check if the number of raster cells for the empirical distribution is high enough (> 10,000) if not, sample randomly
   ##get empirical distribution
-  if(binsize == "default"){
-    emp.out <- lapply(emp.out, function(k){hist(na.omit(values(k)), plot = F)})
-  }else{
+  # if(binsize == "default"){
+  #   emp.out <- lapply(emp.out, function(k){hist(na.omit(values(k)), plot = F)})
+  #   obs.out <- lapply(obs.out, function(k){hist(na.omit(k), plot = F)})
+  # }else{
     emp.out <- lapply(emp.out, function(k){hist(na.omit(values(k)),
                                                 breaks = seq(0, max(values(k), na.rm = T) + binsize, by = binsize),
                                                 plot = F, right = F)})
-  }
+    obs.out <- lapply(obs.out, function(k){hist(na.omit(k),
+                                                breaks = seq(0, max(k, na.rm = T) + binsize, by = binsize),
+                                                plot = F, right = F)})
+  # }
     #output data
   out <- list()
 
   for(i in 1:length(dist)){
-    out[[i]] <- list(X0 = emp.out[[i]]$mids, X0counts = emp.out[[i]]$counts, P0 = emp.out[[i]]$density, X = obs.out[[i]])
+    out[[i]] <- list(X0 = emp.out[[i]]$mids,
+                     X0counts = emp.out[[i]]$counts,
+                     P0 = emp.out[[i]]$density,
+                     Xcounts = obs.out[[i]]$counts)
   }
 
   names(out) <- names(dist)

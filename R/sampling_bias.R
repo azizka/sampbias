@@ -108,14 +108,14 @@
 #'
 #' gaz <- list(lines.strucutre = lin, point.structure = pts)
 #'
-#' out <- SamplingBias(x = occ, gaz = gaz, terrestrial = FALSE)
+#' out <- sampling_bias(x = occ, gaz = gaz, terrestrial = FALSE)
 #' summary(out)
 #'
 #' @export
 #' @importFrom raster as.raster extent extent<- mask res<- values
 #' @importFrom grDevices is.raster
 #'
-SamplingBias <- function(x, gaz = NULL, res = 1, buffer = NULL, convexhull = F, terrestrial = T,
+sampling_bias <- function(x, gaz = NULL, res = 1, buffer = NULL, convexhull = F, terrestrial = T,
                          binsize = NULL, biasdist = c(0, 10000), ncores = 1, plotextra = F,
                          plotextrafile = "samp_bias_extra_plots.pdf", verbose = T) {
 
@@ -197,7 +197,7 @@ SamplingBias <- function(x, gaz = NULL, res = 1, buffer = NULL, convexhull = F, 
     dis.ras <- gaz
   } else {
     ## create distance raster for all gazeteers
-    dis.ras <- DisRast(gaz = gaz, ras = occ.out, buffer = buffer, ncores = ncores)
+    dis.ras <- dis_rast(gaz = gaz, ras = occ.out, buffer = buffer, ncores = ncores)
     if (terrestrial) {
       dis.ras <- lapply(dis.ras, function(k) mask(k, wrld))
     }

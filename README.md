@@ -28,17 +28,11 @@ install_github("azizka/sampbias")
 library(sampbias)
 
 #reading a csv file as downloaded from GBIF and provided in the example data folder
-example.in <- read.csv("example_data/mammals_borneo.csv",sep = "\t")
+example.in <- read.csv(system.file("extdata", "mammals_borneo.csv", package="sampbias"), sep = "\t")
 
 #running sampbias
 example.out <- SamplingBias(x = example.in, res = 0.1)
 
 summary(example.out)
 plot(example.out)
-
-#writing plots to a .pdf file
-pdf("Your_file_name.pdf")
-plot(example.out)
-dev.off()
-
 ```

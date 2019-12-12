@@ -120,7 +120,7 @@ example.in <- read.csv(system.file("extdata",
                        sep = "\t")
 
 #running sampbias
-example.out <- SamplingBias(x = example.in, res = 0.1)
+example.out <- sampling_bias(x = example.in, res = 0.1)
 
 # summarizing the results
 summary(example.out)

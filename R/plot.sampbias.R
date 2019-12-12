@@ -41,7 +41,7 @@
 #'
 #' gaz <- list(lines.strucutre = lin, point.structure = pts)
 #'
-#' out <- SamplingBias(x = occ, gaz = gaz, terrestrial = FALSE)
+#' out <- sampling_bias(x = occ, gaz = gaz, terrestrial = FALSE)
 #' plot(out)
 #'
 #'@export

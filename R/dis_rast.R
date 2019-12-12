@@ -48,14 +48,14 @@
 #'
 #' gaz <- list(point.structure = pts, lines.strucutre = lin)
 #'
-#' out <- DisRast(gaz, ras)
+#' out <- dis_rast(gaz, ras)
 #'
 #' \dontrun{plot(out[[1]])}
 #'
 #'@export
 #'@importFrom raster crop extent raster res
 #'
-DisRast <- function(gaz, ras, buffer = NULL, ncores = 1) {
+dis_rast <- function(gaz, ras, buffer = NULL, ncores = 1) {
 
   # create buffer, if none is supplied
   if (is.null(buffer)) {

@@ -33,7 +33,7 @@ library(maptools)
 1. A table of Species occurrence records
 2. A set of geographical gazetteers
 
-The example files for this tutorial are provided in the example_data folder and should be copied to the R working directory, before starting. You can find descriptions and help for all functions by typing `?Functionname`, for instance `?SamplingBias`.
+The example files for this tutorial are provided in the example_data folder and should be copied to the R working directory, before starting. You can find descriptions and help for all functions by typing `?Functionname`, for instance `?sampling_bias`.
 
 ##Species occurrence records
 Species occurrences can be provided to *sampbias* as an R `data.frame`, which can be loaded from any table format .txt file. The minimum input file needed to run *sampbias* is a table with species occurrences including three columns named "species", "decimallongitude", "decimallatitude". *Sampbias* can also directly work with data downloaded from the Global Biodiversity Information Facility data portal (GBIF). We will use the records of mammals from Borneo provided in the sampbias folder (GBIF, 2016) as example file throughout the tutorial. The file is also included as example data set in the package.
@@ -61,13 +61,13 @@ gazetteers <- list(cities = cit,
 See [here](https://cran.r-project.org/web/packages/sp/vignettes/intro_sp.pdf) and `?SpatialPointsDataFrame` or `?SpatialLinesDataFrame` on how to create a SpatialObjects from tables of coordinates.
 
 #Running an analysis
-A sampbias analyses is run in one line of code via the `SamplingBias` function:
+A sampbias analyses is run in one line of code via the `sampling_bias` function:
 
 ```{r}
-bias.out <- SamplingBias(x = occ, gaz = gazetteers)
+bias.out <- sampling_bias(x = occ, gaz = gazetteers)
 ```
 
-In addition to the input from above, `SamplingBias` offers a set of options to customize analyses, of which the most important ones are shown in Table 1. See `?SamplingBias` for a detailed description of all options.
+In addition to the input from above, `sampling_bias` offers a set of options to customize analyses, of which the most important ones are shown in Table 1. See `?sampling_bias` for a detailed description of all options.
 
 
 |Option | Description|
@@ -78,7 +78,7 @@ In addition to the input from above, `SamplingBias` offers a set of options to c
 |biasdist|numerical.  A vector indicating the distance at which the average bias should be calculated for the output table (in meters). Can also be a single number. Default = c(0, 10000).|
 
 #Output
-The output of `SamplingBias` is a list of different R objects. 
+The output of `sampling_bias` is a list of different R objects. 
 
 |Object|Description|
 |---|---|

@@ -9,8 +9,6 @@
 #' @param class2 the names of the class to which is relations are to be
 #' examined defined, or (more efficiently) the class definition objects for the
 #' classes.
-#' @seealso Check https://github.com/azizka/sampbias/wiki for a tutorial on
-#' sampbias.
 #' @keywords methods
 #' @examples
 #'
@@ -33,7 +31,7 @@
 #'
 #' gaz <- list(lines.strucutre = lin, point.structure = pts)
 #'
-#' out <- sampling_bias(x = occ, gaz = gaz, terrestrial = FALSE)
+#' out <- calculate_bias(x = occ, gaz = gaz, terrestrial = FALSE)
 #' is(out)
 #'
 #'@export

@@ -31,7 +31,7 @@ library(sampbias)
 example.in <- read.csv(system.file("extdata", "mammals_borneo.csv", package="sampbias"), sep = "\t")
 
 #running sampbias
-example.out <- SamplingBias(x = example.in, res = 0.1)
+example.out <- calculate_bias(x = example.in, res = 0.1)
 
 summary(example.out)
 plot(example.out)

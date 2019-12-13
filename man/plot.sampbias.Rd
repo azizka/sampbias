@@ -2,36 +2,23 @@
 % Please edit documentation in R/plot.sampbias.R
 \name{plot.sampbias}
 \alias{plot.sampbias}
-\title{Mapping Occurrence and Bias Rasters in an Object of the Class Sampbias}
+\title{Plotting the Posterior Estimates of the Bias Weights}
 \usage{
-\method{plot}{sampbias}(x, gaz = NULL, sealine = T, ...)
+\method{plot}{sampbias}(x, ...)
 }
 \arguments{
 \item{x}{an object of the class \code{sampbias}.}
 
-\item{gaz}{a list of SpatialObjects, to be printed on the maps.  Should be
-the same objects provided to \code{SamplingBias} when creating the Object.
-If \code{gaz} is not supplied, the sampbias package standard gazetteers are
-used.}
-
-\item{sealine}{logical. Should the sealine be added to the plots? Default is
-to TRUE.}
-
-\item{...}{Additional arguments to be passed to \code{\link{plot}}.}
+\item{\dots}{Additional arguments passed to summary.}
 }
 \value{
-A series of R plots based on ggplot2.
+A plot
 }
 \description{
-Plotting method for class \code{sampbias}, generating a rasterized plots
-showing the number of occurrences and the number of species per gridcell,
-one bias raster indicating the effect strength for each gazetteer provided to
-\code{SamplingBias}, and a average bias raster indicating the average bias
-for each gridcell.
-}
-\note{
-Check https://github.com/azizka/sampbias/wiki for a tutorial on
-sampbias.
+Plotting method for class \code{sampbias}, generating a box-whiskers-plot
+showing the bias weights for all biasing factors
+indicating the effect strength for each gazetteer provided to
+\code{calculate_bias}.
 }
 \examples{
 
@@ -54,11 +41,11 @@ lin <- SpatialLinesDataFrame(sl = SpatialLines(list(Lines(Line(lin), ID="B1"))),
 
 gaz <- list(lines.strucutre = lin, point.structure = pts)
 
-out <- SamplingBias(x = occ, gaz = gaz, terrestrial = FALSE)
+out <- calculate_bias(x = occ, gaz = gaz, terrestrial = FALSE)
 plot(out)
 
 }
 \seealso{
-\code{\link{SamplingBias}}, \code{\link{summary.sampbias}}
+\code{\link{calculate_bias}}, \code{\link{summary.sampbias}}
 }
 \keyword{methods}

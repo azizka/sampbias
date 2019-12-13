@@ -27,7 +27,7 @@
 #' \code{ras}
 #' @note Check https://github.com/azizka/sampbias/wiki for a tutorial on
 #' sampbias.
-#' @seealso \code{\link{SamplingBias}}
+#' @seealso \code{\link{calculate_bias}}
 #' @keywords spatial
 #' @examples
 #'

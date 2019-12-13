@@ -6,7 +6,7 @@
 #' @param object An object of the class \code{sampbias}
 #' @param \dots Additional arguments passed to summary.
 #' @return Summary printed to screen.
-#' @seealso \code{\link{SamplingBias}} \code{\link{is.sampbias}}
+#' @seealso \code{\link{calculate_bias}} \code{\link{is.sampbias}}
 #' \code{\link{plot.sampbias}}
 #' @keywords methods
 #' @examples
@@ -30,19 +30,18 @@
 #'
 #' gaz <- list(lines.strucutre = lin, point.structure = pts)
 #'
-#' out <- SamplingBias(x = occ, gaz = gaz, terrestrial = FALSE)
+#' out <- calculate_bias(x = occ, gaz = gaz, terrestrial = FALSE)
 #' summary(out)
 #'
 #' @export
 #'
 summary.sampbias <- function(object, ...) {
   cat("Number of occurences: ", object$summa$total_occ, "\n")
-  cat("Number of species: ", object$summa$total_sp, "\n")
   cat("Raster resolution: ", object$summa$res, "\n")
-  cat("Distance binsize: ", object$summa$binsize, "\n")
   cat("Convexhull: ", object$summa$convexhull, "\n")
   cat("Geographic extent:\n")
   print(object$summa$extent)
-  cat("Bias effect at distance:\n")
-  print(object$biastable)
+  cat("Bias weights:\n")
+  print(data.frame(bias_weight = colMeans(object$bias_estimate[,-c(1:4)]),
+                   std_dev = apply(object$bias_estimate[,-c(1:4)], 2, "sd")))
 }

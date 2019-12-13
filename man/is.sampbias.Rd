@@ -41,12 +41,8 @@ lin <- SpatialLinesDataFrame(sl = SpatialLines(list(Lines(Line(lin), ID="B1"))),
 
 gaz <- list(lines.strucutre = lin, point.structure = pts)
 
-out <- SamplingBias(x = occ, gaz = gaz, terrestrial = FALSE)
+out <- calculate_bias(x = occ, gaz = gaz, terrestrial = FALSE)
 is(out)
 
-}
-\seealso{
-Check https://github.com/azizka/sampbias/wiki for a tutorial on
-sampbias.
 }
 \keyword{methods}

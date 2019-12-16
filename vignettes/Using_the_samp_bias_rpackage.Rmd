@@ -93,7 +93,7 @@ The output of `calculate_bias` is a list of different R objects.
 |occurrences|a raster indicating occurrence records per grid cell, with resolution res.|
 
 The package includes summary and plot methods for an easy exploration of the results:
-```{r}
+```{r, eval = FALSE}
 summary(bias.out)
 plot(bias.out)
 ```

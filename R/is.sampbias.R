@@ -33,7 +33,8 @@
 #'
 #' out <- calculate_bias(x = occ, gaz = gaz, terrestrial = FALSE)
 #' is(out)
-#'
+#'@method is sampbias
+#'@importFrom methods is
 #'@export
 #'
 is.sampbias <- function(object, class2){

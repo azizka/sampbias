@@ -3,12 +3,12 @@ library(cowplot)
 
 occ <-read.csv(system.file("extdata", "mammals_borneo.csv", package="sampbias"), sep = "\t")
 
-out <- calculate_bias(occ, res = 0.1)
+out <- calculate_bias(occ, res = 1)
 
 p1 <- plot(out)
 summary(out)
 
-proj <- project_bias(out)
+proj <- project_bias(out, factors = "roads")
 p2 <- map_bias(proj)
 
 

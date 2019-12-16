@@ -32,18 +32,18 @@
 #' @examples
 #'
 #' #create raster for resolution and extent
-#' ras <- raster(extent(-5,5,-4,4), res = 1)
+#' ras <- raster::raster(raster::extent(-5,5,-4,4), res = 1)
 #'
 #' #create point gazeteer
 #' pts <- data.frame(long = runif(n = 5, min = -5, max = 5),
 #'                   lat = runif(n = 5, min = -4, max = 4),
 #'                   dat = rep("A", 5))
 #'
-#' pts <- SpatialPointsDataFrame(coords = pts[,1:2], data = data.frame(pts[,3]))
+#' pts <- sp::SpatialPointsDataFrame(coords = pts[,1:2], data = data.frame(pts[,3]))
 #'
 #' lin <- data.frame(long = seq(-5, 5, by = 1),
 #'                   lat = rep(2, times = 11))
-#' lin <- SpatialLinesDataFrame(sl = SpatialLines(list(Lines(Line(lin), ID="B1"))),
+#' lin <- sp::SpatialLinesDataFrame(sl = sp::SpatialLines(list(sp::Lines(sp::Line(lin), ID="B1"))),
 #'                              data = data.frame("B", row.names = "B1"))
 #'
 #' gaz <- list(point.structure = pts, lines.strucutre = lin)
@@ -53,6 +53,7 @@
 #' \dontrun{plot(out[[1]])}
 #'
 #'@export
+#'@importFrom sp SpatialPointsDataFrame SpatialLinesDataFrame SpatialLines Lines Line
 #'@importFrom raster crop extent raster res
 #'
 dis_rast <- function(gaz, ras, buffer = NULL, ncores = 1) {

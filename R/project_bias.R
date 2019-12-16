@@ -43,7 +43,8 @@
 project_bias <- function(x, factors = NULL) {
 
   # get raster stack
-  ras <- as.matrix(x$distance_rasters) %>% t() %>% data.frame()
+  # ras <- as.matrix(x$distance_rasters) %>% t() %>% data.frame()
+  ras <- as.matrix(x$distance_rasters) %>% data.frame()
 
   # rescale as in the bias estimation
   ras <- ras/x$summa$rescale_distances
@@ -52,22 +53,28 @@ project_bias <- function(x, factors = NULL) {
   mean_w <- colMeans(x$bias_estimate)[-c(1:4)] %>% sort() %>% rev()
 
   # sort ras as mean_w
-  ord <- match(gsub("w_", "", names(mean_w)), rownames(ras))
-  ras <- ras[ord,]
+  ord <- match(gsub("w_", "", names(mean_w)), colnames(ras))
+  ras <- ras[, ord]
 
   # use factors if provided to select certain biasing effects for projection
   if (!is.null(factors)) {
     mean_w <- mean_w[gsub("w_", "", names(mean_w)) %in% factors]
-    ras <- ras[rownames(ras) %in% factors,]
+    ras <- ras[,colnames(ras) %in% factors]
   }
 
   # calculate the values for each raster cell
   lambdas <- list()
 
   for (i in 1:length(mean_w)) {
+    if(is.numeric(ras)){
+      test <- ras
+    }else{
+      test <- ras[,1:i]
+    }
+
     lambdas[[i]] <- get_lambda_ij(q = colMeans(x$bias_estimate)[4],
                                   w = mean_w[1:i],
-                                  X = ras[1:i,]) %>%
+                                  X = test) %>%
       as.matrix()
   }
 

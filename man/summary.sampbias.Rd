@@ -40,7 +40,6 @@ gaz <- list(lines.strucutre = lin, point.structure = pts)
 
 out <- calculate_bias(x = occ, gaz = gaz, terrestrial = FALSE)
 summary(out)
-
 }
 \seealso{
 \code{\link{calculate_bias}} \code{\link{is.sampbias}}

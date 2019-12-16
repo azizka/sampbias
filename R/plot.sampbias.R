@@ -35,12 +35,15 @@
 #' out <- calculate_bias(x = occ, gaz = gaz, terrestrial = FALSE)
 #' plot(out)
 #'
+#'@method plot sampbias
 #'@export
 #'@importFrom forcats fct_reorder
 #'@importFrom ggplot2 ggplot geom_boxplot xlab ylab coord_flip theme_bw theme
+#'@importFrom graphics plot
 #'@importFrom magrittr %>%
 #'@importFrom dplyr contains mutate select
 #'@importFrom rlang .data
+#'@importFrom stats median
 #'@importFrom tidyr pivot_longer
 #'
 plot.sampbias <- function(x, ...) {

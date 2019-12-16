@@ -4,7 +4,7 @@
 \alias{is.sampbias}
 \title{Is Method for Class sampbias}
 \usage{
-is.sampbias(object, class2)
+\method{is}{sampbias}(object, class2)
 }
 \arguments{
 \item{object}{an object of the class \code{sampbias}}
@@ -43,6 +43,5 @@ gaz <- list(lines.strucutre = lin, point.structure = pts)
 
 out <- calculate_bias(x = occ, gaz = gaz, terrestrial = FALSE)
 is(out)
-
 }
 \keyword{methods}

@@ -14,7 +14,8 @@ header-includes: |
     \usepackage{fancyhdr}
     \pagestyle{fancy}
     \fancyhead[L]{sampbias accessibility bias}
-    \fancyhead[R]{ } 
+    \fancyhead[R]{\thepage}
+    \fancyfoot{}
     \usepackage{float}
     \floatplacement{figure}{H}
     \usepackage{lineno}
@@ -48,6 +49,7 @@ Collection effort, Global biodiversity Information Facility (GBIF), Presence onl
 
 # Introduction
 Publicly available datasets of geo-referenced species occurrences, such as provided by the Global Biodiversity Information Facility (www.gbif.org) have become a fundamental resource  in biological sciences, especially in biogeography, conservation, macroecology, and systematics. However, because these datasets are "presence-only" data, they rarely include information on collection effort. Instead they are typically not collected systematically and often compiled from a variety of sources (e.g. scientific expeditions, census counts, genetic barcoding studies, and citizen-science observations),  thus becoming subject to collection biases [@Meyer2016]. 
+
 That is the number of data points available is biased by factors other than species' presence or abundance, including the under-sampling of specific taxa ("taxonomic bias", e.g., birds *vs.* nematodes), specific geographic regions ("geographic bias", i.e. easily accessible *vs.* remote areas), and specific temporal periods ["temporal bias", i.e. wet season *vs.* dry season, @Isaac2015; @Boakes2010]. While these biases are broadly recognized, and approaches exist to account for them in some analyses (for instance for species-richness estimation [@Engemann2015] species distribution modelling [@Stolar2015;@Beck2014; @Fithian2014; @Warren2014; @Boria2014; @Varela2014; @Fourcade2014], occupancy modelling [@Kery2016], or abundance estimations [@Shimadzu2015]), few attempts have been made to discern among different sources of bias or to compare the strength of bias among datasets [but see @Ruete2015]. 
 
 Geographic sampling bias, the fact that sampling effort is spatially biased, rather than equally distributed over a given study area is prevalent in all non-systematically collected datasets of species distributions. Many factors can affect sampling effort, such as socio-economic factors [i.e. national research spending, history of scientific research; @Meyer2015, @Daru2018] and political factors [armed conflict, democratic rights; @Ryden2019] or physical accessibility [i.e. distance to a road or river, terrain conditions, slope; @Yang2014; @Botts2011]. Especially physical accessibility is omnipresent as a biasing factor [e.g. @Lin2015; @Engemann2015], across spatial scales, and the term "roadside bias" has been coined for it. In practice, this means that most species observations (occurrence points) are made in or near cities, along roads and rivers, and near other human settlements (such as airports). Less observations come from the middle of a tropical rainforest or from a mountain top. Interestingly, since the observation of different taxonomic groups has different challenges, geographic sampling bias and the effect of accessibility may differ among taxonomic groups [@Vale2012].
@@ -108,9 +110,9 @@ When running *sampbias*, we typically test different sources of biases, such as 
 
 
 # Running sampbias
-A default *sampbias* analysis can be run with few lines of code in R. The main function `SamplingBias` creates an object of the class `"sampbias"`, for which the package provides a plotting and summary method. Based on a `data.frame` including species identity and geographic coordinates, sampbias provides a bias effect estimate for each gazetteer and an average bias. Additionally some options exist to provide custom gazetteers, custom distances for the bias estimation, a custom grain size of the analysis, as well as some operators for the calculation of the bias distances. A tutorial on how to use sampbias is available with the package and in the electronic supplement of this publication (Appendix S1). 
+A default *sampbias* analysis can be run with few lines of code in R. The main function `calculate_bias` creates an object of the class `"sampbias"`, for which the package provides a plotting and summary method. Based on a `data.frame` including species identity and geographic coordinates, sampbias provides a bias effect estimate for each gazetteer and an average bias. Additionally some options exist to provide custom gazetteers, custom distances for the bias estimation, a custom grain size of the analysis, as well as some operators for the calculation of the bias distances. A tutorial on how to use sampbias is available with the package and in the electronic supplement of this publication (Appendix S1). 
 
-```{r, eval = FALSE, tidy=TRUE}
+```{r, eval = FALSE}
 library(sampbias)
 
 #a data table with species identify, longitude, and latitude
@@ -120,11 +122,15 @@ example.in <- read.csv(system.file("extdata",
                        sep = "\t")
 
 #running sampbias
-example.out <- sampling_bias(x = example.in, res = 0.1)
+example.out <- calculate_bias(x = example.in, res = 0.1)
 
 # summarizing the results
 summary(example.out)
 plot(example.out)
+
+#project in space
+proj <- project_bias(example.out)
+map_bias(proj)
 
 ```
 
@@ -144,7 +150,7 @@ re-run empirical analysis
 test units
 
 # Data accessibility
-The software presented here is available under a GPL-3 license. The *sampbias* R package and the source code for the shiny app are available via https://github.com/azizka/sampbias, the shiny app can be accessed at https://azizka.shinyapps.io/sampbias/. The R package includes an example dataset as well as vignettes detailing the use of the R package, the use of the shiny app and possibly warnings produced by the package (Appendix S3).
+The software presented here is available under a GPL-3 license. The *sampbias* R package and the source code for the shiny app are available via https://github.com/azizka/sampbias. The R package includes an example dataset as well as vignettes detailing the use of the R package, the use of the shiny app and possibly warnings produced by the package (Appendix S2).
 
 # Acknowledgements
 We thank the organizers of the 2016 Ebben Nielsen challenge for inspiring and recognizing this research. We thank all data collectors and contributors to GBIF for their effort.
@@ -153,22 +159,9 @@ We thank the organizers of the 2016 Ebben Nielsen challenge for inspiring and re
 All authors conceived of this study, AZ and DS developed the statistical algorithm, AZ and DS wrote the R-package and AZ the Shiny app, AZ and DS wrote the manuscript with contributions from AA.
 
 # Figures
-
-<!-- Figure 1 A sketch of the different distributions -->
-```{r distdi, out.width = "7in", echo = FALSE, fig.cap = "Schematic representation of the \\textit{sampbias} algorithm. The upper panel (A-C) shows a case without accessibility bias: the observed distribution of distances from the geographic feature of interest matches the expected distribution and hence the bias function is flat. The lower panel (D-F) shows a case with bias: the expected and observed distribution differ and the bias is best represented by an exponential function.", eval = TRUE}
-knitr::include_graphics(path = "ms_figures/Distance_distribution_example.png")
-```
-
-
-<!-- Figure 2 shiny interface -->
-```{r GUI, out.width = "7in", echo = FALSE, fig.cap = "The interface of the sampbias shiny app. With a navigation panel on the left and visualization of the results on the right.", eval = TRUE}
-knitr::include_graphics(path = "ms_figures/bild_gui_sampbias.png")
-```
-
-
-<!-- Figure 3 empirical results -->
-```{r empirical, out.width = "7in", echo = FALSE, fig.cap = "The spatial projection of the accessibility bias in an empirical example dataset of mammal occurrences on the Indonesian island of Borneo from www.gbif.org. \\textit{Sampbias} finds a strong biasing effect by roads, cities and lower by airports, but, surprisingly, no effect of rivers.", eval = TRUE}
-knitr::include_graphics(path = "ms_figures/visualization_rpackage_application_githubtutorial.jpg")
+<!-- mpirical results -->
+```{r empirical, out.width = "6in", echo = FALSE, fig.cap = "The spatial projection of the accessibility bias in an empirical example dataset of mammal occurrences on the Indonesian island of Borneo from www.gbif.org. A) bias weights, B) projection of the expected number of occurrences given the sampbias model. \\textit{Sampbias} finds the strongest biasing effect for cities.", eval = TRUE}
+knitr::include_graphics(path = "ms_figures/figure_empirical_results.jpg")
 ```
 
 
@@ -176,8 +169,6 @@ knitr::include_graphics(path = "ms_figures/visualization_rpackage_application_gi
 
 Appendix S1 - Tutorial running sampbias in R
 
-Appendix S2 - Tutorial running the sampbias shiny app
-
-Appendix S3 - Possible warnings and their solutions
+Appendix S2 - Possible warnings and their solutions
 
 # References

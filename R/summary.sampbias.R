@@ -32,7 +32,7 @@
 #'
 #' out <- calculate_bias(x = occ, gaz = gaz, terrestrial = FALSE)
 #' summary(out)
-#'
+#' @method summary sampbias
 #' @export
 #'
 summary.sampbias <- function(object, ...) {

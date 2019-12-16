@@ -16,11 +16,20 @@
   }
 }
 
+# get_lambda_ij_old <- function(q, w, X) {
+#   if (class(X) == "numeric") {
+#     return(q * exp(-w * X))
+#   } else {
+#     return(q * exp(-apply(FUN = sum, w * X, 2)))
+#   }
+# }
+
+
 get_lambda_ij <- function(q, w, X) {
   if (class(X) == "numeric") {
     return(q * exp(-w * X))
   } else {
-    return(q * exp(-apply(FUN = sum, w * X, 2)))
+    return(as.vector(q * exp(-(w %*% t(X)))))
   }
 }
 
@@ -50,9 +59,9 @@ multiplier_proposal <- function(i, d = 1.2) {
 
   # X is the distance matrix with 1 row for each cell and 1 col for each predictor
   X <- x[, indx]/rescale_distances
-  if (length(indx) > 1) {
-    X <- t(X)
-  }
+  # if (length(indx) > 1) {
+  #   X <- t(X)
+  # }
 
   Xcounts <- x$record_count
 

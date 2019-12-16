@@ -78,9 +78,37 @@ CoordinateCleaner is implemented in R [@rcoreteam2019] based on standard tools f
 *Sampbias* uses gazetteers of the geographic location of bias sources (e.g. roads) to generate a grid across the study area (the geographic extent of the dataset) for each gazetteer and then calculates the distance ("as the crow flies") 
 [[*meaning?*]]
 of the midpoint of each grid cell to the closest cell containing an instance of the gazetteer. We then use these distance grids to sample the distribution of distances in the observed dataset and the null distribution in a reference dataset of equal size with randomly distributed records (the null model). The resolution of the grid defined the precision of the distance estimates, for instance a 1x1 degree raster will yield approximately a 100km precision at the equator.
+For each cell $i$, we compute a vector $X_i(j)$ of minimum distances to each source of bias $j \in B$.
 
-## Quantifying accessibility bias using maximum likelihood
-Given the placement of a particular bias sources in the area of interest and assuming a uniform distribution of samples, the probability of a sampled occurrence located at a distance $d$ from the closest bias source is a function of the amount of available area at that distance. That is, the larger the area located at distance $d$ from a bias source the more samples we expect. For simplicity we discretize the area of interest in a number of grid cells and indicate with $f(x)$ the function describing the number of available grid cells at any distance $x$, for $0 < x < \max(x)$, where $\max(x)$ is the maximum observed distance between a cell and the clostest bias source. The function $f(x)$ is therefore calculated based on the distances of each grid cell from its closest bias source. 
+## Quantifying accessibility bias using a Bayesian framework
+We describe the observed number of sampled occurrences $S_i$ within each cell $i$ as the result of Poisson sampling process with rate $\lambda_i$. We model the rate $\lambda_i$ as a function of a constant $q$, which represent the expected number of occurrences per cell in the absence of biases, i.e. when $\sum_{j=1}^{B}{ X_i(j)} = 0$. 
+Additionally, $\lambda_i$ is modeled to decrease exponentially as a function of distance from sources of bias, such that increasing distances will result in a lower sampling rate. For a single source of bias the rates of cell $i$ with distance $X_i$ from a bias is:
+$$
+\lambda_i = q \times \exp \left(- w X_i \right)
+$$
+where $w \in \mathbb{R^+}$ defines the steepness of the Poisson rate decline, such that $w \approx 0$ results in a null model of uniform sampling rate $q$ across cells.
+
+In the presence of multiple bias predictors, the sampling rate decrease is a function of the cumulative effects of each bias and its distance from the cell:
+$$
+\lambda_i = q \times \exp \left(-\sum_{j=1}^{B}{w_j X_i(j)} \right) \ \ \ \ (1)
+$$
+where a vector $\mathbf{w} = [w_1, ..., w_B]$ describes the amount of bias attributed to each specific predictor.
+
+To quantify the amount of bias associated with each predictor, we jointly estimate the parameters $q$ and $\mathbf{w}$ in a Bayesian framework. We use Markov Chain Monte Carlo (MCMC) to sample these parameters from their posterior distribution:
+$$
+P(q, \mathbf{w} | \mathbf{S}) \propto \prod_{i=1}^{N}{ Poi(S_i | \lambda_i) } \times P(q) P(\mathbf{w}) \ \ \ \ (2)
+$$
+where the likelihood of sampled occurrences $S_i$ within each cell $Poi(S_i | \lambda_i)$ is the probability mass function of a Poisson distribution with rate per cell defined as in Eqn. (1). The likelihood is then multiplied across the $N$ cells considered. 
+We used exponential priors on the parameters $q$ and $\mathbf{w}$, $P(q) \sim \Gamma(1, 0.01)$ and $P(\mathbf{w}) \sim \Gamma(1, 1)$, respectively. 
+
+
+We summarize the parameters by computing the mean of the posterior samples and their 95\% credible intervals. We interpret the magnitude of the elements in $\mathbf{w}$ as a function of the importance of the individual biases. We note however although that this test is not explicitly intended to assess the significance of each bias predictor (for which a Bayesian variable selection could be used), particularly since several sources of bias might b correlated (e.g. cities, and airports). Instead, these aanlyses can be use to quantify the expected amount of bias in the data that can be predicted by single or multiple predictors in order to identify under-sampled and unexplored areas. 
+
+
+[[SHOULD WE REMOVE BASICALLY ALL THE FOLLOWING SECTIONS?]]
+
+
+Given the placement of a particular bias sources in the area of interest and assuming a uniform distribution of samples, the probability of a sampled occurrence located at a distance $d$ from the closest bias source is a function of the amount of available area at that distance. That is, the larger the area located at distance $d$ from a bias source the more samples we expect. For simplicity we discretize the area of interest in a number of grid cells and indicate with $f(x)$ the function describing the number of available grid cells at any distance $x$, for $0 < x < \max(x)$, where $\max(x)$ is the maximum observed distance between a cell and the closest bias source. The function $f(x)$ is therefore calculated based on the distances of each grid cell from its closest bias source. 
 
 The distribution of samples, in the absence of bias, should therefore represent a random sample from $f(x)$ and reflect its shape, i.e. $d ~ f(x)$ (Fig. \ref{fig:distdi}). However, in the presence of a bias, we expect the probability of finding occurrences to decrease with increasing distance from a bias source. This in turn will alter the resulting distribution of samples that no longer match the expected distribution. Here, we model the effect of sampling bias by assuming that the probability of sampling an occurrence decreases exponentially with increasing distance (Fig. \ref{fig:distdi}), following the function $b(x,l) = l \exp(-lx)$, where $l$ is the rate parameter. Under these assumption the expected distribution of samples is given by $g(x,l) \propto f(x) b(x,l)$. 
 

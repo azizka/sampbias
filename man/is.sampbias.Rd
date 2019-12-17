@@ -32,11 +32,11 @@ occ <- data.frame(species = rep(sample(x = LETTERS, size = 5), times = 10),
 pts <- data.frame(long = runif(n = 5, min = -5, max = 5),
                   lat = runif(n = 5, min = -4, max = 4),
                   dat = rep("A", 5))
-pts <- SpatialPointsDataFrame(coords = pts[,1:2], data = data.frame(pts[,3]))
+pts <- sp::SpatialPointsDataFrame(coords = pts[,1:2], data = data.frame(pts[,3]))
 
 lin <- data.frame(long = seq(-5, 5, by = 1),
                   lat = rep(2, times = 11))
-lin <- SpatialLinesDataFrame(sl = SpatialLines(list(Lines(Line(lin), ID="B1"))),
+lin <- sp::SpatialLinesDataFrame(sl = sp::SpatialLines(list(sp::Lines(sp::Line(lin), ID="B1"))),
                              data = data.frame("B", row.names = "B1"))
 
 gaz <- list(lines.strucutre = lin, point.structure = pts)

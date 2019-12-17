@@ -14,3 +14,4 @@ pre_submission_tests.R
 ignore_vignettes
 travis.yml
 empirical_analysis_manuscript.R
+original_data

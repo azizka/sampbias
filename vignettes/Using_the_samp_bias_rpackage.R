@@ -15,7 +15,8 @@ library(maptools)
 #loading a text file to R
 occ <-read.csv(system.file("extdata", 
                            "mammals_borneo.csv", 
-                           package="sampbias"), sep = "\t")
+                           package="sampbias"),
+               sep = "\t")
 
 ## ------------------------------------------------------------------------
 cit <- readShapeSpatial(system.file("extdata", 

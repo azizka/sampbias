@@ -44,7 +44,8 @@ Text files can easily be loaded into R as data.frame using the `read.csv()` func
 #loading a text file to R
 occ <-read.csv(system.file("extdata", 
                            "mammals_borneo.csv", 
-                           package="sampbias"), sep = "\t")
+                           package="sampbias"),
+               sep = "\t")
 ```
 **Note**: *Sampbias* evaluates the bias by comparing to a random sampling, meaning that the tool is not designed for single species data sets, as distribution of the records might then reflect ecological preferences, but rather for multi-species data sets. In general, the more species and the more records, the more reliable the results will be.
 

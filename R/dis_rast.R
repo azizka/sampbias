@@ -18,9 +18,6 @@
 #' extent of ras for the distance calculations in degrees, to account for
 #' geographic structures neighbouring the study area (such as a road right
 #' outside the study area) Default is to the resolution of \code{ras}.
-#' @param ncores numerical.  The number of cores used for parallel computing.
-#' Must be lower than the available number of cores. Not finally implemented in
-#' version 0.1.0.
 #' @return a \code{list} of \code{raster} objects of the same length as
 #' \code{gaz}. The values in each raster correspond to the planar geographic
 #' distance to the next feature in \code{gaz}, given the resolution of
@@ -75,16 +72,6 @@ dis_rast <- function(gaz, ras, buffer = NULL, ncores = 1) {
     warning(sprintf("Evening buffer. Buffer set to %s", buffer))
   }
 
-  # intiate cluster if multiple cores are used
-  if (ncores > 1) {
-    if (!requireNamespace("parallel", quietly = TRUE)) {
-      stop("parallel needed for multithreading. Please install the package.",
-           call. = FALSE)
-    } else {
-      cl <- parallel::makeCluster(ncores)
-    }
-  }
-
   # create large extent for distance calculations
   e <- raster::extent(ras)
   cut.off <- e + buffer
@@ -117,23 +104,10 @@ dis_rast <- function(gaz, ras, buffer = NULL, ncores = 1) {
   r[] <- 0
 
   ## rasterize gazeteers, parallelized if desired
-  if (ncores == 1) {
-    dist.r <- lapply(gaz.crop, function(k) raster::rasterize(x = k, y = r,
-                                                             field = 1, fun = "count"))
-    # calculate distance for all gazeteers
-    dist.d <- lapply(dist.r, function(k) suppressWarnings(raster::distance(k)))
-  } else {
-    parallel::clusterExport(cl, "gaz.crop")
-    parallel::clusterExport(cl, "r")
-    parallel::clusterEvalQ(cl, library(raster))
-
-    dist.r <- parallel::parLapply(cl, gaz.crop, function(k) raster::rasterize(x = k,
-                                                                              y = r, field = 1, fun = "count"))
-
-    # calculate distance for all gazeteers
-    dist.d <- parallel::parLapply(cl, dist.r, function(k) suppressWarnings(raster::distance(k)))
-    parallel::stopCluster(cl)
-  }
+  dist.r <- lapply(gaz.crop, function(k) raster::rasterize(x = k, y = r,
+                                                           field = 1, fun = "count"))
+  # calculate distance for all gazeteers
+  dist.d <- lapply(dist.r, function(k) suppressWarnings(raster::distance(k)))
 
   ## crop resulting distance raster to study area
     if (buffer%%as.numeric(as.character(res(ras)[1])) == 0) {

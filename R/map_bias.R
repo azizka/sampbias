@@ -113,12 +113,12 @@ map_bias <- function(x,
                        option = "viridis",
                        direction = 1,
                        name = "Bias effect [log]",
-                       discrete = F)+
+                       discrete = FALSE)+
     theme(axis.title = element_blank())+
     facet_wrap(split~ .)
 
 
-  if (sealine == T) {
+  if (sealine == TRUE) {
     message("Adding sealine")
     wrld <- raster::crop(sampbias::landmass,
                          raster::extent(x$occurrences))

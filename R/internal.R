@@ -34,7 +34,7 @@ get_lambda_ij <- function(q, w, X) {
 }
 
 get_poi_likelihood <- function(Xcounts, lambdas) {
-  return(dpois(Xcounts, lambdas, log = T))
+  return(dpois(Xcounts, lambdas, log = TRUE))
 }
 
 multiplier_proposal <- function(i, d = 1.2) {
@@ -66,23 +66,23 @@ multiplier_proposal <- function(i, d = 1.2) {
   Xcounts <- x$record_count
 
   # coefficient, i.e. Poisson rate at zero distance from all
-  qA = mean(Xcounts)
+  qA <- mean(Xcounts)
 
   # init weigths of predictors
-  wA = abs(rnorm(length(indx), 0.01, 0.01))
+  wA <- abs(rnorm(length(indx), 0.01, 0.01))
 
-  lambdas = get_lambda_ij(qA, wA, X)
+  lambdas <- get_lambda_ij(qA, wA, X)
 
-  likA = sum(get_poi_likelihood(Xcounts, lambdas))
-  priorA = sum(dexp(1, wA, log = T)) + dexp(0.01, qA, log = T)
+  likA <- sum(get_poi_likelihood(Xcounts, lambdas))
+  priorA <- sum(dexp(1, wA, log = TRUE)) + dexp(0.01, qA, log = TRUE)
 
-  names_b = paste("w", names(x[, indx]), sep = "_")
+  names_b <- paste("w", names(x[, indx]), sep = "_")
 
 
   out <- data.frame()
 
   if (!is.null(outfile)){
-    outfile = paste("mcmc", paste(names_b[indx - 2], collapse = "_"), ".log", sep = "_")
+    outfile <- paste("mcmc", paste(names_b[indx - 2], collapse = "_"), ".log", sep = "_")
     cat(c("it", "likA", "priorA", "q", names_b[indx - 2], "\n"), file = outfile, sep = "\t")
   }
 
@@ -90,28 +90,28 @@ multiplier_proposal <- function(i, d = 1.2) {
   message(paste(c("it", "likA", "priorA", "q", names_b[indx - 2]), collapse = " "))
 
   for (it in 1:iterations) {
-    w = wA
-    q = qA
+    w <- wA
+    q <- qA
 
     if (runif(1) < 0.3) {
-      update = multiplier_proposal(qA, d = 1.1)
-      q = update[[1]]
-      hastings = update[[2]]
+      update <- multiplier_proposal(qA, d = 1.1)
+      q <- update[[1]]
+      hastings <- update[[2]]
     } else {
-      update = multiplier_proposal(wA, d = 1.05)
-      w = update[[1]]
-      hastings = update[[2]]
+      update <- multiplier_proposal(wA, d = 1.05)
+      w <- update[[1]]
+      hastings <- update[[2]]
     }
 
-    lambdas = get_lambda_ij(q, w, X)
-    lik = sum(get_poi_likelihood(Xcounts, lambdas))
-    prior = sum(dexp(w, 1, log = T)) + dexp(q, 0.01, log = T)
+    lambdas <- get_lambda_ij(q, w, X)
+    lik <- sum(get_poi_likelihood(Xcounts, lambdas))
+    prior <- sum(dexp(w, 1, log = TRUE)) + dexp(q, 0.01, log = TRUE)
 
     if ((lik + prior) - (likA + priorA) + hastings >= log(runif(1))) {
-      likA = lik
-      priorA = prior
-      wA = w
-      qA = q
+      likA <- lik
+      priorA <- prior
+      wA <- w
+      qA <- q
     }
 
     if (it > burnin & it%%100 == 0) {

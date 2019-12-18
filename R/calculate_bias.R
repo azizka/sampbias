@@ -53,10 +53,13 @@
 #' output maps) are restricted to terrestrial areas.  Uses the
 #' \code{\link{landmass}} to define what is terrestrial.  Default = TRUE.
 #'
-#' @param mcmc_rescale_distances numerical. rescaling factor for the distance calculation
-#' @param mcmc_iterations numerical. the number of iterations for the MCMC, by default 100,000
+#' @param mcmc_rescale_distances numerical. rescaling factor for the
+#' distance calculation
+#' @param mcmc_iterations numerical. the number of iterations for the MCMC,
+#' by default 100,000
 #' @param mcmc_burnin numerical. the burnin for the MCMC, default is to o
-#' @param mcmc_outfile character string. the path on where to write the results of the MCMC, optional.
+#' @param mcmc_outfile character string. the path on where to write
+#' the results of the MCMC, optional.
 #' @param ncores numerical.  The number of cores used for parallel computing.
 #' Must be lower than the available number of cores. Not finally implemented in
 #' version 0.1.0.
@@ -116,14 +119,14 @@ calculate_bias <- function(x,
                           gaz = NULL,
                           res = 1,
                           buffer = NULL,
-                          convexhull = F,
-                          terrestrial = T,
+                          convexhull = FALSE,
+                          terrestrial = TRUE,
                           mcmc_rescale_distances = 1000,
                           mcmc_iterations = 1e+05,
                           mcmc_burnin = 0,
                           mcmc_outfile = NULL,
                           ncores = 1,
-                          verbose = T) {
+                          verbose = TRUE) {
 
   #convert x to SpatialPoints
   dat.pts <- sp::SpatialPoints(x[, c("decimallongitude", "decimallatitude")])

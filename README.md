@@ -10,14 +10,10 @@ Species occurrence datasets derived from biological collections or human observa
 
 *Sampbias* is a method and tool to 1) visualize the distribution of occurrence records and species in any user-provided dataset, 2) quantify the biasing effect of geographic features related to human accessibility, such as proximity to cities, rivers or roads, and 3) create publication-level graphs of these biasing effects in space.
 
-*Sampbias* evaluates the biasing effect of geographic features by comparing the statistical distance distribution observed in a user-provided dataset to a simulated distribution expected under random sampling. The method is scale independent, and any multi-species occurrence records can be tested against any set of geographic gazetteers (reliability increases with increasing dataset size). Default large-scale gazetteers for airports, cities, rivers and roads are provided with the package. Species Occurrence data as downloaded from the data portal of the Global Biodiversity Information Facility (GBIF) can be directly used as input data for *sampbias*. The output of the package includes measures of bias effect, comparison between different gazetteers (e.g. comparing biasing effect of roads and rivers), different taxa (e.g. birds vs. flowering plants) and different datasets (e.g. specimens vs human observations).
-
 The results of *sampbias* can be used to identify priority for further collection or digitalisation efforts, provide bias surfaces for species distribution modelling, or assess the reliability of scientific results based on publicly available species distribution data.
 
-*Sampbias* thus offers an efficient, largely automated means for biodiversity scientists and non-specialists alike to further explore species occurrence data. 
-
 # Examples
-Example datasets for the R package are provided in the example_data folder. Further explanations on how to use *sampbias* and the theoretical background can be found on the gitHub wiki page. A build version of the package can be downloaded form the repository, or directly from R using the code shown in the wiki and below. The graphical-user-interface-based shiny app can be accessed at https://azizka.shinyapps.io/sampbias/.
+Example datasets for *sampbias* and a tutorial on how to use it are provided with the package.
 
 # For the impatient
 ```{r}

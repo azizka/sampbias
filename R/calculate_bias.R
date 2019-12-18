@@ -60,9 +60,6 @@
 #' @param mcmc_burnin numerical. the burnin for the MCMC, default is to o
 #' @param mcmc_outfile character string. the path on where to write
 #' the results of the MCMC, optional.
-#' @param ncores numerical.  The number of cores used for parallel computing.
-#' Must be lower than the available number of cores. Not finally implemented in
-#' version 0.1.0.
 #' @param verbose logical.  If TRUE, progress is reported.  Default = TRUE.
 #' @return An object of the S3-class \sQuote{sampbias}, which is a list
 #' including the following objects: \item{summa}{A list of summary statistics
@@ -125,7 +122,6 @@ calculate_bias <- function(x,
                           mcmc_iterations = 1e+05,
                           mcmc_burnin = 0,
                           mcmc_outfile = NULL,
-                          ncores = 1,
                           verbose = TRUE) {
 
   #convert x to SpatialPoints
@@ -200,8 +196,7 @@ calculate_bias <- function(x,
     ## create distance raster for all gazeteers
     dis.ras <- dis_rast(gaz = gaz,
                         ras = occ.out,
-                        buffer = buffer,
-                        ncores = ncores)
+                        buffer = buffer)
     if (terrestrial) {
       dis.ras <- lapply(dis.ras, function(k) mask(k, wrld))
     }

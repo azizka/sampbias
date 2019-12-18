@@ -4,7 +4,7 @@
 \alias{dis_rast}
 \title{Distance Rasters from a List of Geographic Gazetteers}
 \usage{
-dis_rast(gaz, ras, buffer = NULL, ncores = 1)
+dis_rast(gaz, ras, buffer = NULL)
 }
 \arguments{
 \item{gaz}{an object of the class \code{list}, including one or more
@@ -18,10 +18,6 @@ resolution of the distances rasters.}
 extent of ras for the distance calculations in degrees, to account for
 geographic structures neighbouring the study area (such as a road right
 outside the study area) Default is to the resolution of \code{ras}.}
-
-\item{ncores}{numerical.  The number of cores used for parallel computing.
-Must be lower than the available number of cores. Not finally implemented in
-version 0.1.0.}
 }
 \value{
 a \code{list} of \code{raster} objects of the same length as

@@ -9,14 +9,13 @@ calculate_bias(
   gaz = NULL,
   res = 1,
   buffer = NULL,
-  convexhull = F,
-  terrestrial = T,
+  convexhull = FALSE,
+  terrestrial = TRUE,
   mcmc_rescale_distances = 1000,
   mcmc_iterations = 1e+05,
   mcmc_burnin = 0,
   mcmc_outfile = NULL,
-  ncores = 1,
-  verbose = T
+  verbose = TRUE
 )
 }
 \arguments{
@@ -49,17 +48,16 @@ output maps) is restricted to cells within a convex hull polygon around
 output maps) are restricted to terrestrial areas.  Uses the
 \code{\link{landmass}} to define what is terrestrial.  Default = TRUE.}
 
-\item{mcmc_rescale_distances}{numerical. rescaling factor for the distance calculation}
+\item{mcmc_rescale_distances}{numerical. rescaling factor for the
+distance calculation}
 
-\item{mcmc_iterations}{numerical. the number of iterations for the MCMC, by default 100,000}
+\item{mcmc_iterations}{numerical. the number of iterations for the MCMC,
+by default 100,000}
 
 \item{mcmc_burnin}{numerical. the burnin for the MCMC, default is to o}
 
-\item{mcmc_outfile}{character string. the path on where to write the results of the MCMC, optional.}
-
-\item{ncores}{numerical.  The number of cores used for parallel computing.
-Must be lower than the available number of cores. Not finally implemented in
-version 0.1.0.}
+\item{mcmc_outfile}{character string. the path on where to write
+the results of the MCMC, optional.}
 
 \item{verbose}{logical.  If TRUE, progress is reported.  Default = TRUE.}
 }

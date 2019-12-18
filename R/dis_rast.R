@@ -53,7 +53,7 @@
 #'@importFrom sp SpatialPointsDataFrame SpatialLinesDataFrame SpatialLines Lines Line
 #'@importFrom raster crop extent raster res
 #'
-dis_rast <- function(gaz, ras, buffer = NULL, ncores = 1) {
+dis_rast <- function(gaz, ras, buffer = NULL) {
 
   # create buffer, if none is supplied
   if (is.null(buffer)) {

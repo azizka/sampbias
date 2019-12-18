@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.12.7)  18 DEC 2019 11:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.12.7)  18 DEC 2019 13:20
 entering extended mode
 **./manuscript.tex
 (manuscript.tex
@@ -1118,7 +1118,7 @@ LaTeX Font Info:    Try loading font information for T1+lmtt on input line 178.
 
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\t1lmtt.fd"
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [5] [6]
+) [5]
 LaTeX Font Info:    Try loading font information for OT1+lmr on input line 193.
 
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\ot1lmr.fd"
@@ -1164,7 +1164,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\microtype\mt-ms
 b.cfg"
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
-) [7] [8] [9]
+) [6] [7] [8] [9]
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
 (Font)              Font shape `T1/lmtt/b/n' tried instead on input line 227.
 
@@ -1193,13 +1193,13 @@ Package logreq Info: Writing requests to 'manuscript.run.xml'.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 404.
  ) 
 Here is how much of TeX's memory you used:
- 21225 strings out of 492970
- 344681 string characters out of 3125262
+ 21231 strings out of 492970
+ 344751 string characters out of 3125262
  804924 words of memory out of 3000000
  24640 multiletter control sequences out of 15000+200000
- 63225 words of font info for 103 fonts, out of 3000000 for 9000
+ 63616 words of font info for 106 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 36i,12n,43p,1753b,745s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 36i,12n,43p,1748b,745s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec
 .enc}{C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/lm/lm
 -rm.enc}{C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/lm
@@ -1221,7 +1221,7 @@ public/lm/lmtk10.pfb><C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts
 /type1/public/lm/lmtt12.pfb><C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.
 9/fonts/type1/public/lm/lmtti10.pfb><C:/Users/az64mycy/AppData/Local/Programs/M
 iKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on manuscript.pdf (18 pages, 664992 bytes).
+Output written on manuscript.pdf (18 pages, 665047 bytes).
 PDF statistics:
  279 PDF objects out of 1000 (max. 8388607)
  90 named destinations out of 1000 (max. 500000)

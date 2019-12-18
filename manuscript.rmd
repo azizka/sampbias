@@ -22,6 +22,7 @@ header-includes: |
     \usepackage{lineno}
     \linenumbers
     \usepackage[url=false]{biblatex}
+    \usepackage{setspace}
 linestretch: 2
 fontsize: 12pt
 always_allow_html: yes
@@ -96,13 +97,12 @@ where the likelihood of sampled occurrences $S_i$ within each cell $Poi(S_i | \l
 
 We summarize the parameters by computing the mean of the posterior samples and their standard deviation. We interpret the magnitude of the elements in $\mathbf{w}$ as a function of the importance of the individual biases. We note however that this test is not explicitly intended to assess the significance of each bias predictor (for which a Bayesian variable selection could be used), particularly since several sources of bias might be correlated (e.g. cities, and airports). Instead, these analyses can be use to quantify the expected amount of bias in the data that can be predicted by single or multiple predictors in order to identify under-sampled and unexplored areas. 
 
-[**Daniele some text here on the projection of bias through time, and what the plots exactly show**] 
+[**Daniele some text here on the projection of bias through space, and what the plots exactly show**] 
 
 ## Example and Empirical analysis
 A default *sampbias* analysis can be run with few lines of code in R. The main function `calculate_bias` creates an object of the class `"sampbias"`, for which the package provides a plotting and summary method. Based on a `data.frame` including species identity and geographic coordinates. Additionally, some options exist to provide custom gazetteers, custom distances for the bias estimation, a custom grain size of the analysis, as well as some operators for the calculation of the bias distances. A tutorial on how to use sampbias is available with the package and in the electronic supplement of this publication (Appendix S1). 
 
-To exemplify the use and output of sampbias, we downloaded the occurrence records of all mammals available from the Indonesian island of Borneo [@gbifdoi2016], and ran *sampbias* as shown in the example code below, to test the biasing effect of airports, cities and roads in the dataset. The example dataset is provided with the *sampbias*. On a 0.05 degree scale (~ 5 km) we found 
-(Fig. \ref{fig:empirical}). 
+To exemplify the use and output of *sampbias*, we downloaded the occurrence records of all mammals available from the Indonesian island of Borneo [n = 6,262, @gbifdoi2016], and ran *sampbias* using the default gazetteers as shown in the example code below, to test the biasing effect of the main airports, cities and roads in the dataset. The example dataset is provided with the *sampbias*. We found a strong effect of cities on sampling intensity, a moderate effect of roads and airports and no effect of rivers (Fig. \ref{fig:empirical}A). All models predict a low number of collection records in the centre of Borneo, which reflects the original data, and where accessibility means are low (Figure S1 in Appendix S1). We ran this example to illustrate the use of *sampbias* For detailed analyses or a smaller geographic scale, higher resolution gazetteers, including smaller roads and rivers  and a higher spatial resolution would be desirable. Results might change with increasing resolution, since roads and rivers might have a stronger effect on higher resolutions (facilitating most the access to their immediate vicinity), whereas cities and airports might have an effect on the larger scale (facilitating access to a larger area).
 
 ```{r, eval = FALSE}
 library(sampbias)
@@ -125,11 +125,10 @@ plot(example.out)
 #project in space
 proj <- project_bias(example.out)
 map_bias(proj)
-
 ```
 
 # Data accessibility
-The software presented here is available under a GPL-3 license. The *sampbias* R package is available https://github.com/azizka/sampbias. The R package includes an example dataset as well as vignetts detailing the use of the R package (Appendix S1),  and possibly warnings produced by the package (Appendix S2).
+The software presented here is available under a GPL-3 license. The *sampbias* R package is available https://github.com/azizka/sampbias. The R package includes an example dataset as well as vignettes detailing the use of the R package (Appendix S1),  and possibly warnings produced by the package (Appendix S2).
 
 <!-- # Acknowledgements -->
 <!-- We thank the organizers of the 2016 Ebben Nielsen challenge for inspiring and recognizing this research. We thank all data collectors and contributors to GBIF for their effort. -->
@@ -145,8 +144,11 @@ knitr::include_graphics(path = "ms_figures/figure_empirical_results.jpg")
 
 # Supplementary material
 
-Appendix S1 - Tutorial running sampbias in R
+Appendix S1 - Supplementary Figure
 
-Appendix S2 - Possible warnings and their solutions
+Appendix S2 - Tutorial running sampbias in R
 
+Appendix S3 - Possible warnings and their solutions
+
+\newpage{}
 # References

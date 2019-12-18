@@ -89,6 +89,18 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "sp",
+      "name": "sp",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=sp"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "dplyr",
       "name": "dplyr",
       "provider": {
@@ -176,18 +188,6 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "sp",
-      "name": "sp",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=sp"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "tidyr",
       "name": "tidyr",
       "provider": {
@@ -212,7 +212,9 @@
     }
   ],
   "readme": "https://github.com/azizka/sampbias/blob/master/README.md",
-  "fileSize": "9483.897KB",
-  "contIntegration": ["https://travis-ci.org/azizka/sampbias", "https://codecov.io/github/azizka/sampbias"],
+  "contIntegration": [
+    "https://travis-ci.org/azizka/sampbias",
+    "https://codecov.io/github/azizka/sampbias"
+  ],
   "developmentStatus": "https://www.repostatus.org/#active"
 }

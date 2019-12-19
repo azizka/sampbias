@@ -6,6 +6,6 @@
 shiny/shiny.Rproj
 ms_figures/
 ms_feedback/
-*.pdf
+#*.pdf
 original_data
-manuscript.pdf
+#manuscript.pdf

@@ -21,7 +21,7 @@ calculate_bias(
 \arguments{
 \item{x}{an object of the class \code{data.frame}, with one species
 occurrence record per line, and at least three columns, named
-\sQuote{species}, \sQuote{decimallongitude}, and \sQuote{decimallatitude}.}
+\sQuote{species}, \sQuote{decimalLongitude}, and \sQuote{decimalLatitude}.}
 
 \item{gaz}{a list of geographic gazetteers as \code{SpatialPointDataFrame}
 or \code{SpatialLinesDataFrame}.  If NULL, a set of default gazetteers,
@@ -116,8 +116,8 @@ sampbias.
 
 #simulate data
 occ <- data.frame(species = rep(sample(x = LETTERS, size = 5), times = 10),
-                  decimallongitude = runif(n = 50, min = -5, max = 5),
-                  decimallatitude = runif(n = 50, min = -4, max = 4))
+                  decimalLongitude = runif(n = 50, min = -5, max = 5),
+                  decimalLatitude = runif(n = 50, min = -4, max = 4))
 
 
 

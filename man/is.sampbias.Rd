@@ -24,8 +24,8 @@ With one argument, returns all the super-classes of this object's class.
 
 #simulate data
 occ <- data.frame(species = rep(sample(x = LETTERS, size = 5), times = 10),
-                  decimallongitude = runif(n = 50, min = -5, max = 5),
-                  decimallatitude = runif(n = 50, min = -4, max = 4))
+                  decimalLongitude = runif(n = 50, min = -5, max = 5),
+                  decimalLatitude = runif(n = 50, min = -4, max = 4))
 
 
 #create point gazetteer

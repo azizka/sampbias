@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/azizka/sampbias.svg?branch=master)](https://travis-ci.org/azizka/sampbias)
 [![codecov.io](https://codecov.io/github/azizka/sampbias/graphs/badge.svg?branch=master)](https://codecov.io/github/azizka/sampbias)
 
-*Sampbias* is a statistical method to evaluate and visualise geographic sampling biases in species distribution datasets, implemented as an R package and graphical-user-interface shiny app.
+*Sampbias* is a statistical method to evaluate and visualise geographic sampling biases in species distribution datasets, implemented as an R package.
 
 # Description
 Species occurrence datasets derived from biological collections or human observations are widely used in biological sciences, including ecology, conservation, systematics and evolution. However, such data are often geographically biased, with remote areas being strongly under sampled. Although spatial and taxonomic biases are widely recognised by the scientific community, few attempts have been made to quantify their strength and to discern among different sources of biases. The implications of not considering biases in biodiversity research have not yet been thoroughly assessed, but are likely to be substantial. Therefore, it is advisable that any study dealing with species occurrence data - either carefully validated or directly downloaded - should assess the biases covered by this package.     

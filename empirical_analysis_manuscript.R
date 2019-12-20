@@ -1,5 +1,6 @@
 library(sampbias)
 library(cowplot)
+library(ggplot2)
 
 occ <-read.csv(system.file("extdata", "mammals_borneo.csv", package="sampbias"), sep = "\t")
 
@@ -22,7 +23,7 @@ proj <- project_bias(out)
 p2 <- map_bias(proj)
 
 
-ggsave(p1, filename = "ms_figures/figure_empirical_results.jpg", height = 8, width = 8)
+ggsave(p2, filename = "ms_figures/figure_empirical_results_spatial_projection.jpg", height = 8, width = 8)
 
 
 

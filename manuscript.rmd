@@ -1,15 +1,15 @@
 ---
-title: "Sampbias, a method to evaluate geographic sampling bias in species distribution data"
+title: "Sampbias, a method to quantify geographic sampling bias in species distribution data"
 #author: "Alexander Zizka^1,2,3^, Alexandre Antonelli^3,4,5^, Daniele Silvestro^3,4^"
 bibliography: sampbias.bib
 csl: ecography.csl
 output: 
-  bookdown::pdf_document2:
-  #word_document:
+  #bookdown::pdf_document2:
+  word_document:
     toc: false
     toc_depth: 1
-    fig_caption: true
-    number_sections: false
+   # fig_caption: true
+    #number_sections: false
 header-includes: |
     \usepackage{caption}
     \usepackage{fancyhdr}
@@ -45,7 +45,7 @@ library(sampbias)
 \newpage{}
 
 # Abstract
-Georeferenced species occurrences from public databases have become essential to biodiversity research and conservation, but have limitations. Geographically biased sampling is a widely recognized issue that might severely affect analyses. Especially "roadside bias", i.e. differences in sampling intensity among localities caused by differences in accessibility for humans is ubiquitous and might differ in strength among taxonomic groups and datasets. While several bias factors exist, here defined as anthropogenic or natural features that facilitate human accessibility (e.g. roads, rivers, airports, cities), quantifying their effect on occurrence data remains difficult. Here we present *sampbias*, an algorithm and software to quantify the effect of roadside  in species occurrence datasets. *Sampbias* uses a Bayesian approach to estimate how sampling rates vary as a function of proximity to one or multiple bias factors. The results are comparable among bias factors and datasets. *Sampbias* is implemented as a user-friendly R package. We demonstrate the use of *sampbias* on a dataset of mammal occurrences from the Indonesian island of Borneo, showing a high biasing effect of cities and a moderate effect of roads and airports.
+Georeferenced species occurrences from public databases have become essential to biodiversity research and conservation, but have limitations. Geographically biased sampling is a widely recognized issue that might severely affect analyses. Especially "accessibility bias", i.e. differences in sampling intensity among localities caused by differences in accessibility for humans is ubiquitous and might differ in strength among taxonomic groups and datasets. While several bias factors exist, here defined as anthropogenic or natural features that facilitate human accessibility (e.g. roads, rivers, airports, cities), quantifying their effect on occurrence data remains difficult. Here we present *sampbias*, an algorithm and software to quantify the effect of accessibility bias in species occurrence datasets. *Sampbias* uses a Bayesian approach to estimate how sampling rates vary as a function of proximity to one or multiple bias factors. The results are comparable among bias factors and datasets. *Sampbias* is implemented as a user-friendly R package. We demonstrate the use of *sampbias* on a dataset of mammal occurrences from the Indonesian island of Borneo, showing a high biasing effect of cities and a moderate effect of roads and airports.
 
 # Keywords
 Collection effort, Global biodiversity Information Facility (GBIF), Presence only data, Roadside bias, Sampling intensity
@@ -57,31 +57,29 @@ Publicly available datasets of geo-referenced species occurrences, such as provi
 
 The number of occurrence available in such datasets is likely biased by factors other than species' presence or abundance, including the under-sampling of specific taxa ("taxonomic bias", e.g., birds *vs.* nematodes), specific geographic regions ("geographic bias", i.e. easily accessible *vs.* remote areas), and specific temporal periods ["temporal bias", i.e. wet season *vs.* dry season, @Isaac2015; @Boakes2010]. Geographic sampling bias---the fact that sampling effort is spatially biased, rather than equally distributed over the study area---is prevalent in all non-systematically collected datasets of species distributions. Many factors can can cause sampling bias, including socio-economic factors [i.e. national research spending, history of scientific research; www.bio-dem.surge.sh, @Meyer2015; @Daru2018], political factors [armed conflict, democratic rights; @Ryden2019], and physical accessibility [i.e. distance to a road or river, terrain conditions, slope; @Yang2014; @Botts2011]. Especially physical accessibility is omnipresent as a biasing factor [e.g. @Lin2015; @Engemann2015; @Kadmon2004], across spatial scales, and the term "roadside bias" has been coined for it. In practice, this means that most species observations  are made in or near cities, along roads and rivers, and near other human settlements. Relatively fewer observations are expected to be available from the middle of a tropical rainforest or from a mountain top. Interestingly, since the observation of different taxonomic groups has different challenges, geographic sampling bias and the effect of accessibility may differ among taxonomic groups [@Vale2012].
 
-The implications of not considering geographic sampling bias in biodiversity research are likely  substantial [@Meyer2016; @Rocchini2015; @Shimadzu2015;  @Yang2013; @Kramer-Schadt2013; @Barbosa2013]. While the presence of geographic sampling bias is broadly recognized [e.g. @Kadmon2004], and approaches exist to account for them in some analyses---for instance for species-richness estimates [@Engemann2015] species distribution models [@Stolar2015;@Beck2014; @Fithian2014; @Warren2014; @Boria2014; @Varela2014; @Fourcade2014; @Monsarrat2019], occupancy models [@Kery2016], or abundance estimates [@Shimadzu2015]---few attempts have been made to explicitly quantify the bias [@Kadmon2004; @Hijmans2000] or to discern among different sources of bias [@Fernandez2015; @Ruete2015; @Fithian2014], and to our knowledge, no tools exist for comparing the strength of accessibility bias among sources of bias or datasets. We define as *bias factors* any anthropogenic or natural features that facilitate human accessibility and sampling, such as roads, rivers, airports, and cities.
+The implications of not considering geographic sampling bias in biodiversity research are likely  substantial [@Meyer2016; @Rocchini2015; @Shimadzu2015;  @Yang2013; @Kramer-Schadt2013; @Barbosa2013]. While the presence of geographic sampling bias is broadly recognized [e.g. @Kadmon2004], and approaches exist to account for it in some analyses---for instance for species-richness estimates [@Engemann2015] species distribution models [@Stolar2015;@Beck2014; @Fithian2014; @Warren2014; @Boria2014; @Varela2014; @Fourcade2014; @Monsarrat2019], occupancy models [@Kery2016], or abundance estimates [@Shimadzu2015]---few attempts have been made to explicitly quantify the bias [@Kadmon2004; @Hijmans2000] or to discern among different sources of bias [@Fernandez2015; @Ruete2015; @Fithian2014], and to our knowledge, no tools exist for comparing the strength of accessibility bias among bias factors or datasets. We define as *bias factors* any anthropogenic or natural features that facilitate human accessibility and sampling, such as roads, rivers, airports, and cities.
 
-
-
-While it is unrealistic to expect that spatial biases in biodiversity data will ever disappear, it is crucial that researchers realise the intrinsic bias associated with the  data they are dealing with. This is the first step towards estimating to which extent these biases may affect their analyses, results, and conclusions drawn from such data. Therefore, it is advisable for any study dealing with species occurrence data to assess the strength of accessibility bias in the underlying data.
-Finally, a quantification of spatial sampling biases can help researchers to target their sampling efforts.
+While it is unrealistic to expect that accessibility in biodiversity data will ever disappear, it is crucial that researchers realise the intrinsic bias associated with the  data they are dealing with. This is the first step towards estimating to which extent these biases may affect their analyses, results, and conclusions drawn from such data. Therefore, it is advisable for any study dealing with species occurrence data to assess the strength of accessibility bias in the underlying data.
+Finally, a quantification of accessibility bias can help researchers to target their sampling efforts.
 
 Here, we present *sampbias*, a probabilistic method to quantify accessibility bias in datasets of species occurrences, in a way that is comparable across datasets. *Sampbias* is implemented as user-friendly R-package and uses a Bayesian approach to address three questions:
 
 1) How strong is the accessibility bias in a given dataset?
 
-2) How important are different factors in causing this bias?
+2) How important are different bias factors in causing this bias?
 
-3) How is sampling bias distributed in space, i.e. which areas are a priority for targeted sampling?
+3) How is accessibility bias distributed in space, i.e. which areas are a priority for targeted sampling?
 
 *Sampbias* is implemented in R [@rcoreteam2019], based on commonly used packages for data handling  [`ggplot`, @Wickham2009; `tidyr`, @Wickham2019a; `dplyr`, @Wickham2019; `forcats`, @Wickham2019b; `magrittr`, @Bache2014; `viridis`, @Garnier2018], handling geographic information and geo-computation [`raster`, @Hijmans2019; `sp`, @Pebesma2005; @Bivand2013] and statistical modelling [`stats`, @rcoreteam2019]. *Sampbias* offers an easy and largely automated means for biodiversity scientists and non-specialists alike to explore bias in species occurrence data and may be used to identify priorities for further collection or digitalization efforts, provide bias surfaces for species distribution modelling, or assess the reliability of scientific results based on publicly available species distribution data.
 
 # Methods and Features
 ## General concept
-Under the assumption that organisms exist across the entire area of interest, we can expect the number of sampled occurrences in a restricted areas, such as a single biome, to be distributed uniformly in space (even though, of course, the density of individuals and the species diversity may be heterogeneous). With *sampbias* we assess to which extent variation in sampling rates can be explained by distance from factors that potentially bias their sampling probability (e.g. cities or roads). 
+Under the assumption that organisms exist across the entire area of interest, we can expect the number of sampled occurrences in a restricted areas, such as a single biome, to be distributed uniformly in space (even though, of course, the density of individuals and the species diversity may be heterogeneous). With *sampbias* we assess to which extent variation in sampling rates can be explained by distance from bias factors. 
 
 *Sampbias* works on a user-defined scale, and any dataset of multi-species occurrence records can be tested against any geographic gazetteer (reliability increases with increasing dataset size). Default global gazetteers for airports, cities, rivers and roads are provided with *sampbias*. Species occurrence data as downloaded from the data portal of GBIF can be directly used as input data for *sampbias*. The output of the package includes measures of the sampling rates across space, which are comparable between different gazetteers (e.g. comparing the biasing effect of roads and rivers), different taxa (e.g. birds *vs.* flowering plants) and different data sets (e.g. specimens *vs.* human observations).
 
 ## Distance calculation
-*Sampbias* uses gazetteers of the geographic location of bias factors (e.g. roads) to generate a regular grid across the study area (the geographic extent of the dataset). For each grid cell $i$, we then compute a vector $X_i(j)$ of minimum distances (straight aerial distance, "as the crow flies") to each bias factor $j \in B$. 
+*Sampbias* uses gazetteers of the geographic location of bias factors to generate a regular grid across the study area (the geographic extent of the dataset). For each grid cell $i$, we then compute a vector $X_i(j)$ of minimum distances (straight aerial distance, "as the crow flies") to each bias factor $j \in B$. 
 The resolution of the grid defines the precision of the distance estimates, for instance a 1x1 degree raster will yield approximately a 100 km precision at the equator.  Due to the assumption of homogeneous sampling and a computational trade-off between the resolution of the distance raster and the extent of the study area (for instance, a 1000 m resolution for a global dataset would lead to the generation of grid  for which distance calculation will become computationally prohibitive in most practical cases), *sampbias* is best suited for local or regional datasets at high resolution (c. 100 -- 10,000 m).
 
 ## Quantifying accessibility bias using a Bayesian framework
@@ -101,7 +99,7 @@ P(q, \mathbf{w} | \mathbf{S}) \propto \prod_{i=1}^{N}{ Poi(S_i | \lambda_i) } \t
 $$
 where the likelihood of sampled occurrences $S_i$ within each cell $Poi(S_i | \lambda_i)$ is the probability mass function of a Poisson distribution with rate per cell defined as in Eqn. (1). The likelihood is then multiplied across the $N$ cells considered. We used exponential priors on the parameters $q$ and $\mathbf{w}$, $P(q) \sim \Gamma(1, 0.01)$ and $P(\mathbf{w}) \sim \Gamma(1, 1)$, respectively. 
 
-We summarize the parameters by computing the mean of the posterior samples and their standard deviation. We interpret the magnitude of the elements in $\mathbf{w}$ as a function of the importance of the individual biases. We note, however, that this test is not explicitly intended to assess the significance of each bias factor (for which a Bayesian variable selection method could be used), particularly since several sources of bias might be correlated (e.g. cities, and airports). Instead, these analyses can be use to quantify the expected amount of bias in the data that can be predicted by single or multiple predictors in order to identify under-sampled and unexplored areas. 
+We summarize the parameters by computing the mean of the posterior samples and their standard deviation. We interpret the magnitude of the elements in $\mathbf{w}$ as a function of the importance of the individual biases. We note, however, that this test is not explicitly intended to assess the significance of each bias factor (for which a Bayesian variable selection method could be used), particularly since several bias factors might be correlated (e.g. cities, and airports). Instead, these analyses can be use to quantify the expected amount of bias in the data that can be predicted by single or multiple predictors in order to identify under-sampled and unexplored areas. 
 
 We summarize the results by mapping the estimated sampling rates ($\lambda_i$) across space. These rates represent the expected number of sampled occurrences for each grid cell and provide a graphical representation of the spatial variation of sampling rates. 
 Provided that the cells are of comparable size, the estimated rates will be comparable across data sets, regions, and taxonomic groups. 
@@ -111,7 +109,7 @@ Analyzing different regions, biomes, or taxa in separate analyses allows to acco
 ## Example and Empirical analysis
 A default *sampbias* analysis can be run with few lines of code in R. The main function `calculate_bias` creates an object of the class `"sampbias"`, for which the package provides a plotting and summary method. Based on a `data.frame` including species identity and geographic coordinates. Additionally, some options exist to provide custom gazetteers, custom distances for the bias estimation, a custom grain size of the analysis, as well as some operators for the calculation of the bias distances. A tutorial on how to use sampbias is available with the package and in the electronic supplement of this publication (Appendix S1). 
 
-To exemplify the use and output of *sampbias*, we downloaded the occurrence records of all mammals available from the Indonesian island of Borneo [n = 6,262, @gbifdoi2016], and ran *sampbias* using the default gazetteers as shown in the example code below, to test the biasing effect of the main airports, cities and roads in the dataset. The example dataset is provided with the *sampbias*. We found a strong effect of cities on sampling intensity, a moderate effect of roads and airports and negligible effect of rivers (Fig. \ref{fig:empirical}A). All models predict a low number of collection records in the centre of Borneo, which reflects the original data, and where accessibility means are low (Figure S1 in Appendix S1). The empirical example illustrates the use of *sampbias*, for detailed analyses or a smaller geographic scale, higher resolution gazetteers, including smaller roads and rivers and a higher spatial resolution would be desirable. Results might change with increasing resolution, since roads and rivers might have a stronger effect on higher resolutions (facilitating most the access to their immediate vicinity), whereas cities and airports might have a stronger effect on the larger scale (facilitating access to a larger area).
+To exemplify the use and output of *sampbias*, we downloaded the occurrence records of all mammals available from the Indonesian island of Borneo [n = 6,262, @gbifdoi2016], and ran *sampbias* using the default gazetteers as shown in the example code below, to test the biasing effect of the main airports, cities and roads in the dataset. The example dataset is provided with *sampbias*. We found a strong effect of cities on sampling intensity, a moderate effect of roads and airports and negligible effect of rivers (Fig. \ref{fig:empirical}). All models predict a low number of collection records in the centre of Borneo (Fig. \ref{fig:spatial}), which reflects the original data, and where accessibility means are low (Figure S1 in Appendix S1). The empirical example illustrates the use of *sampbias*, for detailed analyses or a smaller geographic scale, higher resolution gazetteers, including smaller roads and rivers and a higher spatial resolution would be desirable. Results might change with increasing resolution, since roads and rivers might have a stronger effect on higher resolutions (facilitating most the access to their immediate vicinity), whereas cities and airports might have a stronger effect on the larger scale (facilitating access to a larger area).
 
 ```{r, eval = FALSE}
 library(sampbias)
@@ -137,7 +135,7 @@ map_bias(proj)
 ```
 
 # Data accessibility
-*Sampbias* is available under a GPL-3 license from https://github.com/azizka/sampbias, and includes an example dataset as well as a tutorial to run *sampbias* (Appendix S2) and as summary of possibly warnings produced by the package (Appendix S3).
+*Sampbias* is available under a GPL-3 license from https://github.com/azizka/sampbias, and includes the example dataset as well as a tutorial (Appendix S2) and a summary of possibly warnings produced by the package (Appendix S3).
 
 <!-- # Acknowledgements -->
 <!-- We thank the organizers of the 2016 Ebben Nielsen challenge for inspiring and recognizing this research. We thank all data collectors and contributors to GBIF for their effort. -->
@@ -148,18 +146,19 @@ All authors conceived of this study, AZ and DS developed the statistical algorit
 
 # Figures
 <!-- empirical results -->
-```{r empirical, out.width = "6in", echo = FALSE, fig.cap = "Results of a \textit{sampbias} analysis. A) bias weights ($w$) defining the effects of each bias factor, B) the sampling rates as function of distance to the colsest instance of each biasing factor (i.e. expected number of occurrences) given the inferred *sampbias* model. At the study scale of 0.05 degrees (~5 km)\\textit{sampbias} finds the strongest biasing effect for the proximity of cities and roads.", eval = TRUE}
+```{r empirical, out.width = "6in", echo = FALSE, fig.cap = "Results of a \\textit{sampbias} analysis. A) bias weights ($w$) defining the effects of each bias factor, B) the sampling rates as function of distance to the closest instance of each biasing factor (i.e. expected number of occurrences) given the inferred \\textit{sampbias} model. At the study scale of 0.05 degrees (~5 km) \\textit{sampbias} finds the strongest biasing effect for the proximity of cities and roads.", eval = TRUE}
 knitr::include_graphics(path = "ms_figures/figure_empirical_results.jpg")
 ```
 
 ```{r spatial, out.width = "6in", echo = FALSE, fig.cap = "The spatial projection of the estimated sampling rates in an empirical example dataset of mammal occurrences on the Indonesian island of Borneo from www.gbif.org. The colours show the projection of the sampling rates (i.e. expected number of occurrences per cell) given the inferred \textit{sampbias} model. The highest undersampling is in the center of the island.", eval = TRUE}
-knitr::include_graphics(path = "ms_figures/figure_empirical_results.jpg")
+knitr::include_graphics(path = "ms_figures/figure_empirical_results_spatial_projection.jpg")
 ```
 
+\newpage{}
 
 # Supplementary material
 
-Appendix S1 - Supplementary Figure
+Appendix S1 - Supplementary Figure S1
 
 Appendix S2 - Tutorial running sampbias in R
 

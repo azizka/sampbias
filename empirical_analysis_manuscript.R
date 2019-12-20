@@ -16,13 +16,17 @@ out <- calculate_bias(occ, res = 0.05, buffer = 0.5)
 p1 <- plot(out)
 summary(out)
 
+ggsave(p1, filename = "ms_figures/figure_empirical_results.jpg", height = 8, width = 8)
+
 proj <- project_bias(out)
 p2 <- map_bias(proj)
 
 
-plot_out <- plot_grid(p1, p2, labels = c('A', 'B'), ncol = 1, rel_heights = c(1, 2))
+ggsave(p1, filename = "ms_figures/figure_empirical_results.jpg", height = 8, width = 8)
 
-ggsave(plot_out, filename = "ms_figures/figure_empirical_results.jpg", height = 10, width = 8)
+
+
+
 
 
 

@@ -13,7 +13,7 @@ calculate_bias(
   terrestrial = TRUE,
   mcmc_rescale_distances = 1000,
   mcmc_iterations = 1e+05,
-  mcmc_burnin = 0,
+  mcmc_burnin = 20000,
   mcmc_outfile = NULL,
   verbose = TRUE
 )

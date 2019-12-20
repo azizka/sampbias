@@ -111,6 +111,7 @@
 #' @importFrom sp SpatialPointsDataFrame SpatialLinesDataFrame SpatialLines Lines Line
 #' @importFrom rlang .data
 #' @importFrom stats complete.cases
+#' @importFrom rgeos gBuffer
 #'
 calculate_bias <- function(x,
                           gaz = NULL,
@@ -120,7 +121,7 @@ calculate_bias <- function(x,
                           terrestrial = TRUE,
                           mcmc_rescale_distances = 1000,
                           mcmc_iterations = 1e+05,
-                          mcmc_burnin = 0,
+                          mcmc_burnin = 2e+04,
                           mcmc_outfile = NULL,
                           verbose = TRUE) {
 
@@ -232,8 +233,9 @@ calculate_bias <- function(x,
     out <- .RunSampBias(x = dis.vec,
                         rescale_distances = 1000,
                         iterations = 1e+05,
-                        burnin = 0,
+                        burnin = mcmc_burnin,
                         outfile = NULL)
+
 
     # create output file, a list of the class sampbias
     if (verbose) {

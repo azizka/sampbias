@@ -10,7 +10,7 @@
   "codeRepository": "https://ropensci.github.io/sampbias/",
   "issueTracker": "https://github.com/azizka/sampbias/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -110,6 +110,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=sp"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "cowplot",
+      "name": "cowplot",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=cowplot"
     },
     {
       "@type": "SoftwareApplication",
@@ -229,5 +241,5 @@
     "https://codecov.io/github/azizka/sampbias"
   ],
   "developmentStatus": "https://www.repostatus.org/#active",
-  "fileSize": "9373.032KB"
+  "fileSize": "9376.453KB"
 }

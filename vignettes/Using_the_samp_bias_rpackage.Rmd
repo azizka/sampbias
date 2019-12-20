@@ -84,6 +84,8 @@ In addition to the input from above, `calculate_bias` offers a set of options to
 |convexhull|logical. If TRUE, the empirical distribution (and the output maps) is restricted to cells within a convex hull polygon around `x`. If FALSE a rectangle around `x` is used.  Default = FALSE.|
 |terrestrial|logical. If TRUE, the empirical distribution (and the output maps) are restricted to terrestrial areas.  Default = TRUE.|
 
+The default MCMC runs for 100,000 generations with a 20% burn-in, which has proven sufficient for most analyses. We suggest to verify that the effective sample size of the posterior estimates is large enough (e.g. > 200) using the `ESS` function of the `LaplacesDemon` package (`LaplacesDemon::ESS(bias.out$bias_estimate)`).
+
 
 # Output
 The output of `calculate_bias` is a list of different R objects. 

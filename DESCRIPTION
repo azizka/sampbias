@@ -1,7 +1,7 @@
 Package: sampbias
 Type: Package
 Title: Evaluating Geographic Sampling Bias in Biological Collections
-Version: 1.0.1
+Version: 1.0.2
 Authors@R: c(person("Alexander", "Zizka", email = "alexander.zizka@idiv.de",
              role = c("aut", "cre")),
              person("Daniele", "Silvestro", role = "aut"))
@@ -11,7 +11,7 @@ License: GPL-3
 URL: https://ropensci.github.io/sampbias/
 BugReports: https://github.com/azizka/sampbias/issues
 Depends: R(>= 2.10), rgeos, sp
-Imports: dplyr, forcats, ggplot2, graphics, grDevices, magrittr, methods, raster, rlang, tidyr, viridis
+Imports: cowplot, dplyr, forcats, ggplot2, graphics, grDevices, magrittr, methods, raster, rlang, tidyr, viridis
 Suggests: geosphere, knitr, maptools
 LazyData: TRUE
 RoxygenNote: 7.0.1

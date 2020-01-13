@@ -14,10 +14,10 @@
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.7.0",
+    "version": "4.0.0",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R Under development (unstable) (2019-09-07 r77160)",
+  "runtimePlatform": "R Under development (unstable) (2019-12-28 r77626)",
   "author": [
     {
       "@type": "Person",
@@ -241,5 +241,5 @@
     "https://codecov.io/github/azizka/sampbias"
   ],
   "developmentStatus": "https://www.repostatus.org/#active",
-  "fileSize": "9376.453KB"
+  "fileSize": "9375.417KB"
 }

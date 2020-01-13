@@ -351,7 +351,7 @@ year = {2018}
 @misc{gbifdoi2016,
 author = {GBIF.org},
 doi = {https://doi.org/10.15468/dl.7fg4zx},
-title = {{(08 September 2016) GBIF occurrence download}},
+title = {{(08 September 2016) GBIF occurrence download, doi.org/10.15468/dl.7fg4zx.}},
 year = {2016}
 }
 @article{Graham2015,
@@ -490,7 +490,7 @@ file = {:C$\backslash$:/Users/az64mycy/Dropbox (iDiv)/Literature//2004 - Kadmon 
 isbn = {1051-0761},
 issn = {10510761},
 journal = {Ecological Applications},
-keywords = {,Accuracy assessment,Biodiversity,Ecological niche models,GIS,Israel,Kappa,Species distribution,Woody plants,accuracy assessment,biodiversity,ecological niche models,gis,israel,kappa,species distribution,woody plants},
+keywords = {Accuracy assessment,Biodiversity,Ecological niche models,GIS,Israel,Kappa,Species distribution,Woody plants,accuracy assessment,biodiversity,ecological niche models,gis,israel,kappa,species distribution,woody plants},
 number = {2},
 pages = {401--413},
 title = {{Effect of roadside bias on the accuracy of predictive maps produced by bioclimatic models}},
@@ -735,16 +735,6 @@ url = {http://journals.sagepub.com/doi/10.1177/0309133311399491},
 volume = {35},
 year = {2011}
 }
-@article{Ruete2015a,
-author = {Ruete, Alejandro},
-doi = {10.3897/BDJ.3.e5361},
-file = {:C$\backslash$:/Users/az64mycy/Dropbox (iDiv)/Literature/2015 - Ruete - Biodiveristy Data Journal.pdf:pdf},
-journal = {Biodiveristy Data Journal},
-pages = {e35361},
-title = {{Displaying bias in sampling effort of data accessed from biodiversity databases using ignorance maps}},
-volume = {3},
-year = {2015}
-}
 @article{Ruete2015b,
 abstract = {Background Open-access biodiversity databases including mainly citizen science data make temporally and spatially extensive species' observation data available to a wide range of users. Such data have limitations however, which include: sampling bias in favour of recorder distribution, lack of survey effort assessment, and lack of coverage of the distribution of all organisms. These limitations are not always recorded, while any technical assessment or scientific research based on such data should include an evaluation of the uncertainty of its source data and researchers should acknowledge this information in their analysis. The here proposed maps of ignorance are a critical and easy way to implement a tool to not only visually explore the quality of the data, but also to filter out unreliable results. New information I present simple algorithms to display ignorance maps as a tool to report the spatial distribution of the bias and lack of sampling effort across a study region. Ignorance scores are expressed solely based on raw data in order to rely on the fewest assumptions possible. Therefore there is no prediction or estimation involved. The rationale is based on the assumption that it is appropriate to use species groups as a surrogate for sampling effort because it is likely that an entire group of species observed by similar methods will share similar bias. Simple algorithms are then used to transform raw data into ignorance scores scaled 0-1 that are easily comparable and scalable. Because of the need to perform calculations over big datasets, simplicity is crucial for web-based implementations on infrastructures for biodiversity information. With these algorithms, any infrastructure for biodiversity information can offer a quality report of the observations accessed through them. Users can specify a reference taxonomic group and a time frame according to the research question. The potential of this tool lies in the simplicity of its algorithms and in the lack of assumptions made about the bias distribution, giving the user the freedom to tailor analyses to their specific needs.},
 author = {Ruete, Alejandro},
@@ -777,6 +767,16 @@ url = {http://bdj.pensoft.net/articles.php?id=5361},
 volume = {3},
 year = {2015}
 }
+@article{Ruete2015a,
+author = {Ruete, Alejandro},
+doi = {10.3897/BDJ.3.e5361},
+file = {:C$\backslash$:/Users/az64mycy/Dropbox (iDiv)/Literature/2015 - Ruete - Biodiveristy Data Journal.pdf:pdf},
+journal = {Biodiveristy Data Journal},
+pages = {e35361},
+title = {{Displaying bias in sampling effort of data accessed from biodiversity databases using ignorance maps}},
+volume = {3},
+year = {2015}
+}
 @article{Ryden2019,
 author = {Ryd{\'{e}}n, Oskar and Zizka, Alexander and Jagers, Sverker C and Lindberg, Staffan I and Antonelli, Alexandre},
 doi = {10.1007/s13280-019-01210-0},
@@ -785,6 +785,7 @@ issn = {0044-7447},
 journal = {Ambio},
 keywords = {biodiversity proxy {\'{a}} democratic,environmental quality {\'{a}} review,institutions {\'{a}},{\'{a}} sustainability},
 month = {jun},
+pages = {15pp},
 title = {{Linking democracy and biodiversity conservation: Empirical evidence and research gaps}},
 url = {http://link.springer.com/10.1007/s13280-019-01210-0},
 year = {2019}
@@ -933,6 +934,13 @@ title = {{Incorporating model complexity and spatial sampling bias into ecologic
 volume = {20},
 year = {2014}
 }
+@manual{Wickham2019b,
+annote = {R package version 0.4.0},
+author = {Wickham, Hadley},
+title = {{forcats: Tools for working with categorical variables (Factors)}},
+url = {https://cran.r-project.org/package=forcats},
+year = {2019}
+}
 @book{Wickham2009,
 abstract = {Use R!},
 address = {New York},
@@ -947,13 +955,6 @@ pmid = {19791908},
 publisher = {Springer},
 title = {{ggplot2 - Elegant graphics for data analysis}},
 year = {2009}
-}
-@manual{Wickham2019b,
-annote = {R package version 0.4.0},
-author = {Wickham, Hadley},
-title = {{forcats: Tools for working with categorical variables (Factors)}},
-url = {https://cran.r-project.org/package=forcats},
-year = {2019}
 }
 @manual{Wickham2019,
 annote = {R package version 0.8.3},
@@ -985,23 +986,6 @@ title = {{Species accumulation curves and the measure of sampling effort}},
 volume = {38},
 year = {2001}
 }
-@article{Yang2013,
-abstract = {Aim Recent advances in the availability of species distributional and high- resolution environmental data have facilitated the investigation of species richness–environment relationships. However, even exhaustive distributional databases are prone to geographical sampling bias. We aim to quantify the inventory incompleteness of vascular plant data across 2377 Chinese counties and to test whether inventory incompleteness affects the analysis of richness– environment relationships and spatial predictions of species richness. Location China. Methods We used the most comprehensive database of Chinese vascular plants, which includes county-level occurrences for 29,012 native species derived from 4,236,768 specimen and literature records. For each county, we computed smoothed species accumulation curves and used the mean slope of the last 10{\%} of the curves as a proxy for inventory incompleteness. We created a series of data subsets with different levels of inventory incompleteness by excluding successively more under-sampled counties from the full data set. We then applied spatial and non-spatial regression models to each of these subsets to investigate relationships between the species richness of subsets and environ- mental factors, and to predict spatial patterns of vascular plant species richness in China. Results Log10-transformed numbers of records and documented species were strongly correlated (r = 0.97). In total, 91{\%} of Chinese counties were identified as under-sampled. After controlling for inventory incompleteness, the overall explanatory power of environmental factors markedly increased, and the strongest predictor of species richness switched from elevational range to annual wet days. Environmental models calibrated with more complete inven- tories yielded better spatial predictions of species richness. Main conclusions Our results indicate that inventory incompleteness strongly affects the explanatory power of environmental factors, the main determinants of species richness obtained from regression analyses, and the reliability of environment-based spatial predictions of species richness. We conclude that even large distributional databases are prone to geographical sampling bias, with far-reaching implications for the perception of and inferences about mac- roecological patterns.},
-author = {Yang, Wenjing and Ma, Keping and Kreft, Holger},
-doi = {10.1111/jbi.12108},
-file = {:C$\backslash$:/Users/az64mycy/Dropbox (iDiv)/Literature/2013 - Yang, Ma, Kreft - Journal of Biogeography.pdf:pdf;:C$\backslash$:/Users/az64mycy/Dropbox (iDiv)/Literature//2013 - Yang, Ma, Kreft - Journal of Biogeography.pdf:pdf;:C$\backslash$:/Users/az64mycy/Dropbox (iDiv)/Literature/2013 - Yang, Ma, Kreft - Journal of Biogeography(2).pdf:pdf},
-isbn = {1365-2699},
-issn = {03050270},
-journal = {Journal of Biogeography},
-keywords = {Biodiversity patterns,Chao1,China,Inventory incompleteness,Richness-environment relationship,Sampling effort,Species accumulation curve,Species richness prediction,Vascular plants,Wallacean shortfall,biodiversity patterns,chao1,china,envi-,inventory incompleteness,richness,richness prediction,ronment relationship,sampling effort,species,species accumulation curve,vascular plants,wallacean shortfall},
-month = {aug},
-number = {8},
-pages = {1415--1426},
-title = {{Geographical sampling bias in a large distributional database and its effects on species richness-environment models}},
-url = {http://doi.wiley.com/10.1111/jbi.12108},
-volume = {40},
-year = {2013}
-}
 @article{Yang2014,
 abstract = {Aim Effort in collecting biodiversity information often varies strongly in space and may be driven by environmental, cultural and socio-economic factors. Understanding the constraints on collecting effort is crucial for identifying potential bias in distributional databases and for making future surveys more efficient. Here we test six competing hypotheses on drivers of geographical variation in collecting effort and identify the main factors shaping the geography of floristic collections in China. Location China. Methods We used the most comprehensive database of Chinese vascular plant distributions including 4,338,516 county-level occurrences derived from herbarium specimens and literature sources. Explanatory variables were assembled representing six different hypotheses: accessibility, human population density, the ‘botanist effect', mountains, water availability and conservation priority. Ordinary least-squares models with eigenvector-based spatial filters were applied to investigate their effects on spatial patterns of two different facets of collecting effort, i.e. collection density and inventory incompleteness. Results All hypotheses except accessibility and human population density received significant support. Elevational range was the strongest predictor with a positive effect on collection density. Inventory incompleteness in turn was best predicted by human population density, but unexpectedly showed a positive effect. In contrast to previous studies, collecting effort was only weakly and negatively related to road density. Counties with herbaria had significantly higher collecting effort, and the presence of herbaria had weakly positive effects on neighbouring counties. Main conclusions Our results indicate that China's mountains are most intensively and completely collected, whereas densely populated areas are surprisingly under-sampled. Because densely populated areas are more seriously threatened by land-use change, our results show a need to increase biological collections in those areas for conservation assessment and monitoring. More generally, our study suggests that collecting effort and its environmental and socio-economic constraints have a strong region-specific component influenced by cultural context and by different botanical traditions.},
 author = {Yang, Wenjing and Ma, Keping and Kreft, Holger},
@@ -1018,4 +1002,21 @@ title = {{Environmental and socio-economic factors shaping the geography of flor
 url = {http://doi.wiley.com/10.1111/geb.12225},
 volume = {23},
 year = {2014}
+}
+@article{Yang2013,
+abstract = {Aim Recent advances in the availability of species distributional and high- resolution environmental data have facilitated the investigation of species richness–environment relationships. However, even exhaustive distributional databases are prone to geographical sampling bias. We aim to quantify the inventory incompleteness of vascular plant data across 2377 Chinese counties and to test whether inventory incompleteness affects the analysis of richness– environment relationships and spatial predictions of species richness. Location China. Methods We used the most comprehensive database of Chinese vascular plants, which includes county-level occurrences for 29,012 native species derived from 4,236,768 specimen and literature records. For each county, we computed smoothed species accumulation curves and used the mean slope of the last 10{\%} of the curves as a proxy for inventory incompleteness. We created a series of data subsets with different levels of inventory incompleteness by excluding successively more under-sampled counties from the full data set. We then applied spatial and non-spatial regression models to each of these subsets to investigate relationships between the species richness of subsets and environ- mental factors, and to predict spatial patterns of vascular plant species richness in China. Results Log10-transformed numbers of records and documented species were strongly correlated (r = 0.97). In total, 91{\%} of Chinese counties were identified as under-sampled. After controlling for inventory incompleteness, the overall explanatory power of environmental factors markedly increased, and the strongest predictor of species richness switched from elevational range to annual wet days. Environmental models calibrated with more complete inven- tories yielded better spatial predictions of species richness. Main conclusions Our results indicate that inventory incompleteness strongly affects the explanatory power of environmental factors, the main determinants of species richness obtained from regression analyses, and the reliability of environment-based spatial predictions of species richness. We conclude that even large distributional databases are prone to geographical sampling bias, with far-reaching implications for the perception of and inferences about mac- roecological patterns.},
+author = {Yang, Wenjing and Ma, Keping and Kreft, Holger},
+doi = {10.1111/jbi.12108},
+file = {:C$\backslash$:/Users/az64mycy/Dropbox (iDiv)/Literature/2013 - Yang, Ma, Kreft - Journal of Biogeography.pdf:pdf;:C$\backslash$:/Users/az64mycy/Dropbox (iDiv)/Literature//2013 - Yang, Ma, Kreft - Journal of Biogeography.pdf:pdf;:C$\backslash$:/Users/az64mycy/Dropbox (iDiv)/Literature/2013 - Yang, Ma, Kreft - Journal of Biogeography(2).pdf:pdf},
+isbn = {1365-2699},
+issn = {03050270},
+journal = {Journal of Biogeography},
+keywords = {Biodiversity patterns,Chao1,China,Inventory incompleteness,Richness-environment relationship,Sampling effort,Species accumulation curve,Species richness prediction,Vascular plants,Wallacean shortfall,biodiversity patterns,chao1,china,envi-,inventory incompleteness,richness,richness prediction,ronment relationship,sampling effort,species,species accumulation curve,vascular plants,wallacean shortfall},
+month = {aug},
+number = {8},
+pages = {1415--1426},
+title = {{Geographical sampling bias in a large distributional database and its effects on species richness-environment models}},
+url = {http://doi.wiley.com/10.1111/jbi.12108},
+volume = {40},
+year = {2013}
 }

@@ -14,6 +14,6 @@ Depends: R(>= 2.10), rgeos, sp
 Imports: cowplot, dplyr, forcats, ggplot2, graphics, grDevices, magrittr, methods, raster, rlang, tidyr, viridis
 Suggests: geosphere, knitr, maptools
 LazyData: TRUE
-RoxygenNote: 7.0.1
+RoxygenNote: 7.0.2
 VignetteBuilder: knitr
 Encoding: UTF-8

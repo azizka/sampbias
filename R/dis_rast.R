@@ -110,7 +110,7 @@ dis_rast <- function(gaz, ras, buffer = NULL) {
   dist.d <- lapply(dist.r, function(k) suppressWarnings(raster::distance(k)))
 
   ## crop resulting distance raster to study area
-    if (buffer%%as.numeric(as.character(res(ras)[1])) == 0) {
+    if ( .DecimalPlaces(buffer/as.numeric(as.character(res(ras)[1]))) == 0) {
       dist.out <- lapply(dist.d, function(k) raster::crop(k, extent(ras)))
     } else {
       stop("'Buffer' is not a multiple of res. Set 'buffer' to a multiple of res")

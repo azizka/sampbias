@@ -23,7 +23,7 @@ proj <- project_bias(out)
 p2 <- map_bias(proj)
 
 
-ggsave(p2, filename = "ms_figures/figure_empirical_results_spatial_projection.jpg", height = 8, width = 8)
+ggsave(p2, filename = "ms_figures/figure_empirical_results_spatial_projection.pdf", height = 16, width = 16)
 
 
 

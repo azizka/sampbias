@@ -9,3 +9,6 @@ ms_feedback/
 #*.pdf
 original_data
 #manuscript.pdf
+/submission/
+manuscript.pdf
+manuscript.log

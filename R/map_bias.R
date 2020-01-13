@@ -112,7 +112,7 @@ map_bias <- function(x,
     scale_fill_viridis(na.value = "transparent",
                        option = "viridis",
                        direction = 1,
-                       name = "Bias effect [log]",
+                       name = "Bias effect\nsize [log]",
                        discrete = FALSE)+
     theme(axis.title = element_blank())+
     facet_wrap(split~ .)

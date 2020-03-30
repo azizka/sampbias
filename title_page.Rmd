@@ -28,18 +28,14 @@ fontsize: 12pt
 6. Department of Biology, University of Fribourg, Ch. du Musée 10, 1700 Fribourg, Switzerland
 
 
-**Running head** -- sampbias
+**Running head** -- sampbias accessibility bias
 
-**Word count** -- Abstract:  words; Total:  words
-
-<!-- **Article type** -- Letter, 146 words in the abstract, 5400 words in the manuscript, 42 References, 2 tables, 4 Figures -->
+**Word count** -- Abstract: 3,051 words; Total: 208 words, 2 figures
 
 **Corresponding author** -- alexander.zizka@idiv.de
 
-<!-- **Authors email addresses** -- tiffany.knight@idiv.de, PVitt@chicagobotanic.org -->
-
-
-**Keywords** Collection effort, Global biodiversity Information Facility (GBIF), Presence only data, Roadside bias, Sampling intensity
-
 # Acknowledgements
 We thank the organizers of the 2016 Ebben Nielsen challenge for inspiring and recognizing this research. We thank all data collectors and contributors to GBIF for their effort. AZ is thankful for funding by iDiv via the German Research Foundation (DFG FZT 118), specifically through sDiv, the Synthesis Centre of iDiv. AA is supported by grants from the Swedish Research Council, the Knut and Alice Wallenberg Foundation, the Swedish Foundation for Strategic Research and the Royal Botanic Gardens, Kew. DS received funding from the Swedish Research Council (2015-04748) and from the Swiss National Science Foundation (PCEFP3_187012)
+
+# Author contributions
+All authors conceived this study, AZ and DS developed the statistical algorithm and wrote the R-package, AZ and DS wrote the manuscript with contributions from AA.

@@ -65,7 +65,7 @@ project_bias <- function(x, factors = NULL) {
   # calculate the values for each raster cell
   lambdas <- list()
 
-  for (i in 1:length(mean_w)) {
+  for (i in seq_along(mean_w)) {
     if(is.numeric(ras)){
       test <- ras
     }else{
@@ -84,7 +84,7 @@ project_bias <- function(x, factors = NULL) {
 
   # define the names
   nam <- vector()
-  for (i in 1:length(mean_w)) {
+  for (i in seq_along(mean_w)) {
     nam <- c(nam, paste(gsub("w_", "",
                              names(mean_w)[1:i]),
                         collapse = "+"))

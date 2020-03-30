@@ -120,7 +120,7 @@ multiplier_proposal <- function(i, d = 1.2) {
       out <- rbind(out, c(it, likA, priorA, qA, wA))
 
       if (!is.null(outfile)){
-        cat(c(it, likA, priorA, qA, wA, "\n"), file = outfile, sep = "\t", append = T)
+        cat(c(it, likA, priorA, qA, wA, "\n"), file = outfile, sep = "\t", append = TRUE)
       }
     }
   }

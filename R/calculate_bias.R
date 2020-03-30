@@ -224,7 +224,7 @@ calculate_bias <- function(x,
     dis.vec <- as.data.frame(do.call(cbind, dis.vec))
     names(dis.vec) <- names(dis.ras)
 
-    dis.vec <- data.frame(cell_id = 1:nrow(dis.vec),
+    dis.vec <- data.frame(cell_id = seq_len(nrow(dis.vec)),
                           record_count = getValues(occ.out),
                           dis.vec)
     dis.vec <- dis.vec[complete.cases(dis.vec),]

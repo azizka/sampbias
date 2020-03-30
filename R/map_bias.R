@@ -63,7 +63,7 @@ map_bias <- function(x,
     point.gaz <- gaz.plo[list.condition]
     point.gaz <- lapply(point.gaz, "data.frame")
 
-    for (i in 1:length(point.gaz)) {
+    for (i in seq_along(point.gaz)) {
       point.gaz[[i]] <- data.frame(long = point.gaz[[i]]$longitude,
                                    lat = point.gaz[[i]]$latitude,
                                    bias = rep(names(point.gaz)[i],
@@ -75,7 +75,7 @@ map_bias <- function(x,
     line.gaz <- gaz.plo[!list.condition]
     line.gaz <- lapply(line.gaz, "fortify")
 
-    for (i in 1:length(line.gaz)) {
+    for (i in seq_along(line.gaz)) {
       line.gaz[[i]] <- data.frame(line.gaz[[i]], bias = rep(names(line.gaz)[i],
                                                             nrow(line.gaz[[i]])))
     }

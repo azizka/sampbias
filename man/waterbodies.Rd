@@ -14,7 +14,6 @@ waterbodies.
 \examples{
 
 data(waterbodies)
-plot(waterbodies)
 
 }
 \keyword{datasets}

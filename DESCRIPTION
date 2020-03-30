@@ -1,7 +1,7 @@
 Package: sampbias
 Type: Package
 Title: Evaluating Geographic Sampling Bias in Biological Collections
-Version: 1.0.2
+Version: 1.0.3
 Authors@R: c(person("Alexander", "Zizka", email = "alexander.zizka@idiv.de",
              role = c("aut", "cre")),
              person("Daniele", "Silvestro", role = "aut"))
@@ -14,6 +14,6 @@ Depends: R(>= 2.10), rgeos, sp
 Imports: cowplot, dplyr, forcats, ggplot2, graphics, grDevices, magrittr, methods, raster, rlang, tidyr, viridis
 Suggests: geosphere, knitr, maptools
 LazyData: TRUE
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
 VignetteBuilder: knitr
 Encoding: UTF-8

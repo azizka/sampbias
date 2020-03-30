@@ -13,7 +13,7 @@ A \code{SpatialPolygonsDataFrame} with global coastlines.
 \examples{
 
 data("landmass")
-plot(landmass)
+
 
 }
 \keyword{datasets}

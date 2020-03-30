@@ -66,9 +66,15 @@ dis_rast <- function(gaz, ras, buffer = NULL) {
     warning(sprintf("Adapting buffer precision to resolution. Buffer set to %s", buffer))
   }
 
-  #make buffer even in case it is odd
+  #make buffer even in case it is odd, by setting to the closes even multiple of the resolution
   if((buffer * 10^decs) %%2 != 0  ){
-    buffer  <- buffer + 1/10^decs
+
+    ref <- seq(0, res(ras)[1]* 100, by = res(ras)[1])
+    ref <- ref[which((ref* 10^decs) %%2 == 0 )]
+
+    buffer <- ref[which.min(abs(ref - buffer))]
+
+    # buffer  <- buffer + 1/10^decs
     warning(sprintf("Evening buffer. Buffer set to %s", buffer))
   }
 
@@ -113,7 +119,14 @@ dis_rast <- function(gaz, ras, buffer = NULL) {
     if ( .DecimalPlaces(buffer/as.numeric(as.character(res(ras)[1]))) == 0) {
       dist.out <- lapply(dist.d, function(k) raster::crop(k, extent(ras)))
     } else {
-      stop("'Buffer' is not a multiple of res. Set 'buffer' to a multiple of res")
+      ref <- seq(0, res(ras)[1]* 100, by = res(ras)[1])
+      ref <- ref[which((ref* 10^decs) %%2 == 0 )]
+
+      buffer <- ref[which.min(abs(ref - buffer))]
+
+      warning(sprintf("'Buffer' was not a multiple of res. Set to %s", buffer))
+
+      dist.out <- lapply(dist.d, function(k) raster::crop(k, extent(ras)))
     }
 
   return(dist.out)

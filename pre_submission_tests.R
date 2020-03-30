@@ -1,7 +1,6 @@
 
 pkgdown::build_site()
 
-source("https://install-github.me/MangoTheCat/goodpractice")
 library(goodpractice)
 gp("C:/Users/az64mycy/Dropbox (iDiv)/research_projects/16_spatial_bias_package/sampbias")
 

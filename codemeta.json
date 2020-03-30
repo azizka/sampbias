@@ -10,14 +10,14 @@
   "codeRepository": "https://ropensci.github.io/sampbias/",
   "issueTracker": "https://github.com/azizka/sampbias/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "version": "4.0.0",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R Under development (unstable) (2019-12-28 r77626)",
+  "runtimePlatform": "R Under development (unstable) (2020-03-23 r78037)",
   "author": [
     {
       "@type": "Person",
@@ -241,5 +241,5 @@
     "https://codecov.io/github/azizka/sampbias"
   ],
   "developmentStatus": "https://www.repostatus.org/#active",
-  "fileSize": "9375.417KB"
+  "fileSize": "9375.49KB"
 }

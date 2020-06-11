@@ -123,6 +123,8 @@ calculate_bias <- function(x,
                           mcmc_iterations = 1e+05,
                           mcmc_burnin = 2e+04,
                           mcmc_outfile = NULL,
+                          prior_q = 0.01,
+                          prior_w = 1, 
                           verbose = TRUE) {
 
   #convert x to SpatialPoints
@@ -234,6 +236,8 @@ calculate_bias <- function(x,
                         rescale_distances = 1000,
                         iterations = 1e+05,
                         burnin = mcmc_burnin,
+                        prior_q = prior_q, 
+                        prior_w = prior_w,
                         outfile = NULL)
 
 

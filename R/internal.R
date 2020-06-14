@@ -53,7 +53,9 @@ multiplier_proposal <- function(i, d = 1.2) {
                          iterations = 1e+05,
                          burnin = 0,
                          post_samples = NULL,
-                         outfile = NULL) {
+                         outfile = NULL,
+                         prior_q = 0.01,
+                         prior_w = 1) {
 
   indx <- c(3:ncol(x))
 
@@ -74,7 +76,7 @@ multiplier_proposal <- function(i, d = 1.2) {
   lambdas <- get_lambda_ij(qA, wA, X)
 
   likA <- sum(get_poi_likelihood(Xcounts, lambdas))
-  priorA <- sum(dexp(1, wA, log = TRUE)) + dexp(0.01, qA, log = TRUE)
+  priorA <- sum(dexp(wA, rate=prior_w, log = TRUE)) + dexp(qA, rate=prior_q, log = TRUE)
 
   names_b <- paste("w", names(x[, indx]), sep = "_")
 
@@ -105,7 +107,7 @@ multiplier_proposal <- function(i, d = 1.2) {
 
     lambdas <- get_lambda_ij(q, w, X)
     lik <- sum(get_poi_likelihood(Xcounts, lambdas))
-    prior <- sum(dexp(w, 1, log = TRUE)) + dexp(q, 0.01, log = TRUE)
+    prior <- sum(dexp(w, rate=prior_w, log = TRUE)) + dexp(q, rate=prior_q, log = TRUE)
 
     if ((lik + prior) - (likA + priorA) + hastings >= log(runif(1))) {
       likA <- lik

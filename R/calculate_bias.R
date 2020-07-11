@@ -60,6 +60,13 @@
 #' @param mcmc_burnin numerical. the burnin for the MCMC, default is to o
 #' @param mcmc_outfile character string. the path on where to write
 #' the results of the MCMC, optional.
+#' @param prior_q the gamma prior for the sampling rate $q$,
+#' which represents the expected number of occurrences per cell
+#' in the absence of biases. In the format c(shape,scale).
+#' @param prior_w the gamma prior for the steepness of the Poisson rate decline,
+#' such that $w \approx 0$ results in a
+#' null model of uniform sampling rate $q$ across cells.
+#' In the format c(shape,scale).
 #' @param verbose logical.  If TRUE, progress is reported.  Default = TRUE.
 #' @return An object of the S3-class \sQuote{sampbias}, which is a list
 #' including the following objects: \item{summa}{A list of summary statistics
@@ -124,7 +131,7 @@ calculate_bias <- function(x,
                           mcmc_burnin = 2e+04,
                           mcmc_outfile = NULL,
                           prior_q = 0.01,
-                          prior_w = 1, 
+                          prior_w = 1,
                           verbose = TRUE) {
 
   #convert x to SpatialPoints
@@ -236,7 +243,7 @@ calculate_bias <- function(x,
                         rescale_distances = 1000,
                         iterations = 1e+05,
                         burnin = mcmc_burnin,
-                        prior_q = prior_q, 
+                        prior_q = prior_q,
                         prior_w = prior_w,
                         outfile = NULL)
 

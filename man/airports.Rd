@@ -4,10 +4,12 @@
 \name{airports}
 \alias{airports}
 \title{Global Airport Coordinates}
-\format{A data frame with 891 observations on the following 4 variables.
+\format{
+A data frame with 891 observations on the following 4 variables.
 \describe{ \item{list("code")}{a factor, IATA-3 code.} \item{list("name")}{a
 character vector, airport names.} \item{list("longitude")}{a numeric
-vector.} \item{list("latitude")}{a numeric vector.} }}
+vector.} \item{list("latitude")}{a numeric vector.} }
+}
 \source{
 \url{http://www.naturalearthdata.com/}
 }

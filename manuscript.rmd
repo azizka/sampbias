@@ -98,9 +98,10 @@ To quantify the amount of bias associated with each factor, we jointly estimate 
 $$
 P(q, \mathbf{w} | \mathbf{S}) \propto \prod_{i=1}^{N}{ Poi(S_i | \lambda_i) } \times P(q) P(\mathbf{w}) \ \ \ \ (2)
 $$
-where the likelihood of sampled occurrences $S_i$ within each cell $Poi(S_i | \lambda_i)$ is the probability mass function of a Poisson distribution with rate per cell defined as in Eqn. (1). The likelihood is then multiplied across the $N$ cells considered. We used exponential priors on the parameters $q$ and $\mathbf{w}$, $P(q) \sim \Gamma(1, 0.01)$ and $P(\mathbf{w}) \sim \Gamma(1, 1)$, respectively. 
+where the likelihood of sampled occurrences $S_i$ within each cell $Poi(S_i | \lambda_i)$ is the probability mass function of a Poisson distribution with rate per cell defined as in Eqn. (1). The likelihood is then multiplied across the $N$ cells considered. We used exponential priors on the parameters $q$ and $\mathbf{w}$, $P(q) \sim \Gamma(1, 0.01)$ and $P(\mathbf{w}) \sim \Gamma(1, 1)$, respectively. We chose exponential priors because they represent the standard choice for rate parameters such as $q$ and the weights $\mathbf{w}$, all of which must be positive and have support [0, +inf]. We designed the priors to be informative (i.e. not allowing negative values) and yet vague enough to encompass a much wider range of parameter space than that poster range of values observed in empirical tests. For instance, the posterior weights estimated in our empirical study ranged from 0 to 0.013, while the prior distribution applied on these parameters, Exp(1) has a 95% of it density in range 0 – 3. Custom priors, within the flexible family of gamma distributions are possible via the `prior_q` and `prior_w` arguments of the `calcualte_bias` function. 
 
-We summarize the parameters by computing the mean of the posterior samples and their standard deviation. We interpret the magnitude of the elements in $\mathbf{w}$ as a function of the importance of the individual biases. We note, however, that this test is not explicitly intended to assess the significance of each bias factor (for which a Bayesian variable selection method could be used), particularly since several bias factors might be correlated (e.g. cities, and airports). Instead, these analyses can be used to quantify the expected amount of bias in the data that can be predicted by single or multiple predictors in order to identify under-sampled and unexplored areas. 
+
+We summarize the parameters by computing the mean of the posterior samples and their standard deviation. We interpret the magnitude of the elements in $\mathbf{w}$ as a function of the importance of the individual biases. We note, however, although that this test is not explicitly intended to assess the significance of each bias factor, for which a Bayesian variable selection method could be used. Instead, these analyses can be used to quantify the expected amount of bias in the data that can be predicted by single or multiple predictors in order to identify under-sampled and unexplored areas. Because particularly since several bias factors might be correlated (e.g. cities, and airports), cumulating their biases. estimated from independent analyses of each factor would result in an overestimation of the bias. For this reason, it is important to jointly estimate the effects of correlated factors, as this is based on the likelihood of the data given the combined effects of all biasing factors.
 
 We summarize the results by mapping the estimated sampling rates ($\lambda_i$) across space. These rates represent the expected number of sampled occurrences for each grid cell and provide a graphical representation of the spatial variation of sampling rates. Provided that the cells are of equal size, the estimated rates will be comparable across data sets, regions, and taxonomic groups. Analysing different regions, biomes, or taxa in separate analyses allows to account for differences in over sampling rates, which are not linked with bias factors. For instance, the unbiased sampling rate $q$ is expected to differ between a highly sampled clade like birds and under-sampled groups of invertebrates, but their sampling biases ($\mathbf{w}$) might be similar across the two groups. 
 
@@ -122,6 +123,11 @@ example.in <- read.csv(system.file("extdata",
                        sep = "\t")
 
 #running sampbias
+## res defines the resolution of the spatial raster 
+## for distance calculation in degrees latitude and longitude
+## buffer defines the buffer around the study area to account for biasing
+## structure adjecent to the study area, in degrees latitude and longitude
+## All other options at default, see ?calculate_bias for a description
 example.out <- calculate_bias(x = example.in, 
                               res = 0.05,
                               buffer = 0.5)
@@ -151,7 +157,7 @@ All authors conceived this study, AZ and DS developed the statistical algorithm 
 knitr::include_graphics(path = "ms_figures/figure_empirical_results.jpg")
 ```
 
-```{r spatial, out.width = "6in", echo = FALSE, fig.cap = "Spatial projection of the estimated sampling rates in an empirical example dataset of mammal occurrences on the Indonesian island of Borneo (downloaded from www.gbif.org. GBIF.org, 2016). The colours show the projection of the sampling rates (i.e. expected number of occurrences per cell) given the inferred \textit{sampbias} model. The highest undersampling is in the centre of the island.", eval = TRUE}
+```{r spatial, out.width = "6in", echo = FALSE, fig.cap = "Spatial projection of the estimated sampling rates in an empirical example dataset of mammal occurrences on the Indonesian island of Borneo (downloaded from www.gbif.org. GBIF.org, 2016). The colours show the projection of the log-transformedsampling rates (i.e. expected number of occurrences per cell) given the inferred \textit{sampbias} model. The highest undersampling is in the centre of the island.", eval = TRUE}
 knitr::include_graphics(path = "ms_figures/figure_empirical_results_spatial_projection_adapted.jpg")
 ```
 

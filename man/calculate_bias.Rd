@@ -15,6 +15,8 @@ calculate_bias(
   mcmc_iterations = 1e+05,
   mcmc_burnin = 20000,
   mcmc_outfile = NULL,
+  prior_q = 0.01,
+  prior_w = 1,
   verbose = TRUE
 )
 }
@@ -58,6 +60,15 @@ by default 100,000}
 
 \item{mcmc_outfile}{character string. the path on where to write
 the results of the MCMC, optional.}
+
+\item{prior_q}{the gamma prior for the sampling rate $q$,
+which represents the expected number of occurrences per cell
+in the absence of biases. In the format c(shape,scale).}
+
+\item{prior_w}{the gamma prior for the steepness of the Poisson rate decline,
+such that $w \approx 0$ results in a
+null model of uniform sampling rate $q$ across cells.
+In the format c(shape,scale).}
 
 \item{verbose}{logical.  If TRUE, progress is reported.  Default = TRUE.}
 }

@@ -1,5 +1,5 @@
 #'@importFrom raster rasterize
-#'@importFrom stats dexp dpois rnorm runif
+#'@importFrom stats dgamma dpois rnorm runif
 
 #Occurrence raster
 .OccRast <- function(x, ras){
@@ -54,8 +54,8 @@ multiplier_proposal <- function(i, d = 1.2) {
                          burnin = 0,
                          post_samples = NULL,
                          outfile = NULL,
-                         prior_q = 0.01,
-                         prior_w = 1) {
+                         prior_q = c(1, 0.01),
+                         prior_w = c(1, 1)) {
 
   indx <- c(3:ncol(x))
 
@@ -76,7 +76,7 @@ multiplier_proposal <- function(i, d = 1.2) {
   lambdas <- get_lambda_ij(qA, wA, X)
 
   likA <- sum(get_poi_likelihood(Xcounts, lambdas))
-  priorA <- sum(dexp(wA, rate=prior_w, log = TRUE)) + dexp(qA, rate=prior_q, log = TRUE)
+  priorA <- sum(dgamma(wA, prior_w[1], rate=prior_w[2], log = TRUE)) + dgamma(qA, prior_q[1], rate=prior_q[2], log = TRUE)
 
   names_b <- paste("w", names(x[, indx]), sep = "_")
 
@@ -107,7 +107,7 @@ multiplier_proposal <- function(i, d = 1.2) {
 
     lambdas <- get_lambda_ij(q, w, X)
     lik <- sum(get_poi_likelihood(Xcounts, lambdas))
-    prior <- sum(dexp(w, rate=prior_w, log = TRUE)) + dexp(q, rate=prior_q, log = TRUE)
+    prior <- sum(dgamma(w, prior_w[1], rate=prior_w[2], log = TRUE)) + dgamma(q, prior_q[1], rate=prior_q[2], log = TRUE)
 
     if ((lik + prior) - (likA + priorA) + hastings >= log(runif(1))) {
       likA <- lik

@@ -136,8 +136,8 @@ calculate_bias <- function(x,
                           mcmc_iterations = 1e+05,
                           mcmc_burnin = 2e+04,
                           mcmc_outfile = NULL,
-                          prior_q = 0.01,
-                          prior_w = 1,
+                          prior_q = c(1, 0.01),
+                          prior_w = c(1, 1),
                           plot_raster = FALSE,
                           verbose = TRUE) {
 

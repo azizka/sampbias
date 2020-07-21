@@ -9,14 +9,16 @@ calculate_bias(
   gaz = NULL,
   res = 1,
   buffer = NULL,
-  convexhull = FALSE,
+  restrict_sample = NULL,
   terrestrial = TRUE,
+  inp_raster = NULL,
   mcmc_rescale_distances = 1000,
   mcmc_iterations = 1e+05,
   mcmc_burnin = 20000,
   mcmc_outfile = NULL,
   prior_q = 0.01,
   prior_w = 1,
+  plot_raster = FALSE,
   verbose = TRUE
 )
 }
@@ -42,13 +44,18 @@ for geographic structures neighbouring the study area (such as a road right
 outside the study area). Should be a multiple of res.  Default is to res.
 See Details.}
 
-\item{convexhull}{logical.  If TRUE, the empirical distribution (and the
-output maps) is restricted to cells within a convex hull polygon around
-\code{x}. If FALSE a rectangle around \code{x} is used.  Default = FALSE.}
+\item{restrict_sample}{a SpatialPolygons or SpatialPolygonDataframe.
+If provided the area for the bias test will be restricted to raster cells
+within these polygons (and the extent of the sampled points in x).
+Make sure to use adequate values for res. Default = NULL.}
 
 \item{terrestrial}{logical.  If TRUE, the empirical distribution (and the
 output maps) are restricted to terrestrial areas.  Uses the
 \code{\link{landmass}} to define what is terrestrial.  Default = TRUE.}
+
+\item{inp_raster}{an object of class raster. A template raster for the
+counts and distance calculation. Can be used to provide a special resolution, or
+for different coordiante reference systems. See vignette.}
 
 \item{mcmc_rescale_distances}{numerical. rescaling factor for the
 distance calculation}
@@ -63,12 +70,15 @@ the results of the MCMC, optional.}
 
 \item{prior_q}{the gamma prior for the sampling rate $q$,
 which represents the expected number of occurrences per cell
-in the absence of biases. In the format c(shape,scale).}
+in the absence of biases. In the format c(shape,rate).}
 
 \item{prior_w}{the gamma prior for the steepness of the Poisson rate decline,
-such that $w \approx 0$ results in a
-null model of uniform sampling rate $q$ across cells.
-In the format c(shape,scale).}
+such that w approximating 0 results in a
+null model of uniform sampling rate q across cells.
+In the format c(shape,rate).}
+
+\item{plot_raster}{logical. If TRUE, a plot of the occurrence raster is shown
+for diagnostic purposes. Dwfault = FALSE}
 
 \item{verbose}{logical.  If TRUE, progress is reported.  Default = TRUE.}
 }

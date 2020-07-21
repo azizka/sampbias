@@ -46,13 +46,16 @@
 #' for geographic structures neighbouring the study area (such as a road right
 #' outside the study area). Should be a multiple of res.  Default is to res.
 #' See Details.
-#' @param convexhull logical.  If TRUE, the empirical distribution (and the
-#' output maps) is restricted to cells within a convex hull polygon around
-#' \code{x}. If FALSE a rectangle around \code{x} is used.  Default = FALSE.
+#' @param restrict_sample a SpatialPolygons or SpatialPolygonDataframe.
+#' If provided the area for the bias test will be restricted to raster cells
+#' within these polygons (and the extent of the sampled points in x).
+#' Make sure to use adequate values for res. Default = NULL.
 #' @param terrestrial logical.  If TRUE, the empirical distribution (and the
 #' output maps) are restricted to terrestrial areas.  Uses the
 #' \code{\link{landmass}} to define what is terrestrial.  Default = TRUE.
-#'
+#' @param inp_raster an object of class raster. A template raster for the
+#' counts and distance calculation. Can be used to provide a special resolution, or
+#' for different coordiante reference systems. See vignette.
 #' @param mcmc_rescale_distances numerical. rescaling factor for the
 #' distance calculation
 #' @param mcmc_iterations numerical. the number of iterations for the MCMC,
@@ -62,11 +65,13 @@
 #' the results of the MCMC, optional.
 #' @param prior_q the gamma prior for the sampling rate $q$,
 #' which represents the expected number of occurrences per cell
-#' in the absence of biases. In the format c(shape,scale).
+#' in the absence of biases. In the format c(shape,rate).
 #' @param prior_w the gamma prior for the steepness of the Poisson rate decline,
-#' such that $w \approx 0$ results in a
-#' null model of uniform sampling rate $q$ across cells.
-#' In the format c(shape,scale).
+#' such that w approximating 0 results in a
+#' null model of uniform sampling rate q across cells.
+#' In the format c(shape,rate).
+#' @param plot_raster logical. If TRUE, a plot of the occurrence raster is shown
+#' for diagnostic purposes. Dwfault = FALSE
 #' @param verbose logical.  If TRUE, progress is reported.  Default = TRUE.
 #' @return An object of the S3-class \sQuote{sampbias}, which is a list
 #' including the following objects: \item{summa}{A list of summary statistics
@@ -113,7 +118,7 @@
 #' summary(out)
 #'
 #' @export
-#' @importFrom raster as.raster extent extent<- getValues mask res<- values
+#' @importFrom raster as.raster extent extent<- getValues mask res<- values rasterize trim stack plot
 #' @importFrom grDevices is.raster
 #' @importFrom sp SpatialPointsDataFrame SpatialLinesDataFrame SpatialLines Lines Line
 #' @importFrom rlang .data
@@ -124,41 +129,27 @@ calculate_bias <- function(x,
                           gaz = NULL,
                           res = 1,
                           buffer = NULL,
-                          convexhull = FALSE,
+                          restrict_sample = NULL,
                           terrestrial = TRUE,
+                          inp_raster = NULL,
                           mcmc_rescale_distances = 1000,
                           mcmc_iterations = 1e+05,
                           mcmc_burnin = 2e+04,
                           mcmc_outfile = NULL,
                           prior_q = 0.01,
                           prior_w = 1,
+                          plot_raster = FALSE,
                           verbose = TRUE) {
 
   #convert x to SpatialPoints
   dat.pts <- sp::SpatialPoints(x[, c("decimalLongitude", "decimalLatitude")])
-  # create dummy raster
-  dum.ras <- raster::raster(round(extent(dat.pts), .DecimalPlaces(res)))
-  res(dum.ras) <- res
 
-  #exclude occurrences in the sea and recreate dummy raster
-  if(terrestrial){
-    if(verbose){message("Adjusting to terrestrial surface...")}
-    wrld <- raster::crop(sampbias::landmass, extent(dum.ras))
-    wrld <- raster::rasterize(wrld, dum.ras)
-
-    excl <- raster::extract(wrld, x[,c("decimalLongitude", "decimalLatitude")])
-    x <- x[!is.na(excl), c("species", "decimalLongitude", "decimalLatitude")]
-    rownames(x) <- NULL
-    x$species <- as.factor(as.character(x$species))
-
-    dat.pts <- sp::SpatialPoints(x[, c("decimalLongitude", "decimalLatitude")])
-
-    dum.ras <- raster::raster(round(extent(dat.pts) + res, .DecimalPlaces(res)))
+  # create dummy raster if no raster is supplied
+  if(!is.null(inp_raster)){
+    dum.ras <- inp_raster
+  }else{
+    dum.ras <- raster::raster(round(extent(dat.pts), .DecimalPlaces(res)))
     res(dum.ras) <- res
-
-    wrld <- raster::crop(sampbias::landmass, extent(dum.ras))
-    wrld <- raster::rasterize(wrld, dum.ras)
-    if(verbose){message(" Done.\n")}
   }
 
   # warning if combination of resolution and extent exceed 1mio gridcells
@@ -171,20 +162,42 @@ calculate_bias <- function(x,
     message("Creating occurrence raster...")
   }
   occ.out <- .OccRast(x = dat.pts, ras = dum.ras)
-
-  if (terrestrial) {
-    occ.out <-  mask(occ.out, wrld)
-  }
+  occ.out <-  raster::trim(occ.out)
 
   occ.out[is.na(occ.out)] <- 0
 
-  if (verbose) {
-    message(" Done\n")
+  ## adapt occurrence raster to terrestrial surface
+  if (terrestrial) {
+    if(verbose){message("Adjusting to terrestrial surface...")}
+
+    ## Get landmass
+    if(!is.null(inp_raster)){
+      wrld <- spTransform(sampbias::landmass, CRSobj = proj4string(inp_raster))
+      wrld <- raster::crop(wrld, extent(occ.out))
+      wrld <- raster::rasterize(wrld, occ.out)
+    }else{
+      wrld <- raster::crop(sampbias::landmass, extent(occ.out))
+      wrld <- raster::rasterize(wrld, occ.out)
+    }
+    ## adjust raster
+    occ.out <-  raster::mask(occ.out, wrld)
+    occ.out <-  raster::trim(occ.out)
+    }
+
+  ## Adapt occurrence raster to custom study extent if provided
+  if(!is.null(restrict_sample)){
+    if(verbose){message("Adjusting to custom study extent...")}
+    ## Get landmass
+    restrict_sample <- raster::crop(restrict_sample, extent(occ.out))
+    cust <- raster::rasterize(restrict_sample, occ.out)
+
+    occ.out <-  raster::mask(occ.out, cust)
+    occ.out <-  raster::trim(occ.out)
   }
 
-
-  # Distance raster calculation check if gazeteers are provided, replace by
-  # standard gazeteers if necessary
+  # Distance raster calculation
+  ## check if gazeteers are provided, replace by
+  ## standard gazeteers if necessary
   if (verbose) {
     message("Calculating distance raster...")
   }
@@ -195,39 +208,46 @@ calculate_bias <- function(x,
                 rivers = sampbias::waterbodies, roads = sampbias::roads)
   }
 
-  # check if gaz are provided as distance rasters, if so, this function will
-  # run much faster
+  ## check if gaz are provided as distance rasters, if so, this function will
+  ## run much faster
   check <- all(sapply(gaz, is.raster))
 
   if (all(check)) {
-    #use input directly as distance raster
+    ## use input directly as distance raster
     dis.ras <- gaz
   } else {
     ## create distance raster for all gazeteers
     dis.ras <- dis_rast(gaz = gaz,
                         ras = occ.out,
                         buffer = buffer)
-    if (terrestrial) {
-      dis.ras <- lapply(dis.ras, function(k) mask(k, wrld))
-    }
 
-    # check if there are values in the distance raster
+    dis.ras <- lapply(dis.ras, function(k) raster::mask(k, occ.out))
+
+    ##  check if there are values in the distance raster
     if (all(is.na(values(dis.ras[[1]])))) {
       stop("No valid distances found. Consider setting terrestrial = F")
     }
   }
-  if (verbose) {
-    message(" Done\n")
+
+  # Plot the occurrence and distance rasters for diagnostics
+  if(plot_raster){
+   # plot(stack(dis.ras))
+    plot(occ.out, main = "Occurrence raster")
+    if(!is.null(restrict_sample)){
+      plot(restrict_sample, add = TRUE)
+    }
   }
 
   ## Check if a distance was found for any gazeteer, if not, only return
-  ## species and occurrence raster
+  ## occurrence raster
+  if (verbose) {
+    message("Estimating bias...")
+  }
   if (is.logical(dis.ras)) {
     out <- c(Occurences = occ.out)
     class(out) <- append("sampbias", class(out))
     return(out)
   } else {
-
     # Generate the data.frame with the counts and distances
     dis.vec <- lapply(dis.ras, "getValues")
     dis.vec <- as.data.frame(do.call(cbind, dis.vec))
@@ -238,7 +258,6 @@ calculate_bias <- function(x,
                           dis.vec)
     dis.vec <- dis.vec[complete.cases(dis.vec),]
 
-
     out <- .RunSampBias(x = dis.vec,
                         rescale_distances = 1000,
                         iterations = 1e+05,
@@ -247,21 +266,23 @@ calculate_bias <- function(x,
                         prior_w = prior_w,
                         outfile = NULL)
 
-
     # create output file, a list of the class sampbias
     if (verbose) {
       message("Preparing output...")
     }
+
+    # Generate the output object
     out <- list(summa = list(total_occ = nrow(x),
                              total_sp = length(unique(x$species)),
                              extent = extent(dum.ras),
                              res = res,
-                             convexhull = convexhull,
+                             restrict_sample = restrict_sample,
                              rescale_distances = mcmc_rescale_distances),
                 occurrences = occ.out,
                 bias_estimate = out,
                 distance_rasters = stack(dis.ras))
     class(out) <- append("sampbias", class(out))
+
     if (verbose) {
       message(" Done\n")
     }

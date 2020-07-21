@@ -1,4 +1,4 @@
-# sampbias 1.0.3
+# sampbias 1.0.4
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![Build Status](https://travis-ci.org/azizka/sampbias.svg?branch=master)](https://travis-ci.org/azizka/sampbias)
 [![codecov.io](https://codecov.io/github/azizka/sampbias/graphs/badge.svg?branch=master)](https://codecov.io/github/azizka/sampbias)

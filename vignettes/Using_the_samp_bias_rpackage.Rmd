@@ -175,7 +175,6 @@ ea_bias <- calculate_bias(x = ea_occ,
                            gaz = ea_gaz, 
                            inp_raster = ea_raster)
 summary(ea_bias)
-
 ```
 
 

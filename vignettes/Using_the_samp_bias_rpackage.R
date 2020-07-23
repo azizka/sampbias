@@ -91,4 +91,3 @@ ea_bias <- calculate_bias(x = ea_occ,
                            inp_raster = ea_raster)
 summary(ea_bias)
 
-

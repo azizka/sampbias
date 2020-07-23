@@ -120,7 +120,7 @@
 #' @export
 #' @importFrom raster as.raster extent extent<- getValues mask res<- values rasterize trim stack plot
 #' @importFrom grDevices is.raster
-#' @importFrom sp SpatialPointsDataFrame SpatialLinesDataFrame SpatialLines Lines Line
+#' @importFrom sp SpatialPointsDataFrame SpatialLinesDataFrame SpatialLines Lines Line spTransform proj4string
 #' @importFrom rlang .data
 #' @importFrom stats complete.cases
 #' @importFrom rgeos gBuffer
@@ -220,7 +220,7 @@ calculate_bias <- function(x,
     dis.ras <- dis_rast(gaz = gaz,
                         ras = occ.out,
                         buffer = buffer)
-
+    dis.ras <- lapply(dis.ras, function(k) raster::crop(k, occ.out))
     dis.ras <- lapply(dis.ras, function(k) raster::mask(k, occ.out))
 
     ##  check if there are values in the distance raster

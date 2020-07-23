@@ -59,6 +59,15 @@ dis_rast <- function(gaz, ras, buffer = NULL) {
   if (is.null(buffer)) {
     buffer <- res(ras)[1]
   }
+
+  # if x and y resolution are different, set buffer to 0 and return warning
+  # In a later version this should also be enabled for resolutions with uneven
+
+  if(res(ras)[1] != res(ras)[2]){
+    buffer <- 0
+    warning("Buffer not supported for CRS with unequal resolution. Setting buffer to 0. Mind edge effects!")
+  }
+
   #adapt buffer to resolution, buffer always has to be a multiple of resolution
   decs <- .DecimalPlaces(raster::res(ras)[1])
   if(.DecimalPlaces(buffer) > decs){

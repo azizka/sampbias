@@ -78,6 +78,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=maptools"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "rgdal",
+      "name": "rgdal",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rgdal"
     }
   ],
   "softwareRequirements": [
@@ -85,7 +97,7 @@
       "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
-      "version": ">= 2.10"
+      "version": ">= 3.5.0"
     },
     {
       "@type": "SoftwareApplication",
@@ -241,6 +253,6 @@
     "https://codecov.io/github/azizka/sampbias"
   ],
   "developmentStatus": "https://www.repostatus.org/#active",
-  "fileSize": "9453.56KB",
+  "fileSize": "9445.117KB",
   "releaseNotes": "https://github.com/azizka/sampbias/blob/master/NEWS.md"
 }

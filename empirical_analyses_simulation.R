@@ -21,7 +21,7 @@ data(landmass)
 born2 <- st_read("empirical_analyses/Borneo.kml")
 born2 <- sf:::st_zm(born2$geom)
 born2 <- as(born2, 'Spatial')
-born <- intersect(born, born2)
+born <- intersect(landmass, born2)
 
 
 ## randomly sample points across teh island

@@ -1,8 +1,19 @@
 library(sampbias)
 library(cowplot)
 library(ggplot2)
+library(sp)
+library(sf)
+library(rgdal)
 
 occ <-read.csv(system.file("extdata", "mammals_borneo.csv", package="sampbias"), sep = "\t")
+
+## get a polygon of Borneo
+data(landmass)
+
+born2 <- st_read("empirical_analyses/Borneo.kml")
+born2 <- sf:::st_zm(born2$geom)
+born2 <- as(born2, 'Spatial')
+born <- intersect(landmass, born2)
 
 
 # occ <- read.csv("original_data/mammals_borneo.csv", sep = "\t")
@@ -12,7 +23,7 @@ occ <-read.csv(system.file("extdata", "mammals_borneo.csv", package="sampbias"),
 # write.table(occ, file = "inst/extdata/mammals_borneo.csv", sep = "\t")
 # occ <-read.csv("inst/extdata/mammals_borneo.csv", sep = "\t")
 
-out <- calculate_bias(occ, res = 0.05, buffer = 0.5)
+out <- calculate_bias(occ, res = 0.05, buffer = 0.5, restrict_sample = born)
 
 p1 <- plot(out)
 summary(out)

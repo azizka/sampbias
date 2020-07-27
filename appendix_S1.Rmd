@@ -28,6 +28,14 @@ library(geosphere)
 library(tidyr)
 library(forcats)
 
+## get a polygon of Borneo
+data(landmass)
+
+born2 <- st_read("empirical_analyses/Borneo.kml")
+born2 <- sf:::st_zm(born2$geom)
+born2 <- as(born2, 'Spatial')
+
+
 #load data
 occ <-read.csv(system.file("extdata", "mammals_borneo.csv", package="sampbias"), sep = "\t") %>% 
   dplyr::select(latitude = decimalLatitude, longitude = decimalLongitude) %>% 
@@ -40,17 +48,17 @@ data(roads)
 data(landmass)
 
 # prepare for plotting
-airp <- airports %>% crop(SpatialPoints(occ[,2:1])) %>%  coordinates() %>%  data.frame() %>% mutate(type = "Airport")
-cit <- cities %>% crop(SpatialPoints(occ[,2:1])) %>%  coordinates() %>%  data.frame() %>%  mutate(type = "City")
+airp <- airports %>% crop(SpatialPoints(occ[,2:1])) %>% raster::intersect(born2) %>%  coordinates() %>%  data.frame() %>% mutate(type = "Airport")
+cit <- cities %>% crop(SpatialPoints(occ[,2:1])) %>% raster::intersect(born2) %>%  coordinates() %>%  data.frame() %>%  mutate(type = "City")
 pts <- bind_rows(occ, cit, airp)
 
 
 riv <- waterbodies %>% crop(SpatialPoints(occ[,2:1])) %>%  fortify() %>%  mutate(type = "River")
-road <- roads %>% crop(SpatialPoints(occ[,2:1])) %>%  fortify() %>%  mutate(type = "Road")
+road <- roads %>% crop(SpatialPoints(occ[,2:1])) %>% raster::intersect(born2) %>%  fortify() %>%  mutate(type = "Road")
 lin <- bind_rows(riv, road)
 
 
-lma <- landmass %>% crop(SpatialPoints(occ[,2:1])) %>%  fortify()
+lma <- landmass %>% crop(SpatialPoints(occ[,2:1])) %>% raster::intersect(born2) %>%  fortify()
 
 # plot
 ggplot()+

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.12.7)  24 JUL 2020 11:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.12.7)  27 JUL 2020 09:49
 entering extended mode
 **./manuscript.tex
 (manuscript.tex
@@ -1183,42 +1183,46 @@ LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 250
 .
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\ts1lmtt.fd"
 File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [11] [12]
-<ms_figures/figure_empirical_results.jpg, id=102, 578.16pt x 578.16pt>
+)
+Underfull \vbox (badness 10000) detected at line 267
+ []
+
+[11] [12]
+<ms_figures/figure_empirical_results.jpg, id=101, 578.16pt x 578.16pt>
 File: ms_figures/figure_empirical_results.jpg Graphic file (type jpg)
 <use ms_figures/figure_empirical_results.jpg>
 Package pdftex.def Info: ms_figures/figure_empirical_results.jpg  used on input
- line 288.
+ line 280.
 (pdftex.def)             Requested size: 433.61893pt x 433.61893pt.
 [13]
-<ms_figures/figure_empirical_results_spatial_projection_adapted.pdf, id=116, 54
-0.5856pt x 613.69878pt>
+<ms_figures/figure_empirical_results_spatial_projection_adapted.pdf, id=112, 53
+6.0025pt x 564.46185pt>
 File: ms_figures/figure_empirical_results_spatial_projection_adapted.pdf Graphi
 c file (type pdf)
 <use ms_figures/figure_empirical_results_spatial_projection_adapted.pdf>
 Package pdftex.def Info: ms_figures/figure_empirical_results_spatial_projection
-_adapted.pdf  used on input line 292.
-(pdftex.def)             Requested size: 433.63213pt x 492.28004pt.
+_adapted.pdf  used on input line 284.
+(pdftex.def)             Requested size: 433.61986pt x 456.64313pt.
 [14 <./ms_figures/figure_empirical_results.jpg>] [15 <./ms_figures/figure_empir
-ical_results_spatial_projection_adapted.pdf>] [16] [17] [18] [19]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 441.
-[20]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 441.
+ical_results_spatial_projection_adapted.pdf>] [16] [17] [18] [19] [20]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 434.
+[21]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 434.
 (manuscript.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 441.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 441.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 434.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 434.
 Package logreq Info: Writing requests to 'manuscript.run.xml'.
 \openout1 = `manuscript.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 21609 strings out of 492970
- 351540 string characters out of 3125262
- 810665 words of memory out of 3000000
- 24958 multiletter control sequences out of 15000+200000
- 76830 words of font info for 132 fonts, out of 3000000 for 9000
+ 21605 strings out of 492970
+ 351473 string characters out of 3125262
+ 810579 words of memory out of 3000000
+ 24954 multiletter control sequences out of 15000+200000
+ 76959 words of font info for 133 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 36i,12n,43p,2137b,745s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 36i,12n,43p,2146b,745s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ts
 1.enc}{C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/lm/l
 m-ec.enc}{C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/l
@@ -1242,9 +1246,9 @@ nts/type1/public/lm/lmtk10.pfb><C:/Users/az64mycy/AppData/Local/Programs/MiKTeX
  2.9/fonts/type1/public/lm/lmtt12.pfb><C:/Users/az64mycy/AppData/Local/Programs
 /MiKTeX 2.9/fonts/type1/public/lm/lmtti10.pfb><C:/Users/az64mycy/AppData/Local/
 Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on manuscript.pdf (20 pages, 752161 bytes).
+Output written on manuscript.pdf (21 pages, 786037 bytes).
 PDF statistics:
- 349 PDF objects out of 1000 (max. 8388607)
- 103 named destinations out of 1000 (max. 500000)
- 14459 words of extra memory for PDF output out of 17280 (max. 10000000)
+ 347 PDF objects out of 1000 (max. 8388607)
+ 101 named destinations out of 1000 (max. 500000)
+ 14443 words of extra memory for PDF output out of 17280 (max. 10000000)
 

@@ -30,7 +30,7 @@ fontsize: 12pt
 
 **Running head** -- sampbias accessibility bias
 
-**Word count** -- Abstract: 207 words; Total: XXX words, 2 figures
+**Word count** -- Abstract: 207 words; Main text: 3013 words, 2 figures
 
 **Corresponding author** -- alexander.zizka@idiv.de
 

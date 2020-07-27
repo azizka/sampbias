@@ -10,8 +10,8 @@ library(readr)
 
 # rarefaction steps:
 rar <- c(1, 0.5, 0.25, 0.1, 0.01, 0.001)
-rar <- rar[1]
-ID <- 1:5
+rar <- rar[6]
+ID <- 5
 res <- 0.05
 
 #rarefaction of a randomly sampled data set across the study area without bias

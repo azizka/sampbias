@@ -1,11 +1,11 @@
 ---
 title: "Appendix S1 - Supplementary Figure"
 subtitle: "Sampbias, a method to evaluate geographic sampling bias in species distribution data"
-#author: "Alexander Zizka^1,2,3^, Alexandre Antonelli^3,4,5^, Daniele Silvestro^3,4^"
+author: "Alexander Zizka, Alexandre Antonelli, Daniele Silvestro"
 output: rmarkdown::pdf_document
 header-includes: |
     \usepackage{float}
-    \renewcommand{\thefigure}{S\arabic{figure}}
+    \renewcommand{\thefigure}{S1.\arabic{figure}}
 ---
 
 \newpage{}
@@ -25,7 +25,7 @@ library(viridis)
 
 #load data
 occ <-read.csv(system.file("extdata", "mammals_borneo.csv", package="sampbias"), sep = "\t") %>% 
-  dplyr::select(latitude = decimallatitude, longitude = decimallongitude) %>% 
+  dplyr::select(latitude = decimalLatitude, longitude = decimalLongitude) %>% 
   mutate(type = "Mammal occurrence")
 
 data(airports)

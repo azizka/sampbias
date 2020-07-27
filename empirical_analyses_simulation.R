@@ -38,7 +38,7 @@ for(i in 1:length(ID)){
   sub <- occ[base::sample(x = 1:nrow(occ), size = round(nrow(occ) * rar, 0)), ]
 
   # calculate sampling bias
-  out <- calculate_bias(sub, res = res, buffer = 0.5)
+  out <- calculate_bias(sub, res = res, buffer = 0.5, restrict_sample = born)
 
   # plot of bias projection in space
   proj <- project_bias(out)

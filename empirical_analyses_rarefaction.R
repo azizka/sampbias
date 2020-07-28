@@ -37,14 +37,20 @@ for(i in 1:length(ID)){
   p2 <- map_bias(proj)
 
   ggsave(p2, filename = paste("empirical_analyses/simulations/figure_empirical_results_spatial_projection_empirical_",
-                              rar, "_", ID[i], ".pdf", sep = ""),
+                              round(nrow(occ) * rar, 0), "_", ID[i], ".pdf", sep = ""),
+         height = 16, width = 16)
+
+  p3 <- map_bias(proj, sampling_rate = TRUE)
+
+  ggsave(p3, filename = paste("empirical_analyses/simulations/figure_empirical_results_spatial_projection_empirical_",
+                              round(nrow(occ) * rar, 0), "_", ID[i], "_sampling_rate.pdf", sep = ""),
          height = 16, width = 16)
 
 
   # prepare bias estimate output
   out <- out$bias_estimate
   out$ID <- ID[i]
-  out$rar <- rar
+  out$rar <- round(nrow(occ) * rar, 0)
   out$res <- res
   out$type <- "empirical"
 

@@ -85,9 +85,6 @@ occ <-read.csv(system.file("extdata", "mammals_borneo.csv", package="sampbias"),
 
 data(landmass)
 
-born2 <- st_read("empirical_analyses/Borneo.kml", quiet = TRUE)
-born2 <- sf:::st_zm(born2$geom)
-born2 <- as(born2, 'Spatial')
 born <- raster::intersect(landmass, born2)
 
 area <- round(areaPolygon(born) / 1000000, 0)

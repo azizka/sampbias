@@ -9,9 +9,14 @@ library(raster)
 library(readr)
 
 # rarefaction steps:
-rar <- c(1, 0.5, 0.25, 0.1, 0.01, 0.001)
+rar <- c(100000, 25000,
+         6262,
+         6262 * 0.5,
+         round(6262 * 0.25, 0),
+         round(6262 * 0.1, 0),
+         round(6262 * 0.01, 0))
 rar <- rar[6]
-ID <- 2:3
+ID <- 1:3
 res <- 0.05
 
 #rarefaction of a randomly sampled data set across the study area without bias
@@ -24,21 +29,17 @@ born2 <- sf:::st_zm(born2$geom)
 born2 <- as(born2, 'Spatial')
 born <- intersect(landmass, born2)
 
-
-## randomly sample points across the island
-occ <- sp::spsample(x = born, n = 100000, type = "random")
-occ <- data.frame(species = letters[1:25],
-                  coordinates(occ))
-names(occ) = c("species", "decimalLongitude", "decimalLatitude")
-
 # rarefaction loop for the bias calculation, write out the resulting paramter estimates and a map
 for(i in 1:length(ID)){
   print(i)
-  # subset the simulated data
-  sub <- occ[base::sample(x = 1:nrow(occ), size = round(nrow(occ) * rar, 0)), ]
+  # randomly sample points across the island
+  occ <- sp::spsample(x = born, n = rar, type = "random")
+  occ <- data.frame(species = "A",
+                    coordinates(occ))
+  names(occ) = c("species", "decimalLongitude", "decimalLatitude")
 
   # calculate sampling bias
-  out <- calculate_bias(sub, res = res, buffer = 0.5, restrict_sample = born)
+  out <- calculate_bias(occ, res = res, buffer = 0.5, restrict_sample = born)
 
   # plot of bias projection in space
   proj <- project_bias(out)
@@ -48,6 +49,12 @@ for(i in 1:length(ID)){
                               ID[i], "_", rar, ".pdf", sep = ""),
          height = 16, width = 16)
 
+
+  p3 <- map_bias(proj, sampling_rate = TRUE)
+
+  ggsave(p3, filename = paste("empirical_analyses/simulations/figure_empirical_results_spatial_projection_simulated_",
+                              rar, "_", ID[i], "_sampling_rate.pdf", sep = ""),
+         height = 16, width = 16)
 
   #prepare output files
   out <- out$bias_estimate

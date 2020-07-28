@@ -1,7 +1,10 @@
 #' Mapping Projected Bias Effects
 #'
-#'A plotting function to visualize the bias effects calculated using \code{\link{calculate_bias}}
-#'and projected using \code{\link{project_bias}}.
+#'A plotting function to visualize the relative deviation of sampling rate from the maximum
+#' rate as calculated using \code{\link{calculate_bias}}
+#'and projected using \code{\link{project_bias}}. For instance, a value of -25 indicates
+#' a drop of 25% compared to the highest rate
+#' (e.g. in a road on river flowing through the city airport)
 #'
 #'
 #' @param x a raster stack as generate by \code{\link{project_bias}}
@@ -11,7 +14,8 @@
 #' used.
 #' @param sealine logical. Should the sealine be added to the plots? Default is
 #' to TRUE.
-#' @param logtransform logical. IF TRUE, the bias projections are logtransformed. Default is TRUE.
+#' @param sampling_ratelogical. logical. If true, the projected sampling rate depending on the
+#' biasing factors is plotted instead (logarithmically transformed to the base of 10). Default is to FALSE.
 #' @return A series of R plots based on ggplot2.
 
 #' @seealso \code{\link{calculate_bias}}, \code{\link{project_bias}}
@@ -51,7 +55,7 @@
 map_bias <- function(x,
                      gaz = NULL,
                      sealine = TRUE,
-                     logtransform = TRUE) {
+                     sampling_rate = FALSE) {
 
   # prepare gazetteers to be included for plotting
   if (!is.null(gaz)) {
@@ -95,28 +99,38 @@ map_bias <- function(x,
     pivot_longer(cols = -contains("geo"), values_to = "val", names_to = "split") %>%
     filter(split != "occurrences")
 
-  if(logtransform){
+
+  if(sampling_rate){
+    plo <- plo %>%
+      filter(split != "Total_percentage")
+
     out <- ggplot(plo)+
-      geom_raster(aes(x = .data$geo_lon, y = .data$geo_lat, fill = log10(.data$val)))
+      geom_raster(aes(x = .data$geo_lon, y = .data$geo_lat, fill = log10(.data$val)))+
+      facet_wrap(split~ .)+
+      coord_fixed()+
+      theme_bw()+
+      scale_fill_viridis(na.value = "transparent",
+                         option = "viridis",
+                         direction = 1,
+                         name = "Log Sampling rate",
+                         discrete = FALSE)+
+      theme(axis.title = element_blank())+
+      facet_wrap(split~ .)
   }else{
+    plo <- plo %>%
+      filter(split == "Total_percentage")
+
     out <- ggplot(plo)+
-      geom_raster(aes(x = .data$geo_lon, y = .data$geo_lat, fill = .data$val))
+      geom_raster(aes(x = .data$geo_lon, y = .data$geo_lat, fill = .data$val))+
+      coord_fixed()+
+      theme_bw()+
+      scale_fill_viridis(na.value = "transparent",
+                         option = "viridis",
+                         direction = 1,
+                         name = "Relative change\nto the mean\n[%]",
+                         discrete = FALSE)+
+      theme(axis.title = element_blank())
   }
-
-
-
-  out <- out+
-    facet_wrap(split~ .)+
-    coord_fixed()+
-    theme_bw()+
-    scale_fill_viridis(na.value = "transparent",
-                       option = "viridis",
-                       direction = 1,
-                       name = "Log Sampling rate",
-                       discrete = FALSE)+
-    theme(axis.title = element_blank())+
-    facet_wrap(split~ .)
-
 
   if (sealine == TRUE) {
     message("Adding sealine")

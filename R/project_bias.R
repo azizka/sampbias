@@ -65,6 +65,10 @@ project_bias <- function(x, factors = NULL) {
   # calculate the values for each raster cell
   lambdas <- list()
 
+  ## Get the mean estimate for the mean rate
+  mean_q <- colMeans(x$bias_estimate)[4]
+
+  ## calculate the sampling rate when increasingly adding biasing factors
   for (i in seq_along(mean_w)) {
     if(is.numeric(ras)){
       test <- ras
@@ -72,12 +76,17 @@ project_bias <- function(x, factors = NULL) {
       test <- ras[,1:i]
     }
 
-    lambdas[[i]] <- get_lambda_ij(q = colMeans(x$bias_estimate)[4],
+    lambdas[[i]] <- get_lambda_ij(q = mean_q,
                                   w = mean_w[1:i],
                                   X = test) %>%
       as.matrix()
   }
 
+  ## add a plot for the relative variation
+  perc <- round((lambdas[[length(lambdas)]] - mean_q) / mean_q * 100, 2)
+  lambdas[[length(lambdas) + 1]] <- perc
+
+  # re-transfor to a spatial raster
   out <- lapply(lambdas, "raster",
                 template = x$distance_rasters[[1]]) %>%
     c(x$occurrences) %>% stack()
@@ -89,7 +98,11 @@ project_bias <- function(x, factors = NULL) {
                              names(mean_w)[1:i]),
                         collapse = "+"))
   }
-  names(out) <- c(nam, "occurrences")
+
+  # add the total percentage change and the occurrences, which are also  part of the stack
+  nam <- c(nam, "Total_percentage", "occurrences")
+
+  names(out) <- nam
 
   # retun output object
   return(out)

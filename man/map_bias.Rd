@@ -4,7 +4,7 @@
 \alias{map_bias}
 \title{Mapping Projected Bias Effects}
 \usage{
-map_bias(x, gaz = NULL, sealine = TRUE, logtransform = TRUE)
+map_bias(x, gaz = NULL, sealine = TRUE, sampling_rate = FALSE)
 }
 \arguments{
 \item{x}{a raster stack as generate by \code{\link{project_bias}}}
@@ -17,14 +17,18 @@ used.}
 \item{sealine}{logical. Should the sealine be added to the plots? Default is
 to TRUE.}
 
-\item{logtransform}{logical. IF TRUE, the bias projections are logtransformed. Default is TRUE.}
+\item{sampling_ratelogical.}{logical. If true, the projected sampling rate depending on the
+biasing factors is plotted instead (logarithmically transformed to the base of 10). Default is to FALSE.}
 }
 \value{
 A series of R plots based on ggplot2.
 }
 \description{
-A plotting function to visualize the bias effects calculated using \code{\link{calculate_bias}}
-and projected using \code{\link{project_bias}}.
+A plotting function to visualize the relative deviation of sampling rate from the maximum
+rate as calculated using \code{\link{calculate_bias}}
+and projected using \code{\link{project_bias}}. For instance, a value of -25 indicates
+a drop of 25% compared to the highest rate
+(e.g. in a road on river flowing through the city airport)
 }
 \examples{
 

@@ -11,7 +11,7 @@ library(raster)
 # rarefaction steps:
 rar <- c(1, 0.5, 0.25, 0.1, 0.01)
 rar <- rar[5]
-ID <- 1:5
+ID <- 1:3
 res <- 0.05
 
 ## get a polygon of Borneo
@@ -49,9 +49,5 @@ for(i in 1:length(ID)){
   out$type <- "empirical"
 
   # write to disk
-  if(ID[i] == 1 & rar == 0.001){
-    write_csv(out, "empirical_analyses/simulations/weight_estimates.csv", append = FALSE)
-  }else{
     write_csv(out, "empirical_analyses/simulations/weight_estimates.csv", append = TRUE)
-  }
 }

@@ -11,7 +11,7 @@ library(raster)
 # rarefaction steps:
 rar <- c(1, 0.5, 0.25, 0.1, 0.01)
 rar <- rar[5]
-ID <- 2:3
+ID <- 1
 res <- 0.05
 
 ## get a polygon of Borneo

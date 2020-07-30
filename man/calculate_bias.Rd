@@ -19,7 +19,8 @@ calculate_bias(
   prior_q = c(1, 0.01),
   prior_w = c(1, 1),
   plot_raster = FALSE,
-  verbose = TRUE
+  verbose = TRUE,
+  run_null_model = FALSE
 )
 }
 \arguments{
@@ -81,6 +82,8 @@ In the format c(shape,rate).}
 for diagnostic purposes. Dwfault = FALSE}
 
 \item{verbose}{logical.  If TRUE, progress is reported.  Default = TRUE.}
+
+\item{run_null_model}{logical. Run a null model with bias weights set to zero.}
 }
 \value{
 An object of the S3-class \sQuote{sampbias}, which is a list

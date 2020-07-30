@@ -260,13 +260,15 @@ calculate_bias <- function(x,
                           dis.vec)
     dis.vec <- dis.vec[complete.cases(dis.vec),]
 
+    rec_count <- c(sum(dis.vec$record_count == 0), sum(dis.vec$record_count > 0))
+
     out <- .RunSampBias(x = dis.vec,
-                        rescale_distances = 1000,
-                        iterations = 1e+05,
+                        rescale_distances = mcmc_rescale_distances,
+                        iterations = mcmc_iterations,
                         burnin = mcmc_burnin,
                         prior_q = prior_q,
                         prior_w = prior_w,
-                        outfile = NULL,
+                        outfile = mcmc_outfile,
                         run_null_model = run_null_model)
 
     # create output file, a list of the class sampbias
@@ -280,7 +282,8 @@ calculate_bias <- function(x,
                              extent = extent(dum.ras),
                              res = res,
                              restrict_sample = restrict_sample,
-                             rescale_distances = mcmc_rescale_distances),
+                             rescale_distances = mcmc_rescale_distances,
+                             data_availability = rec_count),
                 occurrences = occ.out,
                 bias_estimate = out,
                 distance_rasters = stack(dis.ras))

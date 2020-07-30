@@ -110,7 +110,7 @@ get_post_rate <- function(w,alpha){
     q <- qA
     mh <- TRUE
 
-    if (runif(1) < 0.01 & run_null_model) {
+    if (runif(1) < 0.01 & run_null_model == FALSE)  {
       prior_w[2] <- get_post_rate(wA, prior_w[1])
       mh <- FALSE
       hastings <- 0

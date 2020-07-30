@@ -7,17 +7,16 @@
   "identifier": "sampbias",
   "description": "Evaluating the biasing impact of geographic features such as airports, cities, roads, rivers in datasets of coordinates based biological collection datasets, by bayesian estimation of the parameters of a POisson process. Enables also spatial visualization of sampling bias and includes a set of convenience functions for publication level plotting. Also available as shiny app.",
   "name": "sampbias: Evaluating Geographic Sampling Bias in Biological Collections",
-  "codeRepository": "https://ropensci.github.io/sampbias/",
+  "codeRepository": "https://github.com/azizka/sampbias",
   "issueTracker": "https://github.com/azizka/sampbias/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
   "version": "1.0.4",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "4.1.0",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R Under development (unstable) (2020-06-03 r78637)",
+  "runtimePlatform": "R version 4.0.2 (2020-06-22)",
   "author": [
     {
       "@type": "Person",
@@ -248,11 +247,9 @@
     }
   ],
   "readme": "https://github.com/azizka/sampbias/blob/master/README.md",
-  "contIntegration": [
-    "https://travis-ci.org/azizka/sampbias",
-    "https://codecov.io/github/azizka/sampbias"
-  ],
+  "contIntegration": ["https://travis-ci.org/azizka/sampbias", "https://codecov.io/github/azizka/sampbias"],
   "developmentStatus": "https://www.repostatus.org/#active",
-  "fileSize": "9445.117KB",
-  "releaseNotes": "https://github.com/azizka/sampbias/blob/master/NEWS.md"
+  "fileSize": "23538.844KB",
+  "releaseNotes": "https://github.com/azizka/sampbias/blob/master/NEWS.md",
+  "relatedLink": "https://ropensci.github.io/sampbias/"
 }

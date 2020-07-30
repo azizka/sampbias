@@ -152,4 +152,16 @@ NULL
 #'
 "ea_raster"
 
+#' Borneo
+#'
+#' The outline of Borneo, as example data for the user-defined study area option of \code{\link{calculate_bias}}. from \url{www.naturalearth.org}.
+#'
+#' @name borneo
+#' @docType data
+#' @keywords datasets
+#' @examples
+#'
+#' data(borneo)
+#'
+"borneo"
 

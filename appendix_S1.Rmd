@@ -14,7 +14,7 @@ header-includes: |
 knitr::opts_chunk$set(echo = FALSE, warning=FALSE, message=FALSE)
 ```
 
-```{r, fig.height = 8, fig.cap="The example dataset of mammal occurrences from the island of Borneo, as downloaded from www.gbif.org (n = 6,262, 2016, https://doi.org/10.15468/dl.7fg4zx), and the geographic gazetters of main cities, roads, rivers and airports used for the sampbias analysis."}
+```{r, fig.height = 8, fig.cap="The example dataset of mammal occurrences from the island of Borneo, as downloaded from www.gbif.org (n = 6,262, 2016, https://doi.org/10.15468/dl.7fg4zx), and the geographic gazetters of main cities, roads, rivers and airports used for the sampbias analysis. Note that the records in the sea around Borneo were excluded by with the help of the user-provided study area."}
 #libraries
 library(raster)
 library(ggplot2)
@@ -31,7 +31,7 @@ library(forcats)
 ## get a polygon of Borneo
 data(landmass)
 
-born2 <- st_read("empirical_analyses/Borneo.kml")
+born2 <- st_read("empirical_analyses/Borneo.kml", quiet = TRUE)
 born2 <- sf:::st_zm(born2$geom)
 born2 <- as(born2, 'Spatial')
 
@@ -91,8 +91,7 @@ area <- round(areaPolygon(born) / 1000000, 0)
 
 
 dat <- read_csv("empirical_analyses/simulations/weight_estimates.csv") %>% 
-  mutate(records = ifelse(type=="empirical", rar * nrow(occ), rar * 100000)) %>% 
-  mutate(records_area = round(records / area * 10000, 2)) %>% 
+  mutate(records_area = round(rar / area * 10000, 2)) %>% 
   select(contains("w"), ID, type, records_area) %>% 
     pivot_longer(cols = contains("w_"), names_to = "bias",
                  values_to = "posterior_estimate") %>%
@@ -127,7 +126,7 @@ ggplot(data = plo)+
 ```
 
 
-```{r, out.width = "6in", fig.cap = "Projected bias surface for the distribution data of mammals from Borneo (www.gbif.org, 2016, https://doi.org/10.15468/dl.7fg4zx), at different levels of downsampling, from a random replicate."}
+```{r, out.width = "6in", fig.cap = "Projected bias surface for the distribution data of mammals from Borneo (www.gbif.org, 2016, https://doi.org/10.15468/dl.7fg4zx), at different levels of downsampling, from a random replicate. The plotted extent is adapted to the study area, which may not cover the entire island for rarified datasets with few records (A) and B))"}
 
 knitr::include_graphics(path = "ms_figures/figure_projection_empirical_rarefaction.jpg")
 
@@ -142,13 +141,31 @@ plo <- dat %>%  filter(type == "simulated") %>%
 ggplot(data = plo)+
   geom_boxplot(aes(x = bias, 
                    y = posterior_estimate,
-                 fill = as.factor(records_area)))+
+                   fill = as.factor(records_area),
+                   color = as.factor(records_area)))+
   ylab("Posterior weight")+
   xlab("Bias factor")+
   scale_fill_viridis(discrete = TRUE, name = "Records per\n10,000 sqkm")+
+  scale_color_viridis(discrete = TRUE, name = "Records per\n10,000 sqkm")+
   theme_bw()
 ```
 
+
+```{r, echo = FALSE, fig.height = 8, fig.cap="The bias weights ($w$) defining the effects of each bias factor estimated for the smallest simulated dataset without bias."}
+
+
+ggplot(data = plo)+
+  geom_histogram(aes(posterior_estimate, fill = as.factor(records_area)), bins = 50) +
+  scale_fill_viridis(discrete = TRUE, name = "Records per\n10,000 sqkm")+
+  facet_grid(rows = vars(records_area), cols = vars(bias))+
+  scale_x_continuous(breaks = c(0,0.003, 0.006, 0.009), limits = c(0,0.01))+
+  xlab("Posterior weight")+
+  ylab("Count")+
+  theme_bw()+
+  theme(panel.grid.minor = element_blank(),
+        legend.position = "none")
+
+```
 
 
 ```{r, out.width = "6in", fig.cap = "Projected bias surface for randomly sampled points across Borneo, from a random replicate."}

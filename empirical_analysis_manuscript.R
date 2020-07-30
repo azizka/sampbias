@@ -26,7 +26,7 @@ occ<- read.csv(system.file("extdata",
 
 
 
-out <- calculate_bias(occ, res = 0.05, buffer = 0.5, restrict_sample = born)
+out <- calculate_bias(occ, res = 0.05, buffer = 0.5, restrict_sample = borneo)
 
 p1 <- plot(out)
 summary(out)
@@ -39,6 +39,9 @@ p2 <- map_bias(proj)
 
 ggsave(p2, filename = "ms_figures/figure_empirical_results_spatial_projection.pdf", height = 16, width = 16)
 
+p3 <- map_bias(proj, sampling_rate = TRUE)
+
+ggsave(p3, filename = "ms_figures/figure_empirical_results_spatial_projection_sampling_rate.pdf", height = 16, width = 16)
 
 
 

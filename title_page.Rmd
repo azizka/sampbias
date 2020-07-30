@@ -1,6 +1,5 @@
 ---
 title: "sampbias, a method for quantifying geographic sampling biases in species distribution data"
-# title: "A global Red List of orchids supports the value of automated conservation assessment"
 author: "Alexander Zizka^1,2^, Alexandre Antonelli^3,4,5^, Daniele Silvestro^3,4,6^"
 output: 
   bookdown::pdf_document2:
@@ -30,7 +29,7 @@ fontsize: 12pt
 
 **Running head** -- sampbias accessibility bias
 
-**Word count** -- Abstract: 207 words; Main text: 3013 words, 2 figures
+**Word count** -- Abstract: 207 words; Main text (excluding references): 3019 words, 2 figures
 
 **Corresponding author** -- alexander.zizka@idiv.de
 

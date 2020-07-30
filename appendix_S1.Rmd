@@ -93,6 +93,7 @@ area <- round(areaPolygon(born) / 1000000, 0)
 dat <- read_csv("empirical_analyses/simulations/weight_estimates.csv") %>% 
   mutate(records_area = round(rar / area * 10000, 2)) %>% 
   select(contains("w"), ID, type, records_area) %>% 
+  select(-w_rate) %>% 
     pivot_longer(cols = contains("w_"), names_to = "bias",
                  values_to = "posterior_estimate") %>%
     mutate(bias = gsub("w_", "", .data$bias))

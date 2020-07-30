@@ -59,8 +59,8 @@ plot.sampbias <- function(x, ...) {
   plo2_w <-colMeans(x$bias_estimate)
   plo2_dist <- seq(1,1000,length.out=1000)
   plo2 <- data.frame(dist = plo2_dist,
-                     rate = plo2_w[4] * exp(-plo2_w[5:length(plo2_w)]*plo2_dist),
-                     id = names(x$bias_estimate)[-c(1:4)]) %>%
+                     rate = plo2_w[4] * exp(-plo2_w[5:(length(plo2_w)-1)]*plo2_dist),
+                     id = names(x$bias_estimate)[-c(1:4, ncol(x$bias_estimate))]) %>%
     mutate(id = gsub("w_", "", .data$id)) %>%
     mutate(id = factor(.data$id, levels = levels(plo1$bias)))
 

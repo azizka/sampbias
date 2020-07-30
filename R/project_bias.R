@@ -50,7 +50,7 @@ project_bias <- function(x, factors = NULL) {
   ras <- ras/x$summa$rescale_distances
 
   # get mean posterior weights and sort according to importance
-  mean_w <- colMeans(x$bias_estimate)[-c(1:4)] %>% sort() %>% rev()
+  mean_w <- colMeans(x$bias_estimate)[-c(1:4, ncol(x$bias_estimate))] %>% sort() %>% rev()
 
   # sort ras as mean_w
   ord <- match(gsub("w_", "", names(mean_w)), colnames(ras))

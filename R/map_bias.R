@@ -4,7 +4,7 @@
 #' rate as calculated using \code{\link{calculate_bias}}
 #'and projected using \code{\link{project_bias}}. For instance, a value of -25 indicates
 #' a drop of 25% compared to the highest rate
-#' (e.g. in a road on river flowing through the city airport)
+#' (e.g. in a road on river flowing through the city airport).
 #'
 #'
 #' @param x a raster stack as generate by \code{\link{project_bias}}
@@ -14,7 +14,7 @@
 #' used.
 #' @param sealine logical. Should the sealine be added to the plots? Default is
 #' to TRUE.
-#' @param sampling_ratelogical. logical. If true, the projected sampling rate depending on the
+#' @param sampling_rate logical. If true, the projected sampling rate depending on the
 #' biasing factors is plotted instead (logarithmically transformed to the base of 10). Default is to FALSE.
 #' @return A series of R plots based on ggplot2.
 

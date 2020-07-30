@@ -17,7 +17,7 @@ used.}
 \item{sealine}{logical. Should the sealine be added to the plots? Default is
 to TRUE.}
 
-\item{sampling_ratelogical.}{logical. If true, the projected sampling rate depending on the
+\item{sampling_rate}{logical. If true, the projected sampling rate depending on the
 biasing factors is plotted instead (logarithmically transformed to the base of 10). Default is to FALSE.}
 }
 \value{
@@ -28,7 +28,7 @@ A plotting function to visualize the relative deviation of sampling rate from th
 rate as calculated using \code{\link{calculate_bias}}
 and projected using \code{\link{project_bias}}. For instance, a value of -25 indicates
 a drop of 25% compared to the highest rate
-(e.g. in a road on river flowing through the city airport)
+(e.g. in a road on river flowing through the city airport).
 }
 \examples{
 

@@ -53,7 +53,6 @@ bias.out <- calculate_bias(x = occ,
                            gaz = gazetteers, 
                            restrict_sample = area_example)
 
-
 ## ---- fig.cap="Example of a more complex customized study area representing the Borneo montane rain forests ecoregion from Olson et al. (2001). Only grid cells within red area are included in the sampling bias calculation."----
 data(ecoregion_example)
 

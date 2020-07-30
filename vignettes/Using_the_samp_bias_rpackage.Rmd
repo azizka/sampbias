@@ -38,7 +38,7 @@ library(raster)
 1. A table of species occurrence records
 2. A set of geographical gazetteers
 
-The example files for this tutorial are provided with the package, descriptions and help for all functions are accesible via `?Functionname`, for instance `?calculate_bias`.
+The example files for this tutorial are provided with the package, descriptions and help for all functions are accessible via `?Functionname`, for instance `?calculate_bias`.
 
 ## 1. Species occurrence records
 Species occurrences can be provided as an `data.frame` including a minimum of three columns named "species", "decimalLongitude", and "decimalLatitude". *Sampbias* can also directly work with data downloaded from the Global Biodiversity Information Facility data portal (www.gbif.org). We will use the records of mammals from Borneo provided with the package (GBIF, 2016, doi.org/10.15468/dl.7fg4zx.) as example in this tutorial.
@@ -77,7 +77,7 @@ A sampbias analyses is run in one line of code via the `calculate_bias` function
 bias.out <- calculate_bias(x = occ, gaz = gazetteers)
 ```
 
-In addition to the input from above, `calculate_bias` offers options to customize analyses, of which the most important ones are shown in Table 1. See `?calculate_bias` for a detailed description of all options, and the section "Changing default settings" of this tutorial for a description and examples for the "restricted sample" and "inp_raster" options. **It is of special importance to adapt the raster resoltuion to the extent of the study area via the `res` or `inp_raster` options.** 
+In addition to the input from above, `calculate_bias` offers options to customize analyses, of which the most important ones are shown in Table 1. See `?calculate_bias` for a detailed description of all options, and the section "Changing default settings" of this tutorial for a description and examples for the "restricted sample" and "inp_raster" options. **It is of special importance to adapt the raster resolution to the extent of the study area via the `res` or `inp_raster` options.** 
 
 
 |Option | Description|
@@ -119,7 +119,7 @@ map_bias(proj)
 The `calculate_bias` function provides various options to customize analyses (see above). For two important options---providing a custom study area and using a equal area grid---we provide examples below.
 
 ## Custom study area
-By default *sampbias* uses a rectangle defined by the minimum and maximum longitude and latitude values in the input point records to define the study area. It may be desirable to change this, for instance if this rectangle comprises a set of different habitats such as rainforest and desert, which may differ in species richness and therefore the number of records expected. *Sampbias* enables user-defined study areas via the `restrict_sample` option of the `calculate_bias` function, which uses objects of the class `SpatialPolygonsDataFrame` or `SpatialPolygons`. This could be simple custom polygons as in the `area_example` dataset provided with *sampbias*:
+By default *sampbias* uses a rectangle defined by the minimum and maximum longitude and latitude values in the input point records to define the study area. It may be desirable to change this, for instance if this rectangle comprises a set of different habitats such as rainforest and desert, which may differ in species richness and therefore the number of records expected. *Sampbias* enables user-defined study areas via the `restrict_sample` option of the `calculate_bias` function, which uses objects of the class `SpatialPolygonsDataFrame` or `SpatialPolygons`. If the user provides a custom study area, all occurrence records in the dataset falling outside this area will be disregarded. This could be simple custom polygons as in the `area_example` dataset provided with *sampbias*:
 
 ```{r, fig.cap="Example of a customized study area which can be provided to the claculate_bias function via the restrict_sample option. Only grid cells within the red area are included in the sampling bias calculation."}
 data(area_example)
@@ -131,7 +131,6 @@ plot(area_example, col = "red", add = TRUE)
 bias.out <- calculate_bias(x = occ, 
                            gaz = gazetteers, 
                            restrict_sample = area_example)
-
 ```
 
 More complex restrictions are possible, for instance limiting the study area to the ecoregion "Borneo montane rain forests" (Olson, et al. 2001). For diagnostics the sample raster can be plotted using the `plot_raster` argument.

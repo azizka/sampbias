@@ -16,9 +16,9 @@ rar <- c(100000,
          round(6262 * 0.25, 0),
          round(6262 * 0.1, 0),
          round(6262 * 0.01, 0))
-rar <- rar[3]
+rar <- rar[6]
 ID <- 1
-res <- 0.05
+res <- 0.1#0.05
 
 #rarefaction of a randomly sampled data set across the study area without bias
 
@@ -30,7 +30,7 @@ born2 <- sf:::st_zm(born2$geom)
 born2 <- as(born2, 'Spatial')
 born <- intersect(landmass, born2)
 
-# rarefaction loop for the bias calculation, write out the resulting paramter estimates and a map
+# rarefaction loop for the bias calculation, write out the resulting parameter estimates and a map
 for(i in 1:length(ID)){
   print(i)
   # randomly sample points across the island
@@ -47,14 +47,14 @@ for(i in 1:length(ID)){
   p2 <- map_bias(proj)
 
   ggsave(p2, filename = paste("empirical_analyses/simulations/figure_empirical_results_spatial_projection_simulated_",
-                              rar, "_", ID[i], ".pdf", sep = ""),
+                              res, "_", rar, "_", ID[i], ".pdf", sep = ""),
          height = 16, width = 16)
 
 
   p3 <- map_bias(proj, sampling_rate = TRUE)
 
   ggsave(p3, filename = paste("empirical_analyses/simulations/figure_empirical_results_spatial_projection_simulated_",
-                              rar, "_", ID[i], "_sampling_rate.pdf", sep = ""),
+                              res, "_", rar, "_", ID[i], "_sampling_rate.pdf", sep = ""),
          height = 16, width = 16)
 
   #prepare output files
@@ -65,8 +65,8 @@ for(i in 1:length(ID)){
   out$type <- "simulated"
 
   # write to disk
-  write_csv(out, paste("empirical_analyses/simulations/weight_estimates_",
-                       rar, "_", ID[i], ".csv", sep = ""))
+  write_csv(out, paste("empirical_analyses/simulations/weight_estimates_simulated_",
+                       res, "_", rar, "_", ID[i], ".csv", sep = ""))
 
   # run with null model
 
@@ -80,8 +80,8 @@ for(i in 1:length(ID)){
   out$type <- "simulated"
 
   # write to disk
-  write_csv(out, paste("empirical_analyses/simulations/weight_estimates_null",
-                       rar, "_", ID[i], ".csv", sep = ""))
+  write_csv(out, paste("empirical_analyses/simulations/weight_estimates_simulated",
+                       res, "_", rar, "_", ID[i], "_null.csv", sep = ""))
 
 }
 

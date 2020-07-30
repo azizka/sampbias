@@ -139,7 +139,8 @@ calculate_bias <- function(x,
                           prior_q = c(1, 0.01),
                           prior_w = c(1, 1),
                           plot_raster = FALSE,
-                          verbose = TRUE) {
+                          verbose = TRUE,
+			  run_null_model = FALSE) {
 
   #convert x to SpatialPoints
   dat.pts <- sp::SpatialPoints(x[, c("decimalLongitude", "decimalLatitude")])
@@ -264,7 +265,8 @@ calculate_bias <- function(x,
                         burnin = mcmc_burnin,
                         prior_q = prior_q,
                         prior_w = prior_w,
-                        outfile = NULL)
+                        outfile = NULL,
+			run_null_model = run_null_model)
 
     # create output file, a list of the class sampbias
     if (verbose) {

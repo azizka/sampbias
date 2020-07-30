@@ -48,7 +48,7 @@ multiplier_proposal <- function(i, d = 1.2) {
 
 get_post_rate <- function(w,alpha){
   a0 <- 1
-  b0 <- 0.1
+  b0 <- 0.001
   rate <- rgamma(1, a0 + length(w) * alpha, rate = b0 + sum(w))
   return(rate)
 }
@@ -61,7 +61,8 @@ get_post_rate <- function(w,alpha){
                          post_samples = NULL,
                          outfile = NULL,
                          prior_q = c(1, 0.01),
-                         prior_w = c(1, 1)) {
+                         prior_w = c(1, 1),
+			 run_null_model = FALSE) {
 
   indx <- c(3:ncol(x))
 
@@ -78,11 +79,18 @@ get_post_rate <- function(w,alpha){
 
   # init weigths of predictors
   wA <- abs(rnorm(length(indx), 0.01, 0.01))
+  if (run_null_model == TRUE){
+    wA = rep(0, length(indx))
+  }
 
   lambdas <- get_lambda_ij(qA, wA, X)
 
   likA <- sum(get_poi_likelihood(Xcounts, lambdas))
-  priorA <- sum(dgamma(wA, prior_w[1], rate=prior_w[2], log = TRUE)) + dgamma(qA, prior_q[1], rate=prior_q[2], log = TRUE)
+  
+  priorA <- dgamma(qA, prior_q[1], rate=prior_q[2], log = TRUE)
+  if (run_null_model == FALSE){
+    priorA <- priorA + sum(dgamma(wA, prior_w[1], rate=prior_w[2], log = TRUE))
+  }
 
   names_b <- paste("w", names(x[, indx]), sep = "_")
 
@@ -91,7 +99,7 @@ get_post_rate <- function(w,alpha){
 
   if (!is.null(outfile)){
     outfile <- paste("mcmc", paste(names_b[indx - 2], collapse = "_"), ".log", sep = "_")
-    cat(c("it", "likA", "priorA", "q", names_b[indx - 2], "w_rate", "\n"), file = outfile, sep = "\t")
+    cat(c("it", "likA", "priorA", "q", names_b[indx - 2], "hp_rate", "\n"), file = outfile, sep = "\t")
   }
 
   # print to screen
@@ -102,12 +110,12 @@ get_post_rate <- function(w,alpha){
     q <- qA
     mh <- TRUE
     
-    if (runif(1) < 0.02) {
+    if (runif(1) < 0.01 & run_null_model == TRUE) {
       prior_w[2] <- get_post_rate(wA, prior_w[1])
       mh <- FALSE
       hastings <- 0
     
-    } else if (runif(1) < 0.3) {
+    } else if (runif(1) < 0.3 | run_null_model == TRUE) {
       update <- multiplier_proposal(qA, d = 1.1)
       q <- update[[1]]
       hastings <- update[[2]]
@@ -124,7 +132,11 @@ get_post_rate <- function(w,alpha){
 	lik <- likA
     }
     
-    prior <- sum(dgamma(w, prior_w[1], rate=prior_w[2], log = TRUE)) + dgamma(q, prior_q[1], rate=prior_q[2], log = TRUE)
+    prior <- dgamma(q, prior_q[1], rate=prior_q[2], log = TRUE)
+    if (run_null_model == FALSE){
+      prior <- prior + sum(dgamma(w, prior_w[1], rate=prior_w[2], log = TRUE))
+    }
+    
 
     if (mh == FALSE | (lik + prior) - (likA + priorA) + hastings >= log(runif(1))) {
       likA <- lik
@@ -145,7 +157,7 @@ get_post_rate <- function(w,alpha){
   }
 
   if (is.null(outfile)){
-    names(out) <- (c("it", "likA", "priorA", "q", names_b[indx - 2],"w_rate"))
+    names(out) <- (c("it", "likA", "priorA", "q", names_b[indx - 2],"hp_rate"))
     return(out)
   }
 }

@@ -9,14 +9,15 @@ library(raster)
 library(readr)
 
 # rarefaction steps:
-rar <- c(100000, 25000,
+rar <- c(100000,
+         25000,
          6262,
          6262 * 0.5,
          round(6262 * 0.25, 0),
          round(6262 * 0.1, 0),
          round(6262 * 0.01, 0))
-rar <- rar[6]
-ID <- 1:3
+rar <- rar[3]
+ID <- 1
 res <- 0.05
 
 #rarefaction of a randomly sampled data set across the study area without bias
@@ -46,7 +47,7 @@ for(i in 1:length(ID)){
   p2 <- map_bias(proj)
 
   ggsave(p2, filename = paste("empirical_analyses/simulations/figure_empirical_results_spatial_projection_simulated_",
-                              ID[i], "_", rar, ".pdf", sep = ""),
+                              rar, "_", ID[i], ".pdf", sep = ""),
          height = 16, width = 16)
 
 
@@ -64,7 +65,24 @@ for(i in 1:length(ID)){
   out$type <- "simulated"
 
   # write to disk
-  write_csv(out, "empirical_analyses/simulations/weight_estimates.csv", append = TRUE)
+  write_csv(out, paste("empirical_analyses/simulations/weight_estimates_",
+                       rar, "_", ID[i], ".csv", sep = ""))
+
+  # run with null model
+
+  out <- calculate_bias(occ, res = res, buffer = 0.5, restrict_sample = born, run_null_model = TRUE)
+
+  #prepare output files
+  out <- out$bias_estimate
+  out$ID <- ID[i]
+  out$rar <- rar
+  out$res <- res
+  out$type <- "simulated"
+
+  # write to disk
+  write_csv(out, paste("empirical_analyses/simulations/weight_estimates_null",
+                       rar, "_", ID[i], ".csv", sep = ""))
+
 }
 
 

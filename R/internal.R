@@ -62,7 +62,7 @@ get_post_rate <- function(w,alpha){
                          outfile = NULL,
                          prior_q = c(1, 0.01),
                          prior_w = c(1, 1),
-			 run_null_model = FALSE) {
+                         run_null_model = FALSE) {
 
   indx <- c(3:ncol(x))
 
@@ -88,7 +88,7 @@ get_post_rate <- function(w,alpha){
   likA <- sum(get_poi_likelihood(Xcounts, lambdas))
 
   priorA <- dgamma(qA, prior_q[1], rate=prior_q[2], log = TRUE)
-  if (run_null_model == FALSE){
+  if (!run_null_model){
     priorA <- priorA + sum(dgamma(wA, prior_w[1], rate=prior_w[2], log = TRUE))
   }
 
@@ -110,12 +110,12 @@ get_post_rate <- function(w,alpha){
     q <- qA
     mh <- TRUE
 
-    if (runif(1) < 0.01 & run_null_model == TRUE) {
+    if (runif(1) < 0.01 & run_null_model) {
       prior_w[2] <- get_post_rate(wA, prior_w[1])
       mh <- FALSE
       hastings <- 0
 
-    } else if (runif(1) < 0.3 | run_null_model == TRUE) {
+    } else if (runif(1) < 0.3 | run_null_model) {
       update <- multiplier_proposal(qA, d = 1.1)
       q <- update[[1]]
       hastings <- update[[2]]
@@ -126,7 +126,7 @@ get_post_rate <- function(w,alpha){
     }
 
     lambdas <- get_lambda_ij(q, w, X)
-    if (mh == TRUE){
+    if (mh){
     	lik <- sum(get_poi_likelihood(Xcounts, lambdas))
     }else{
 	lik <- likA

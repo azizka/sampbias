@@ -73,6 +73,7 @@
 #' @param plot_raster logical. If TRUE, a plot of the occurrence raster is shown
 #' for diagnostic purposes. Dwfault = FALSE
 #' @param verbose logical.  If TRUE, progress is reported.  Default = TRUE.
+#' @param run_null_model logical. Run a null model with bias weights set to zero.
 #' @return An object of the S3-class \sQuote{sampbias}, which is a list
 #' including the following objects: \item{summa}{A list of summary statistics
 #' for the sampbias analyses, including the total number of occurrence points
@@ -140,7 +141,7 @@ calculate_bias <- function(x,
                           prior_w = c(1, 1),
                           plot_raster = FALSE,
                           verbose = TRUE,
-			  run_null_model = FALSE) {
+                          run_null_model = FALSE) {
 
   #convert x to SpatialPoints
   dat.pts <- sp::SpatialPoints(x[, c("decimalLongitude", "decimalLatitude")])
@@ -266,7 +267,7 @@ calculate_bias <- function(x,
                         prior_q = prior_q,
                         prior_w = prior_w,
                         outfile = NULL,
-			run_null_model = run_null_model)
+                        run_null_model = run_null_model)
 
     # create output file, a list of the class sampbias
     if (verbose) {

@@ -46,6 +46,12 @@ multiplier_proposal <- function(i, d = 1.2) {
   return(list(ii, hastings_ratio))
 }
 
+get_post_rate <- function(w,alpha){
+  a0 <- 1
+  b0 <- 0.1
+  rate <- rgamma(1, a0 + length(w) * alpha, rate = b0 + sum(w))
+  return(rate)
+}
 
 .RunSampBias <- function(x,
                          rescale_counts = 1,
@@ -85,7 +91,7 @@ multiplier_proposal <- function(i, d = 1.2) {
 
   if (!is.null(outfile)){
     outfile <- paste("mcmc", paste(names_b[indx - 2], collapse = "_"), ".log", sep = "_")
-    cat(c("it", "likA", "priorA", "q", names_b[indx - 2], "\n"), file = outfile, sep = "\t")
+    cat(c("it", "likA", "priorA", "q", names_b[indx - 2], "w_rate", "\n"), file = outfile, sep = "\t")
   }
 
   # print to screen
@@ -94,8 +100,14 @@ multiplier_proposal <- function(i, d = 1.2) {
   for (it in 1:iterations) {
     w <- wA
     q <- qA
-
-    if (runif(1) < 0.3) {
+    mh <- TRUE
+    
+    if (runif(1) < 0.02) {
+      prior_w[2] <- get_post_rate(wA, prior_w[1])
+      mh <- FALSE
+      hastings <- 0
+    
+    } else if (runif(1) < 0.3) {
       update <- multiplier_proposal(qA, d = 1.1)
       q <- update[[1]]
       hastings <- update[[2]]
@@ -106,10 +118,15 @@ multiplier_proposal <- function(i, d = 1.2) {
     }
 
     lambdas <- get_lambda_ij(q, w, X)
-    lik <- sum(get_poi_likelihood(Xcounts, lambdas))
+    if (mh == TRUE){
+    	lik <- sum(get_poi_likelihood(Xcounts, lambdas))
+    }else{
+	lik <- likA
+    }
+    
     prior <- sum(dgamma(w, prior_w[1], rate=prior_w[2], log = TRUE)) + dgamma(q, prior_q[1], rate=prior_q[2], log = TRUE)
 
-    if ((lik + prior) - (likA + priorA) + hastings >= log(runif(1))) {
+    if (mh == FALSE | (lik + prior) - (likA + priorA) + hastings >= log(runif(1))) {
       likA <- lik
       priorA <- prior
       wA <- w
@@ -119,16 +136,16 @@ multiplier_proposal <- function(i, d = 1.2) {
     if (it > burnin & it%%100 == 0) {
       message(paste(round(c(it, likA, priorA, qA, wA), 3), collapse = " "))
 
-      out <- rbind(out, c(it, likA, priorA, qA, wA))
+      out <- rbind(out, c(it, likA, priorA, qA, wA, prior_w[2]))
 
       if (!is.null(outfile)){
-        cat(c(it, likA, priorA, qA, wA, "\n"), file = outfile, sep = "\t", append = TRUE)
+        cat(c(it, likA, priorA, qA, wA, prior_w[2], "\n"), file = outfile, sep = "\t", append = TRUE)
       }
     }
   }
 
   if (is.null(outfile)){
-    names(out) <- (c("it", "likA", "priorA", "q", names_b[indx - 2]))
+    names(out) <- (c("it", "likA", "priorA", "q", names_b[indx - 2],"w_rate"))
     return(out)
   }
 }

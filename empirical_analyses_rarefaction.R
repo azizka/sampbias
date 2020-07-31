@@ -46,7 +46,7 @@ for(i in 1:length(ID)){
 
   p4 <- map_bias(proj, type = "diff_to_max")
 
-  ggsave(p4, filename = paste("empirical_analyses/simulations/difftomax_",
+  ggsave(p4, filename = paste("empirical_analyses/simulations/empirical_rarefaction_figure_difftomax_",
                               round(nrow(occ) * rar, 0), "_", ID[i], ".pdf", sep = ""),
          height = 16, width = 16)
 

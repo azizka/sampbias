@@ -15,7 +15,7 @@ geographic gazetteers of the class \code{SpatialPointsDataFrame} or
 resolution of the distances rasters.}
 
 \item{buffer}{numerical.  The size of the geographic buffer around the
-extent of ras for the distance calculations in degrees, to account for
+extent of \code{ras} for the distance calculations in degrees, to account for
 geographic structures neighbouring the study area (such as a road right
 outside the study area) Default is to the resolution of \code{ras}.}
 }

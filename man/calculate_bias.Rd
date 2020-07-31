@@ -20,7 +20,8 @@ calculate_bias(
   prior_w = c(1, 1),
   plot_raster = FALSE,
   verbose = TRUE,
-  run_null_model = FALSE
+  run_null_model = FALSE,
+  use_hyperprior = TRUE
 )
 }
 \arguments{
@@ -36,19 +37,19 @@ used.  See Details.}
 \item{res}{numerical.  The raster resolution for the distance calculation to
 the geographic features and the data visualization, in decimal degrees. The
 default is to one degree, but higher resolution will be desirable for most
-analyses. Res together with the extent of the input data determine
+analyses. \code{Res} together with the extent of the input data determine
 computation time and memory requirements.}
 
 \item{buffer}{numerical.  The size of the geographic buffer around the
 extent of \code{ras} for the distance calculations in degrees, to account
 for geographic structures neighbouring the study area (such as a road right
-outside the study area). Should be a multiple of res.  Default is to res.
+outside the study area). Should be a multiple of \code{res}.  Default is to \code{res}.
 See Details.}
 
 \item{restrict_sample}{a SpatialPolygons or SpatialPolygonDataframe.
 If provided the area for the bias test will be restricted to raster cells
 within these polygons (and the extent of the sampled points in x).
-Make sure to use adequate values for res. Default = NULL.}
+Make sure to use adequate values for \code{res}. Default = NULL.}
 
 \item{terrestrial}{logical.  If TRUE, the empirical distribution (and the
 output maps) are restricted to terrestrial areas.  Uses the
@@ -56,7 +57,7 @@ output maps) are restricted to terrestrial areas.  Uses the
 
 \item{inp_raster}{an object of class raster. A template raster for the
 counts and distance calculation. Can be used to provide a special resolution, or
-for different coordiante reference systems. See vignette.}
+for different coordinate reference systems. See vignette.}
 
 \item{mcmc_rescale_distances}{numerical. rescaling factor for the
 distance calculation}
@@ -64,7 +65,7 @@ distance calculation}
 \item{mcmc_iterations}{numerical. the number of iterations for the MCMC,
 by default 100,000}
 
-\item{mcmc_burnin}{numerical. the burnin for the MCMC, default is to o}
+\item{mcmc_burnin}{numerical. the burn-in for the MCMC, default is to 20,000}
 
 \item{mcmc_outfile}{character string. the path on where to write
 the results of the MCMC, optional.}
@@ -79,11 +80,14 @@ null model of uniform sampling rate q across cells.
 In the format c(shape,rate).}
 
 \item{plot_raster}{logical. If TRUE, a plot of the occurrence raster is shown
-for diagnostic purposes. Dwfault = FALSE}
+for diagnostic purposes. Default = FALSE}
 
 \item{verbose}{logical.  If TRUE, progress is reported.  Default = TRUE.}
 
 \item{run_null_model}{logical. Run a null model with bias weights set to zero.}
+
+\item{use_hyperprior}{logical. If TRUE a hyperprior on the bias weights is used for
+regularization to avoid over-parametrization.}
 }
 \value{
 An object of the S3-class \sQuote{sampbias}, which is a list

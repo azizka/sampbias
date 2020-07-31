@@ -11,7 +11,8 @@ An object of class \code{SpatialPolygonsDataFrame} with 1 rows and 2 columns.
 borneo
 }
 \description{
-The outline of Borneo, as example data for the user-defined study area option of \code{\link{calculate_bias}}. from \url{www.naturalearth.org}.
+The outline of Borneo, as example data for the user-defined study area option of \code{\link{calculate_bias}}.
+From \url{www.naturalearth.org}.
 }
 \examples{
 

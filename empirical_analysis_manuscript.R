@@ -28,6 +28,9 @@ occ<- read.csv(system.file("extdata",
 
 out <- calculate_bias(occ, res = 0.05, buffer = 0.5, restrict_sample = borneo)
 
+out <- calculate_bias(occ, res = 1, buffer = 0.5, restrict_sample = borneo, use_hyperprior=TRUE)
+out <- calculate_bias(occ, res = 1, buffer = 0.5, restrict_sample = borneo, use_hyperprior=FALSE)
+
 p1 <- plot(out)
 summary(out)
 

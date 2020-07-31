@@ -14,7 +14,8 @@ An object of class \code{SpatialPolygonsDataFrame} with 7 rows and 21 columns.
 ecoregion_example
 }
 \description{
-An example of the format needed to provide custom areas for \code{\link{calculate_bias}} based on a publicly available set of global ecoregions.
+An example of the format needed to provide custom areas for \code{\link{calculate_bias}}
+based on a publicly available set of global ecoregions.
 }
 \examples{
 

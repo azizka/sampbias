@@ -63,7 +63,7 @@ get_post_rate <- function(w,alpha){
                          prior_q = c(1, 0.01),
                          prior_w = c(1, 1),
                          run_null_model = FALSE,
-			 use_hyperprior = TRUE) {
+                         use_hyperprior = TRUE) {
 
   indx <- c(3:ncol(x))
 
@@ -89,7 +89,7 @@ get_post_rate <- function(w,alpha){
   }else{
     hp_update_freq = 0
   }
-  
+
 
   lambdas <- get_lambda_ij(qA, wA, X)
 

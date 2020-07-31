@@ -14,7 +14,7 @@ the same objects provided to \code{calculate_bias} when creating the Object.
 If \code{gaz} is not supplied, the sampbias package standard gazetteers are
 used.}
 
-\item{sealine}{logical. Should the sealine be added to the plots? Default is
+\item{sealine}{logical. Should the coastline be added to the plots? Default is
 to TRUE.}
 
 \item{type}{character vector. ONe of c("sampling_rate", "log_sampling_rate", "diff_to_max"). If "sampling_rate".

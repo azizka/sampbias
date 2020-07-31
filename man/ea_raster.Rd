@@ -11,7 +11,8 @@ An object of class \code{RasterLayer} of dimension 142 x 360 x 1.
 ea_raster
 }
 \description{
-An example for an global equal area raster (in Behrmann projection) for the format needed for a custom grid provided to \code{\link{calculate_bias}}.
+An example for an global equal area raster (in Behrmann projection) for the format needed for
+a custom grid provided to \code{\link{calculate_bias}}.
 }
 \examples{
 

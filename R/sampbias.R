@@ -126,7 +126,8 @@ NULL
 
 #' Detailed Example for a Custom Study Area
 #'
-#' An example of the format needed to provide custom areas for \code{\link{calculate_bias}} based on a publicly available set of global ecoregions.
+#' An example of the format needed to provide custom areas for \code{\link{calculate_bias}}
+#' based on a publicly available set of global ecoregions.
 #'
 #' @name ecoregion_example
 #' @docType data
@@ -141,7 +142,8 @@ NULL
 
 #' Equal Area Raster
 #'
-#' An example for an global equal area raster (in Behrmann projection) for the format needed for a custom grid provided to \code{\link{calculate_bias}}.
+#' An example for an global equal area raster (in Behrmann projection) for the format needed for
+#' a custom grid provided to \code{\link{calculate_bias}}.
 #'
 #' @name ea_raster
 #' @docType data
@@ -154,7 +156,8 @@ NULL
 
 #' Borneo
 #'
-#' The outline of Borneo, as example data for the user-defined study area option of \code{\link{calculate_bias}}. from \url{www.naturalearth.org}.
+#' The outline of Borneo, as example data for the user-defined study area option of \code{\link{calculate_bias}}.
+#' From \url{www.naturalearth.org}.
 #'
 #' @name borneo
 #' @docType data

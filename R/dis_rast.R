@@ -15,7 +15,7 @@
 #' @param ras an object of the class \code{raster}. Defining the extent and
 #' resolution of the distances rasters.
 #' @param buffer numerical.  The size of the geographic buffer around the
-#' extent of ras for the distance calculations in degrees, to account for
+#' extent of \code{ras} for the distance calculations in degrees, to account for
 #' geographic structures neighbouring the study area (such as a road right
 #' outside the study area) Default is to the resolution of \code{ras}.
 #' @return a \code{list} of \code{raster} objects of the same length as
@@ -91,10 +91,10 @@ dis_rast <- function(gaz, ras, buffer = NULL) {
   e <- raster::extent(ras)
   cut.off <- e + buffer
 
-  # crop gazeteers, to larger extent
+  # crop gazetteers, to larger extent
   gaz.crop <- lapply(gaz, function(k) raster::crop(k, cut.off))
 
-  # check if something was found for all gazeteers and remove the remainders
+  # check if something was found for all gazetteers and remove the remainders
   check <- sapply(gaz.crop, is.null)
 
   if (any(check)) {
@@ -118,7 +118,7 @@ dis_rast <- function(gaz, ras, buffer = NULL) {
   res(r) <- raster::res(ras)
   r[] <- 0
 
-  ## rasterize gazeteers, parallelized if desired
+  ## rasterize gazetteers
   dist.r <- lapply(gaz.crop, function(k) raster::rasterize(x = k, y = r,
                                                            field = 1, fun = "count"))
   # calculate distance for all gazeteers

@@ -4,7 +4,7 @@
 \alias{map_bias}
 \title{Mapping Projected Bias Effects}
 \usage{
-map_bias(x, gaz = NULL, sealine = TRUE, sampling_rate = FALSE)
+map_bias(x, gaz = NULL, sealine = TRUE, type = "sampling_rate")
 }
 \arguments{
 \item{x}{a raster stack as generate by \code{\link{project_bias}}}
@@ -17,18 +17,21 @@ used.}
 \item{sealine}{logical. Should the sealine be added to the plots? Default is
 to TRUE.}
 
-\item{sampling_rate}{logical. If true, the projected sampling rate depending on the
-biasing factors is plotted instead (logarithmically transformed to the base of 10). Default is to FALSE.}
+\item{type}{character vector. ONe of c("sampling_rate", "log_sampling_rate", "diff_to_max"). If "sampling_rate".
+the plot shows the raw projected sampling rate depending on the
+biasing factors, if "log_sampling_rate", the plot shows the log10 transformed sampling rate, and if
+"diff_to_max", the relative deviation of sampling rate from the maximum
+rate as calculated using \code{\link{calculate_bias}}
+and projected using \code{\link{project_bias}}. For instance, a value of -25 indicates
+a drop of 25% compared to the highest rate
+(e.g. in a road on river flowing through the city airport).}
 }
 \value{
 A series of R plots based on ggplot2.
 }
 \description{
-A plotting function to visualize the relative deviation of sampling rate from the maximum
-rate as calculated using \code{\link{calculate_bias}}
-and projected using \code{\link{project_bias}}. For instance, a value of -25 indicates
-a drop of 25% compared to the highest rate
-(e.g. in a road on river flowing through the city airport).
+A plotting function to visualize the effect of accessibility bias caused by different biasing factors
+in space.
 }
 \examples{
 

@@ -10,17 +10,13 @@ library(raster)
 
 # rarefaction steps:
 rar <- c(1, 0.5, 0.1, 0.01)
-rar <- rar[5]
+rar <- rar[2]
 ID <- 1:3
-res <- 1#0.05
+res <- 0.05
 
 ## get a polygon of Borneo
 data(landmass)
-
-born2 <- st_read("empirical_analyses/Borneo.kml")
-born2 <- sf:::st_zm(born2$geom)
-born2 <- as(born2, 'Spatial')
-born <- intersect(landmass, born2)
+data(borneo)
 
 # rarefaction of the empirical data
 occ <-read.csv(system.file("extdata", "mammals_borneo.csv", package="sampbias"), sep = "\t")
@@ -30,7 +26,7 @@ occ <-read.csv(system.file("extdata", "mammals_borneo.csv", package="sampbias"),
 for(i in 1:length(ID)){
   print(i)
   sub <- occ[base::sample(x = 1:nrow(occ), size = round(nrow(occ) * rar, 0)), ]
-  out <- calculate_bias(sub, res = res, buffer = 2, restrict_sample = born)
+  out <- calculate_bias(sub, res = res, buffer = 2, restrict_sample = borneo)
 
   save(out, file = paste("empirical_analyses/simulations/empirical_rarefaction_results_",
                          round(nrow(occ) * rar, 0), "_", ID[i], ".rda", sep = ""))

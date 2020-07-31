@@ -62,7 +62,8 @@ get_post_rate <- function(w,alpha){
                          outfile = NULL,
                          prior_q = c(1, 0.01),
                          prior_w = c(1, 1),
-                         run_null_model = FALSE) {
+                         run_null_model = FALSE,
+			 use_hyperprior = TRUE) {
 
   indx <- c(3:ncol(x))
 
@@ -82,6 +83,13 @@ get_post_rate <- function(w,alpha){
   if (run_null_model == TRUE){
     wA = rep(0, length(indx))
   }
+  if (use_hyperprior & length(indx) > 1){
+    # hp only used with more than one bias factor
+    hp_update_freq = 0.01
+  }else{
+    hp_update_freq = 0
+  }
+  
 
   lambdas <- get_lambda_ij(qA, wA, X)
 
@@ -110,7 +118,7 @@ get_post_rate <- function(w,alpha){
     q <- qA
     mh <- TRUE
 
-    if (runif(1) < 0.01 & run_null_model == FALSE)  {
+    if (runif(1) < hp_update_freq & run_null_model == FALSE)  {
       prior_w[2] <- get_post_rate(wA, prior_w[1])
       mh <- FALSE
       hastings <- 0

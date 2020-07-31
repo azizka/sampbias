@@ -141,7 +141,8 @@ calculate_bias <- function(x,
                           prior_w = c(1, 1),
                           plot_raster = FALSE,
                           verbose = TRUE,
-                          run_null_model = FALSE) {
+                          run_null_model = FALSE,
+			  use_hyperprior = TRUE) {
 
   #convert x to SpatialPoints
   dat.pts <- sp::SpatialPoints(x[, c("decimalLongitude", "decimalLatitude")])

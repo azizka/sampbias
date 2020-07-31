@@ -9,10 +9,10 @@ library(raster)
 
 
 # rarefaction steps:
-rar <- c(1, 0.5, 0.25, 0.1, 0.01)
+rar <- c(1, 0.5, 0.1, 0.01)
 rar <- rar[5]
-ID <- 1
-res <- 0.05
+ID <- 1:3
+res <- 1#0.05
 
 ## get a polygon of Borneo
 data(landmass)
@@ -32,18 +32,26 @@ for(i in 1:length(ID)){
   sub <- occ[base::sample(x = 1:nrow(occ), size = round(nrow(occ) * rar, 0)), ]
   out <- calculate_bias(sub, res = res, buffer = 2, restrict_sample = born)
 
+  save(out, file = paste("empirical_analyses/simulations/empirical_rarefaction_results_",
+                         round(nrow(occ) * rar, 0), "_", ID[i], ".rda", sep = ""))
   # plot of bias projection in space
   proj <- project_bias(out)
   p2 <- map_bias(proj)
 
-  ggsave(p2, filename = paste("empirical_analyses/simulations/figure_empirical_results_spatial_projection_empirical_",
+  ggsave(p2, filename = paste("empirical_analyses/simulations/empirical_rarefaction_figure_rate_",
                               round(nrow(occ) * rar, 0), "_", ID[i], ".pdf", sep = ""),
          height = 16, width = 16)
 
-  p3 <- map_bias(proj, sampling_rate = TRUE)
+  p3 <- map_bias(proj, type = "log_sampling_rate")
 
-  ggsave(p3, filename = paste("empirical_analyses/simulations/figure_empirical_results_spatial_projection_empirical_",
-                              round(nrow(occ) * rar, 0), "_", ID[i], "_sampling_rate.pdf", sep = ""),
+  ggsave(p3, filename = paste("empirical_analyses/simulations/empirical_rarefaction_figure_lograte_",
+                              round(nrow(occ) * rar, 0), "_", ID[i], ".pdf", sep = ""),
+         height = 16, width = 16)
+
+  p4 <- map_bias(proj, type = "diff_to_max")
+
+  ggsave(p4, filename = paste("empirical_analyses/simulations/difftomax_",
+                              round(nrow(occ) * rar, 0), "_", ID[i], ".pdf", sep = ""),
          height = 16, width = 16)
 
 
@@ -55,5 +63,7 @@ for(i in 1:length(ID)){
   out$type <- "empirical"
 
   # write to disk
-    write_csv(out, "empirical_analyses/simulations/weight_estimates.csv", append = TRUE)
+    write_csv(out,
+              paste("empirical_analyses/simulations/empirical_rarefaction_weightestimates_",
+                    round(nrow(occ) * rar, 0), "_", ID[i], ".csv", sep = ""))
 }

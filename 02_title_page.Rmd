@@ -27,9 +27,9 @@ fontsize: 12pt
 6. Department of Biology, University of Fribourg, Ch. du Musée 10, 1700 Fribourg, Switzerland
 
 
-**Running head** -- sampbias accessibility bias
+**Running head** -- Quantifying sampling biases
 
-**Word count** -- Abstract: 207 words; Main text (excluding references): 3019 words, 2 figures
+**Word count** -- Abstract: 207 words; Main text (excluding references): XXXX words, 2 figures
 
 **Corresponding author** -- alexander.zizka@idiv.de
 

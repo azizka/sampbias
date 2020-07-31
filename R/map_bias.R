@@ -11,7 +11,7 @@
 #' used.
 #' @param sealine logical. Should the coastline be added to the plots? Default is
 #' to TRUE.
-#' @param type character vector. ONe of c("sampling_rate", "log_sampling_rate", "diff_to_max"). If "sampling_rate".
+#' @param type character vector. One of c("sampling_rate", "log_sampling_rate", "diff_to_max"). If "sampling_rate".
 #' the plot shows the raw projected sampling rate depending on the
 #' biasing factors, if "log_sampling_rate", the plot shows the log10 transformed sampling rate, and if
 #' "diff_to_max", the relative deviation of sampling rate from the maximum
@@ -117,7 +117,7 @@ map_bias <- function(x,
       scale_fill_viridis(na.value = "transparent",
                          option = "viridis",
                          direction = 1,
-                         name = "Log Sampling rate",
+                         name = "Sampling rate",
                          discrete = FALSE)+
       theme(axis.title = element_blank())+
       facet_wrap(split~ .)

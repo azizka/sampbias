@@ -41,7 +41,7 @@ library(raster)
 The example files for this tutorial are provided with the package, descriptions and help for all functions are accessible via `?Functionname`, for instance `?calculate_bias`.
 
 ## 1. Species occurrence records
-Species occurrences can be provided as an `data.frame` including a minimum of three columns named "species", "decimalLongitude", and "decimalLatitude". *Sampbias* can also directly work with data downloaded from the Global Biodiversity Information Facility data portal (www.gbif.org). We will use the records of mammals from Borneo provided with the package (GBIF, 2016, doi.org/10.15468/dl.7fg4zx.) as example in this tutorial.
+Species occurrences can be provided as a `data.frame` including a minimum of three columns named "species", "decimalLongitude", and "decimalLatitude". *Sampbias* can also directly work with data downloaded from the Global Biodiversity Information Facility data portal (www.gbif.org). We will use the records of mammals from Borneo provided with the package (GBIF, 2016, doi.org/10.15468/dl.7fg4zx.) as example in this tutorial.
 
 The input data can be easily loaded into R from a .txt. or .csv file, for instance using the `read.csv()` function. 
 
@@ -53,10 +53,10 @@ occ <-read.csv(system.file("extdata",
                sep = "\t")
 ```
 
-**Note**: *Sampbias* evaluates the bias by comparing the observed records to a random sampling. This meaning that the tool is designed for multi-species data sets and **not** single species data sets where the distribution of records might reflect ecological preferences. In general, the more species and the more records, the more reliable the results will be.
+**Note**: *Sampbias* evaluates the bias by comparing the observed records to a random sampling. This means that the tool is designed for multi-species data sets and **not** single species data sets where the distribution of records might reflect ecological preferences. In general, the more species and the more records, the more reliable the results will be, but the package is also capable of dealing with sparsely sampled data sets (see main text for simulation results).
 
 ## 2. Geographic gazetteers
-*Sampbias* evaluates the distribution of the sampled species occurrences in relation to geographic features that might bias sampling effort. These are usually related to accessibility or means of travel. *Sampbias* includes a set of default gazetteers for cities, airports, roads and rivers (from https://www.naturalearthdata.com/), which can give an estimate of bias for large and medium scale analyses. For higher resolutions custom gazetteers will yield better results, and can be provided via the `gaz` option of `calculate_bias` function as a list of `SpatialPointsDataFrame` and `SpatialLinesDataFrame` objects. These can easily be loaded into R from standard shape files using the `rgdal` package: 
+*Sampbias* evaluates the distribution of the sampled species occurrences in relation to geographic features that might bias sampling effort. These are usually related to accessibility or means of travel. *Sampbias* includes a set of default gazetteers for cities, airports, roads and rivers (from https://www.naturalearthdata.com/), which can give an estimate of bias for large and medium scale analyses. For higher resolutions custom gazetteers will yield better results, and should be provided via the `gaz` option of `calculate_bias` function as a list of `SpatialPointsDataFrame` and `SpatialLinesDataFrame` objects. These can be easily loaded into R from standard shape files using the `rgdal` package: 
 
 ```{r, warning = FALSE, message = FALSE}
 cit <- readOGR(dsn = system.file("extdata", package="sampbias"), 
@@ -87,7 +87,7 @@ In addition to the input from above, `calculate_bias` offers options to customiz
 |terrestrial|logical. If TRUE, the empirical distribution (and the output maps) are restricted to terrestrial areas.  Default = TRUE.|
 |inp_raster|a raster object. This option enables to directly provide the grid for the bias calculation, instead of specifying a resolution. This can be used to work with equal area grids or other coordinate references systems.
 
-The *sampbias* model uses a Markov chain Monte Carlo approach to estimate the model parameters. The default MCMC runs for 100,000 generations with a 20% burn-in, which has proven sufficient for most analyses. We suggest to verify that the effective sample size of the posterior estimates is large enough (e.g. > 200) using the `ESS` function of the `LaplacesDemon` package (`LaplacesDemon::ESS(bias.out$bias_estimate)`).
+The *sampbias* model uses a Markov chain Monte Carlo approach to estimate the model parameters. The default MCMC runs for 100,000 generations with a 20% burn-in, which has proven sufficient for most analyses. We suggest users to verify that the effective sample size of the posterior estimates is large enough (e.g. > 200) using the `ESS` function of the `LaplacesDemon` package (`LaplacesDemon::ESS(bias.out$bias_estimate)`).
 
 
 # Output
@@ -101,7 +101,7 @@ The output of `calculate_bias` is a list of different R objects.
 |distance_raster|A raster or RasterStack, with the calculated distances for all bias factors (e.g. cities, roads, etc.) as used in the model|
 
 The package includes summary and plot methods for an easy exploration of the results. The plot method generates a boxplot of the posterior estimates of the weights for each biasing factor (Fig. 1).
-```{r, eval = TRUE, fig.cap = "Visulaization of the output of a sampbias analysis. A) Posterior estimates of the bias weights for cities and roads, B) the decay of the sampling rate with increasing distaince from cities and roads."}
+```{r, eval = TRUE, fig.height=7, fig.cap = "Output of a sampbias analysis. A) Posterior estimates of the bias weights for cities and roads, B) the decay of the sampling rate with increasing distance from cities and roads."}
 summary(bias.out)
 plot(bias.out)
 ```
@@ -110,18 +110,18 @@ As the last step, it is possible to project the bias effects into space and map 
 
 ```{r, fig.cap = "Sampling bias effect projected in space. Note the coarse grid resolution which should be increased."}
 proj <- project_bias(bias.out)
-map_bias(proj)
+map_bias(proj, type = "log_sampling_rate")
 ```
 
 \newpage{}
 
 # Changing default settings
-The `calculate_bias` function provides various options to customize analyses (see above). For two important options---providing a custom study area and using a equal area grid---we provide examples below.
+The `calculate_bias` function provides various options to customize analyses (see above). For two important options---providing a custom study area and using an equal area grid---we provide examples below.
 
 ## Custom study area
 By default *sampbias* uses a rectangle defined by the minimum and maximum longitude and latitude values in the input point records to define the study area. It may be desirable to change this, for instance if this rectangle comprises a set of different habitats such as rainforest and desert, which may differ in species richness and therefore the number of records expected. *Sampbias* enables user-defined study areas via the `restrict_sample` option of the `calculate_bias` function, which uses objects of the class `SpatialPolygonsDataFrame` or `SpatialPolygons`. If the user provides a custom study area, all occurrence records in the dataset falling outside this area will be disregarded. This could be simple custom polygons as in the `area_example` dataset provided with *sampbias*:
 
-```{r, fig.cap="Example of a customized study area which can be provided to the claculate_bias function via the restrict_sample option. Only grid cells within the red area are included in the sampling bias calculation."}
+```{r, fig.cap="Example of a customized study area which can be provided to the calculate_bias function via the restrict_sample option. Only grid cells within the red areas are included in the sampling bias calculation."}
 data(area_example)
 borneo <- crop(sampbias::landmass, extent(108, 120, -5, 7))
 
@@ -135,7 +135,7 @@ bias.out <- calculate_bias(x = occ,
 
 More complex restrictions are possible, for instance limiting the study area to the ecoregion "Borneo montane rain forests" (Olson, et al. 2001). For diagnostics the sample raster can be plotted using the `plot_raster` argument.
 
-```{r, fig.cap="Example of a more complex customized study area representing the Borneo montane rain forests ecoregion from Olson et al. (2001). Only grid cells within red area are included in the sampling bias calculation."}
+```{r, fig.cap="Example of a more complex customized study area representing the Borneo montane rain forests ecoregion from Olson et al. (2001). Only grid cells within the red area are included in the sampling bias calculation."}
 data(ecoregion_example)
 
 plot(borneo)
@@ -148,7 +148,7 @@ bias.out <- calculate_bias(x = occ,
 
 
 ## Equal area grid
-By default *sampbias* uses a lat/lon grid. This is a reasonable approximation for local and regional scales. However, since the area of the cells in such a grid differs with latitude, an equal area grid---for instance using a Behrmann projection---is a better choice for large-scale studies. When using an equal area grid, it is necessary for the input occurrence records as well as the gazetteer files to share the same projection and coordinate reference system.
+By default *sampbias* uses a latitude/longitude grid. This is a reasonable approximation for local and regional scales. However, since the area of the cells in such a grid differs with latitude, an equal area grid---for instance using a Behrmann projection---is often a better choice for large-scale studies. When using an equal area grid, it is necessary for the input occurrence records as well as the gazetteer files to share the same projection and coordinate reference system.
 
 
 ```{r, eval = FALSE}

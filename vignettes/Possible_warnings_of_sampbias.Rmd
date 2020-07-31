@@ -11,7 +11,7 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Sampbias, might return warning messages depending on input data and settings. All should be fixable, please report additional bugs at https://github.com/azizka/sampbias/issues.
+Sampbias might return warning messages depending on input data and settings. All should be fixable, please report additional bugs at https://github.com/azizka/sampbias/issues.
 
 1.*"'gaz' not found, using standard gazetteers"*
 
@@ -23,11 +23,11 @@ Sampbias, might return warning messages depending on input data and settings. Al
 
 3.*"Adapting buffer precision to resolution. Buffer set to X"* or "'Buffer' is not a multiple of res. Set 'buffer' to a multiple of res"
 
->Occurs if the `buffer` is not a multiple of `res` which might cause undesired raster shifts. Sampbias automatically changes the buffer to be a multiple of res. To avoid this warning always set the buffer to any desired multiple of res. Usually can be safely ignored.
+>Occurs if the `buffer` is not a multiple of `res` which might cause undesired raster shifts. Sampbias automatically changes the buffer to be a multiple of res. To avoid this warning always set the buffer to any desired multiple of res. This warning can usually be safely ignored.
 
 4.*"Evening buffer. Buffer set to X"*
 
->Occurs if the `buffer` is set to an odd number. The buffer has to be even, as it added to all sides of the extent of X. To avoid this warnings set `buffer` to an even number. Usually can be safely ignored.
+>Occurs if the `buffer` is set to an odd number. The buffer has to be even, as it adds to all sides of the extent of X. To avoid this warnings set `buffer` to an even number. This warning can usually be safely ignored.
 
 5.*"No reference found for 'X'. Increase buffer."*
 
@@ -39,4 +39,4 @@ Sampbias, might return warning messages depending on input data and settings. Al
 
 7.*"Gazetteers have NA values in first column, the corresponding entries will be ignored"*
 
->Occurs if there are any NA entries in the `data` slot of the `SpatialPointsDataFrame` or `SpatialLinesDataFrame` objects used as gazetteers. Check the gazetteers and replace NA values with any value.
+>Occurs if there are any NA entries in the `data` slot of the `SpatialPointsDataFrame` or `SpatialLinesDataFrame` objects used as gazetteers. Check the gazetteers and consider revising or excluding problematic entries.

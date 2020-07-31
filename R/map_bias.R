@@ -1,10 +1,7 @@
 #' Mapping Projected Bias Effects
 #'
-#'A plotting function to visualize the relative deviation of sampling rate from the maximum
-#' rate as calculated using \code{\link{calculate_bias}}
-#'and projected using \code{\link{project_bias}}. For instance, a value of -25 indicates
-#' a drop of 25% compared to the highest rate
-#' (e.g. in a road on river flowing through the city airport).
+#'A plotting function to visualize the effect of accessibility bias caused by different biasing factors
+#'in space.
 #'
 #'
 #' @param x a raster stack as generate by \code{\link{project_bias}}
@@ -14,8 +11,14 @@
 #' used.
 #' @param sealine logical. Should the sealine be added to the plots? Default is
 #' to TRUE.
-#' @param sampling_rate logical. If true, the projected sampling rate depending on the
-#' biasing factors is plotted instead (logarithmically transformed to the base of 10). Default is to FALSE.
+#' @param type character vector. ONe of c("sampling_rate", "log_sampling_rate", "diff_to_max"). If "sampling_rate".
+#' the plot shows the raw projected sampling rate depending on the
+#' biasing factors, if "log_sampling_rate", the plot shows the log10 transformed sampling rate, and if
+#' "diff_to_max", the relative deviation of sampling rate from the maximum
+#' rate as calculated using \code{\link{calculate_bias}}
+#'and projected using \code{\link{project_bias}}. For instance, a value of -25 indicates
+#' a drop of 25% compared to the highest rate
+#' (e.g. in a road on river flowing through the city airport).
 #' @return A series of R plots based on ggplot2.
 
 #' @seealso \code{\link{calculate_bias}}, \code{\link{project_bias}}
@@ -55,7 +58,9 @@
 map_bias <- function(x,
                      gaz = NULL,
                      sealine = TRUE,
-                     sampling_rate = FALSE) {
+                     type = "sampling_rate") {
+
+  match.arg(type, choices = c("sampling_rate", "log_sampling_rate", "diff_to_max"))
 
   # prepare gazetteers to be included for plotting
   if (!is.null(gaz)) {
@@ -100,7 +105,25 @@ map_bias <- function(x,
     filter(split != "occurrences")
 
 
-  if(sampling_rate){
+  if(type == "sampling_rate"){
+    plo <- plo %>%
+      filter(split != "Total_percentage")
+
+    out <- ggplot(plo)+
+      geom_raster(aes(x = .data$geo_lon, y = .data$geo_lat, fill = .data$val))+
+      facet_wrap(split~ .)+
+      coord_fixed()+
+      theme_bw()+
+      scale_fill_viridis(na.value = "transparent",
+                         option = "viridis",
+                         direction = 1,
+                         name = "Log Sampling rate",
+                         discrete = FALSE)+
+      theme(axis.title = element_blank())+
+      facet_wrap(split~ .)
+  }
+
+  if(type == "log_sampling_rate"){
     plo <- plo %>%
       filter(split != "Total_percentage")
 
@@ -116,7 +139,9 @@ map_bias <- function(x,
                          discrete = FALSE)+
       theme(axis.title = element_blank())+
       facet_wrap(split~ .)
-  }else{
+  }
+
+  if(type == "diff_to_max"){
     plo <- plo %>%
       filter(split == "Total_percentage")
 

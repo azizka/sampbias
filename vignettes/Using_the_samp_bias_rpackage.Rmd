@@ -1,6 +1,6 @@
 ---
 title: "Using the sampbias R package"
-author: "Alexander Zizka, Alexandre Antonelli, Daniele Silvestro"
+#author: "Alexander Zizka, Alexandre Antonelli, Daniele Silvestro"
 output: rmarkdown::pdf_document
 vignette: >
   %\VignetteIndexEntry{Using the sampbias R package}
@@ -33,7 +33,7 @@ library(raster)
 ```
 
 # Input data
-*Sampbias* calculates spatial bias in a species occurrence data set based on two input files:
+*sampbias* calculates spatial bias in a species occurrence data set based on two input files:
 
 1. A table of species occurrence records
 2. A set of geographical gazetteers
@@ -41,7 +41,7 @@ library(raster)
 The example files for this tutorial are provided with the package, descriptions and help for all functions are accessible via `?Functionname`, for instance `?calculate_bias`.
 
 ## 1. Species occurrence records
-Species occurrences can be provided as a `data.frame` including a minimum of three columns named "species", "decimalLongitude", and "decimalLatitude". *Sampbias* can also directly work with data downloaded from the Global Biodiversity Information Facility data portal (www.gbif.org). We will use the records of mammals from Borneo provided with the package (GBIF, 2016, doi.org/10.15468/dl.7fg4zx.) as example in this tutorial.
+Species occurrences can be provided as a `data.frame` including a minimum of three columns named "species", "decimalLongitude", and "decimalLatitude". *sampbias* can also directly work with data downloaded from the Global Biodiversity Information Facility data portal (www.gbif.org). We will use the records of mammals from Borneo provided with the package (GBIF, 2016, doi.org/10.15468/dl.7fg4zx.) as example in this tutorial.
 
 The input data can be easily loaded into R from a .txt. or .csv file, for instance using the `read.csv()` function. 
 
@@ -53,10 +53,10 @@ occ <-read.csv(system.file("extdata",
                sep = "\t")
 ```
 
-**Note**: *Sampbias* evaluates the bias by comparing the observed records to a random sampling. This means that the tool is designed for multi-species data sets and **not** single species data sets where the distribution of records might reflect ecological preferences. In general, the more species and the more records, the more reliable the results will be, but the package is also capable of dealing with sparsely sampled data sets (see main text for simulation results).
+**Note**: *sampbias* evaluates the bias by comparing the observed records to a random sampling. This means that the tool is designed for multi-species data sets and **not** single species data sets where the distribution of records might reflect ecological preferences. In general, the more species and the more records, the more reliable the results will be, but the package is also capable of dealing with sparsely sampled data sets (see main text for simulation results).
 
 ## 2. Geographic gazetteers
-*Sampbias* evaluates the distribution of the sampled species occurrences in relation to geographic features that might bias sampling effort. These are usually related to accessibility or means of travel. *Sampbias* includes a set of default gazetteers for cities, airports, roads and rivers (from https://www.naturalearthdata.com/), which can give an estimate of bias for large and medium scale analyses. For higher resolutions custom gazetteers will yield better results, and should be provided via the `gaz` option of `calculate_bias` function as a list of `SpatialPointsDataFrame` and `SpatialLinesDataFrame` objects. These can be easily loaded into R from standard shape files using the `rgdal` package: 
+*sampbias* evaluates the distribution of the sampled species occurrences in relation to geographic features that might bias sampling effort. These are usually related to accessibility or means of travel. *sampbias* includes a set of default gazetteers for cities, airports, roads and rivers (from https://www.naturalearthdata.com/), which can give an estimate of bias for large and medium scale analyses. For higher resolutions custom gazetteers will yield better results, and should be provided via the `gaz` option of `calculate_bias` function as a list of `SpatialPointsDataFrame` and `SpatialLinesDataFrame` objects. These can be easily loaded into R from standard shape files using the `rgdal` package: 
 
 ```{r, warning = FALSE, message = FALSE}
 cit <- readOGR(dsn = system.file("extdata", package="sampbias"), 
@@ -71,7 +71,7 @@ gazetteers <- list(cities = cit,
 See https://cran.r-project.org/web/packages/sp/vignettes/intro_sp.pdf and `?SpatialPointsDataFrame` or `?SpatialLinesDataFrame` on how to create a these object from a table of coordinates.
 
 # Running an analysis
-A sampbias analyses is run in one line of code via the `calculate_bias` function:
+A *sampbias* analysis is run in one line of code via the `calculate_bias` function:
 
 ```{r}
 bias.out <- calculate_bias(x = occ, gaz = gazetteers)
@@ -119,11 +119,11 @@ map_bias(proj, type = "log_sampling_rate")
 The `calculate_bias` function provides various options to customize analyses (see above). For two important options---providing a custom study area and using an equal area grid---we provide examples below.
 
 ## Custom study area
-By default *sampbias* uses a rectangle defined by the minimum and maximum longitude and latitude values in the input point records to define the study area. It may be desirable to change this, for instance if this rectangle comprises a set of different habitats such as rainforest and desert, which may differ in species richness and therefore the number of records expected. *Sampbias* enables user-defined study areas via the `restrict_sample` option of the `calculate_bias` function, which uses objects of the class `SpatialPolygonsDataFrame` or `SpatialPolygons`. If the user provides a custom study area, all occurrence records in the dataset falling outside this area will be disregarded. This could be simple custom polygons as in the `area_example` dataset provided with *sampbias*:
+By default *sampbias* uses a rectangle defined by the minimum and maximum longitude and latitude values in the input point records to define the study area. It may be desirable to change this, for instance if this rectangle comprises a set of different habitats such as rainforest and desert, which may differ in species richness and therefore the number of records expected. *sampbias* enables user-defined study areas via the `restrict_sample` option of the `calculate_bias` function, which uses objects of the class `SpatialPolygonsDataFrame` or `SpatialPolygons`. If the user provides a custom study area, all occurrence records in the dataset falling outside this area will be disregarded. This could be simple custom polygons as in the `area_example` dataset provided with *sampbias*:
 
 ```{r, fig.cap="Example of a customized study area which can be provided to the calculate_bias function via the restrict_sample option. Only grid cells within the red areas are included in the sampling bias calculation."}
 data(area_example)
-borneo <- crop(sampbias::landmass, extent(108, 120, -5, 7))
+data(borneo)
 
 plot(borneo)
 plot(area_example, col = "red", add = TRUE)

@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.12.7)  1 AUG 2020 21:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.12.7)  31 AUG 2020 09:37
 entering extended mode
-**./03_main_manuscript.tex
-(03_main_manuscript.tex
+**./10_main_manuscript_clean.tex
+(10_main_manuscript_clean.tex
 LaTeX2e <2018-04-01> patch level 5
 
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\article.cl
@@ -966,37 +966,37 @@ File: english.lbx 2018/11/02 v3.12 biblatex localization (PK/MW)
 )
 \@quotelevel=\count327
 \@quotereset=\count328
-(03_main_manuscript.aux)
-\openout1 = `03_main_manuscript.aux'.
+(10_main_manuscript_clean.aux)
+\openout1 = `10_main_manuscript_clean.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 130.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 130.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 129.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 129.
 
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 130.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 129.
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\t1lmr.fd"
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Info: Redefining \microtypecontext on input line 130.
+LaTeX Info: Redefining \microtypecontext on input line 129.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
@@ -1043,7 +1043,7 @@ G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 )
 \AtBeginShipoutBox=\box38
-Package hyperref Info: Link coloring OFF on input line 130.
+Package hyperref Info: Link coloring OFF on input line 129.
 
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\hyperref\namere
 f.sty"
@@ -1055,9 +1055,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count335
 )
-LaTeX Info: Redefining \ref on input line 130.
-LaTeX Info: Redefining \pageref on input line 130.
-LaTeX Info: Redefining \nameref on input line 130.
+LaTeX Info: Redefining \ref on input line 129.
+LaTeX Info: Redefining \pageref on input line 129.
+LaTeX Info: Redefining \nameref on input line 129.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -1098,45 +1098,45 @@ Package caption Info: End \AtBeginDocument code.
 Package biblatex Info: Input encoding 'utf8' detected.
 Package biblatex Info: Automatic encoding selection.
 (biblatex)             Assuming data encoding 'utf8'.
-\openout4 = `03_main_manuscript.bcf'.
+\openout4 = `10_main_manuscript_clean.bcf'.
 
 Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file '03_main_manuscript.bbl' not found.
-No file 03_main_manuscript.bbl.
-Package biblatex Info: Reference section=0 on input line 130.
-Package biblatex Info: Reference segment=0 on input line 130.
-LaTeX Font Info:    Try loading font information for T1+lmss on input line 132.
+Package biblatex Info: ... file '10_main_manuscript_clean.bbl' not found.
+No file 10_main_manuscript_clean.bbl.
+Package biblatex Info: Reference section=0 on input line 129.
+Package biblatex Info: Reference segment=0 on input line 129.
+LaTeX Font Info:    Try loading font information for T1+lmss on input line 131.
 
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\t1lmss.fd"
 File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 132.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 131.
 
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\ot1lmr.fd"
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 132.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 131.
 
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\omllmm.fd"
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 132
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 131
 .
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\omslmsy.fd"
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 132
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 131
 .
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\omxlmex.fd"
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 132.
+(Font)              <14.4> on input line 131.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 132.
+(Font)              <10> on input line 131.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 132.
-LaTeX Font Info:    Try loading font information for U+msa on input line 132.
+(Font)              <7> on input line 131.
+LaTeX Font Info:    Try loading font information for U+msa on input line 131.
 
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsa.f
 d"
@@ -1146,7 +1146,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 a.cfg"
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 132.
+LaTeX Font Info:    Try loading font information for U+msb on input line 131.
 
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsb.f
 d"
@@ -1165,64 +1165,64 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [2] [3] [4]
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 190.
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 172.
 
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\t1lmtt.fd"
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [5] [6]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 205.
+(Font)              <12> on input line 187.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 205.
+(Font)              <8> on input line 187.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 205.
+(Font)              <6> on input line 187.
 [7] [8] [9] [10] [11]
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 246.
-LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 255
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 228.
+LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 240
 .
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\ts1lmtt.fd"
 File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-Underfull \vbox (badness 10000) detected at line 272
+Underfull \vbox (badness 10000) detected at line 260
  []
 
 [12] [13]
-<ms_figures/figure_empirical_results.jpg, id=106, 578.16pt x 578.16pt>
+<ms_figures/figure_empirical_results.jpg, id=99, 578.16pt x 578.16pt>
 File: ms_figures/figure_empirical_results.jpg Graphic file (type jpg)
 <use ms_figures/figure_empirical_results.jpg>
 Package pdftex.def Info: ms_figures/figure_empirical_results.jpg  used on input
- line 287.
+ line 275.
 (pdftex.def)             Requested size: 433.61893pt x 433.61893pt.
 [14]
-<ms_figures/figure_empirical_results_spatial_projection_adapted.pdf, id=116, 54
+<ms_figures/figure_empirical_results_spatial_projection_adapted.pdf, id=109, 54
 7.04375pt x 586.54436pt>
 File: ms_figures/figure_empirical_results_spatial_projection_adapted.pdf Graphi
 c file (type pdf)
 <use ms_figures/figure_empirical_results_spatial_projection_adapted.pdf>
 Package pdftex.def Info: ms_figures/figure_empirical_results_spatial_projection
-_adapted.pdf  used on input line 291.
+_adapted.pdf  used on input line 279.
 (pdftex.def)             Requested size: 433.62057pt x 464.9312pt.
 [15 <./ms_figures/figure_empirical_results.jpg>] [16 <./ms_figures/figure_empir
 ical_results_spatial_projection_adapted.pdf>] [17] [18] [19] [20] [21]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 441.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 429.
 [22]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 441.
-(03_main_manuscript.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 441.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 441.
-Package logreq Info: Writing requests to '03_main_manuscript.run.xml'.
-\openout1 = `03_main_manuscript.run.xml'.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 429.
+(10_main_manuscript_clean.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 429.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 429.
+Package logreq Info: Writing requests to '10_main_manuscript_clean.run.xml'.
+\openout1 = `10_main_manuscript_clean.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 21608 strings out of 492970
- 351586 string characters out of 3125262
- 810695 words of memory out of 3000000
- 24954 multiletter control sequences out of 15000+200000
- 77008 words of font info for 134 fonts, out of 3000000 for 9000
+ 21589 strings out of 492970
+ 351463 string characters out of 3125262
+ 810257 words of memory out of 3000000
+ 24952 multiletter control sequences out of 15000+200000
+ 73503 words of font info for 128 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 36i,12n,43p,2155b,745s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 36i,12n,43p,1928b,745s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ts
 1.enc}{C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/lm/l
 m-ec.enc}{C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/l
@@ -1234,21 +1234,20 @@ eX 2.9/fonts/type1/public/lm/lmbx12.pfb><C:/Users/az64mycy/AppData/Local/Progra
 ms/MiKTeX 2.9/fonts/type1/public/lm/lmex10.pfb><C:/Users/az64mycy/AppData/Local
 /Programs/MiKTeX 2.9/fonts/type1/public/lm/lmmi12.pfb><C:/Users/az64mycy/AppDat
 a/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmmi8.pfb><C:/Users/az64mycy/
-AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmr10.pfb><C:/Users/az6
-4mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmr12.pfb><C:/Use
-rs/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmr17.pfb><
-C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmr8.
-pfb><C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/
-lmri12.pfb><C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pub
-lic/lm/lmss8.pfb><C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/typ
-e1/public/lm/lmsy10.pfb><C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fo
-nts/type1/public/lm/lmtk10.pfb><C:/Users/az64mycy/AppData/Local/Programs/MiKTeX
- 2.9/fonts/type1/public/lm/lmtt12.pfb><C:/Users/az64mycy/AppData/Local/Programs
-/MiKTeX 2.9/fonts/type1/public/lm/lmtti10.pfb><C:/Users/az64mycy/AppData/Local/
-Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on 03_main_manuscript.pdf (22 pages, 784562 bytes).
+AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmr12.pfb><C:/Users/az6
+4mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmr17.pfb><C:/Use
+rs/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmr8.pfb><C
+:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmri12
+.pfb><C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm
+/lmss8.pfb><C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pub
+lic/lm/lmsy10.pfb><C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/ty
+pe1/public/lm/lmtk10.pfb><C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/f
+onts/type1/public/lm/lmtt12.pfb><C:/Users/az64mycy/AppData/Local/Programs/MiKTe
+X 2.9/fonts/type1/public/lm/lmtti10.pfb><C:/Users/az64mycy/AppData/Local/Progra
+ms/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on 10_main_manuscript_clean.pdf (22 pages, 763301 bytes).
 PDF statistics:
- 351 PDF objects out of 1000 (max. 8388607)
- 102 named destinations out of 1000 (max. 500000)
- 14443 words of extra memory for PDF output out of 17280 (max. 10000000)
+ 340 PDF objects out of 1000 (max. 8388607)
+ 96 named destinations out of 1000 (max. 500000)
+ 12395 words of extra memory for PDF output out of 14400 (max. 10000000)
 

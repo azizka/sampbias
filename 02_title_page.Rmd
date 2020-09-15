@@ -7,6 +7,7 @@ output:
     toc: false
     toc_depth: 1
     number_sections: false
+    keep_tex: true
 header-includes: |
     \usepackage{fancyhdr}
     \pagestyle{fancy}
@@ -29,12 +30,12 @@ fontsize: 12pt
 
 **Running head** -- Quantifying sampling biases
 
-**Word count** -- Abstract: 207 words; Main text (excluding references): XXXX words, 2 figures
+**Word count** -- Abstract: 207 words; Main text (excluding abstract & references): 3223 words, 2 figures
 
 **Corresponding author** -- alexander.zizka@idiv.de
 
 # Acknowledgements
-We thank the organizers of the 2016 Ebben Nielsen challenge for inspiring and recognizing this research. We thank all data collectors and contributors to GBIF for their effort. AZ is thankful for funding by iDiv via the German Research Foundation (DFG FZT 118), specifically through sDiv, the Synthesis Centre of iDiv. AA is supported by grants from the Swedish Research Council, the Knut and Alice Wallenberg Foundation, the Swedish Foundation for Strategic Research and the Royal Botanic Gardens, Kew. DS received funding from the Swedish Research Council (2015-04748) and from the Swiss National Science Foundation (PCEFP3_187012)
+We thank the organizers of the 2016 Ebben Nielsen challenge for inspiring and recognizing this research. We thank all data collectors and contributors to GBIF for their effort. AZ is thankful for funding by iDiv via the German Research Foundation (DFG FZT 118), specifically through sDiv, the Synthesis Centre of iDiv. AA is supported by grants from the Swedish Research Council, the Knut and Alice Wallenberg Foundation, the Swedish Foundation for Strategic Research and the Royal Botanic Gardens, Kew. DS received funding from the Swedish Research Council (2015-04748) and from the Swiss National Science Foundation (PCEFP3_187012).
 
 # Author contributions
 All authors conceived this study, AZ and DS developed the statistical algorithm and wrote the R-package, AZ and DS wrote the manuscript with contributions from AA.

@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.12.7)  1 AUG 2020 21:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.12.7)  31 AUG 2020 09:40
 entering extended mode
-**./03_main_manuscript.tex
-(03_main_manuscript.tex
+**./02_title_page.tex
+(02_title_page.tex
 LaTeX2e <2018-04-01> patch level 5
 
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\article.cl
@@ -574,71 +574,51 @@ Package: geometry 2018/04/16 v5.8 Page Geometry
 
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\geometry\geomet
 ry.cfg"))
-("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fancyvrb\fancyv
-rb.sty"
-Package: fancyvrb 2018/11/20
-Style option: `fancyvrb' v3.1a <2018/11/20> (tvz)
-\FV@CodeLineNo=\count117
-\FV@InFile=\read1
-\FV@TabBox=\box28
-\c@FancyVerbLine=\count118
-\FV@StepNumber=\count119
-\FV@OutFile=\write3
-)
-("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\framed\framed.s
-ty"
-Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
-\OuterFrameSep=\skip48
-\fb@frw=\dimen125
-\fb@frh=\dimen126
-\FrameRule=\dimen127
-\FrameSep=\dimen128
-)
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\tools\longtable
 .sty"
 Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)
-\LTleft=\skip49
-\LTright=\skip50
-\LTpre=\skip51
-\LTpost=\skip52
-\LTchunksize=\count120
-\LTcapwidth=\dimen129
-\LT@head=\box29
-\LT@firsthead=\box30
-\LT@foot=\box31
-\LT@lastfoot=\box32
-\LT@cols=\count121
-\LT@rows=\count122
-\c@LT@tables=\count123
-\c@LT@chunks=\count124
+\LTleft=\skip48
+\LTright=\skip49
+\LTpre=\skip50
+\LTpost=\skip51
+\LTchunksize=\count117
+\LTcapwidth=\dimen125
+\LT@head=\box28
+\LT@firsthead=\box29
+\LT@foot=\box30
+\LT@lastfoot=\box31
+\LT@cols=\count118
+\LT@rows=\count119
+\c@LT@tables=\count120
+\c@LT@chunks=\count121
 \LT@p@ftn=\toks25
 )
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\booktabs\bookta
 bs.sty"
 Package: booktabs 2005/04/14 v1.61803 publication quality tables
-\heavyrulewidth=\dimen130
-\lightrulewidth=\dimen131
-\cmidrulewidth=\dimen132
-\belowrulesep=\dimen133
-\belowbottomsep=\dimen134
-\aboverulesep=\dimen135
-\abovetopsep=\dimen136
-\cmidrulesep=\dimen137
-\cmidrulekern=\dimen138
-\defaultaddspace=\dimen139
-\@cmidla=\count125
-\@cmidlb=\count126
-\@aboverulesep=\dimen140
-\@belowrulesep=\dimen141
-\@thisruleclass=\count127
-\@lastruleclass=\count128
-\@thisrulewidth=\dimen142
+\heavyrulewidth=\dimen126
+\lightrulewidth=\dimen127
+\cmidrulewidth=\dimen128
+\belowrulesep=\dimen129
+\belowbottomsep=\dimen130
+\aboverulesep=\dimen131
+\abovetopsep=\dimen132
+\cmidrulesep=\dimen133
+\cmidrulekern=\dimen134
+\defaultaddspace=\dimen135
+\@cmidla=\count122
+\@cmidlb=\count123
+\@aboverulesep=\dimen136
+\@belowrulesep=\dimen137
+\@thisruleclass=\count124
+\@lastruleclass=\count125
+\@thisrulewidth=\dimen138
 )
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\footnotehyper\f
 ootnotehyper.sty"
 Package: footnotehyper 2019/11/07 v1.1a hyperref aware footnote.sty (JFB)
-\FNH@notes=\box33
-\FNH@width=\dimen143
+\FNH@notes=\box32
+\FNH@width=\dimen139
 )
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\graphi
 cx.sty"
@@ -658,8 +638,8 @@ File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 99.
 )
-\Gin@req@height=\dimen144
-\Gin@req@width=\dimen145
+\Gin@req@height=\dimen140
+\Gin@req@width=\dimen141
 )
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\grffil
 e.sty"
@@ -669,334 +649,49 @@ Package grffile Info: Option `extendedchars' is set to `false'.
 Package grffile Info: Option `space' is set to `true'.
 Package grffile Info: \Gin@ii of package `graphicx' fixed on input line 494.
 )
-("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\caption\caption
-.sty"
-Package: caption 2018/10/06 v3.3-154 Customizing captions (AR)
-
-("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\caption\caption
-3.sty"
-Package: caption3 2018/09/12 v1.8c caption3 kernel (AR)
-Package caption3 Info: TeX engine: e-TeX on input line 64.
-\captionmargin=\dimen146
-\captionmargin@=\dimen147
-\captionwidth=\dimen148
-\caption@tempdima=\dimen149
-\caption@indent=\dimen150
-\caption@parindent=\dimen151
-\caption@hangindent=\dimen152
-)
-\c@caption@flags=\count129
-\c@ContinuedFloat=\count130
-Package caption Info: hyperref package is loaded.
-Package caption Info: longtable package is loaded.
-
-("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\caption\ltcapti
-on.sty"
-Package: ltcaption 2018/08/26 v1.4-95 longtable captions (AR)
-))
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fancyhdr\fancyh
 dr.sty"
 Package: fancyhdr 2017/06/30 v3.9a Extensive control of page headers and footer
 s
-\f@nch@headwidth=\skip53
-\f@nch@O@elh=\skip54
-\f@nch@O@erh=\skip55
-\f@nch@O@olh=\skip56
-\f@nch@O@orh=\skip57
-\f@nch@O@elf=\skip58
-\f@nch@O@erf=\skip59
-\f@nch@O@olf=\skip60
-\f@nch@O@orf=\skip61
-) ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\float\float.s
-ty"
-Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count131
-\float@exts=\toks26
-\float@box=\box34
-\@float@everytoks=\toks27
-\@floatcapt=\box35
-)
-("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lineno\lineno.s
-ty"
-Package: lineno 2005/11/02 line numbers on paragraphs v4.41
-\linenopenalty=\count132
-\output=\toks28
-\linenoprevgraf=\count133
-\linenumbersep=\dimen153
-\linenumberwidth=\dimen154
-\c@linenumber=\count134
-\c@pagewiselinenumber=\count135
-\c@LN@truepage=\count136
-\c@internallinenumber=\count137
-\c@internallinenumbers=\count138
-\quotelinenumbersep=\dimen155
-\bframerule=\dimen156
-\bframesep=\dimen157
-\bframebox=\box36
-LaTeX Info: Redefining \\ on input line 3056.
-)
-("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\biblatex\biblat
-ex.sty"
-Package: biblatex 2018/11/02 v3.12 programmable bibliographies (PK/MW)
+\f@nch@headwidth=\skip52
+\f@nch@O@elh=\skip53
+\f@nch@O@erh=\skip54
+\f@nch@O@olh=\skip55
+\f@nch@O@orh=\skip56
+\f@nch@O@elf=\skip57
+\f@nch@O@erf=\skip58
+\f@nch@O@olf=\skip59
+\f@nch@O@orf=\skip60
+) (02_title_page.aux)
+\openout1 = `02_title_page.aux'.
 
-("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\logreq\logreq.s
-ty"
-Package: logreq 2010/08/04 v1.0 xml request logger
-\lrq@indent=\count139
-
-("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\logreq\logreq.d
-ef"
-File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
-)) ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\ifthen.
-sty"
-Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
-)
-\c@tabx@nest=\count140
-\c@listtotal=\count141
-\c@listcount=\count142
-\c@liststart=\count143
-\c@liststop=\count144
-\c@citecount=\count145
-\c@citetotal=\count146
-\c@multicitecount=\count147
-\c@multicitetotal=\count148
-\c@instcount=\count149
-\c@maxnames=\count150
-\c@minnames=\count151
-\c@maxitems=\count152
-\c@minitems=\count153
-\c@citecounter=\count154
-\c@maxcitecounter=\count155
-\c@savedcitecounter=\count156
-\c@uniquelist=\count157
-\c@uniquename=\count158
-\c@refsection=\count159
-\c@refsegment=\count160
-\c@maxextratitle=\count161
-\c@maxextratitleyear=\count162
-\c@maxextraname=\count163
-\c@maxextradate=\count164
-\c@maxextraalpha=\count165
-\c@abbrvpenalty=\count166
-\c@highnamepenalty=\count167
-\c@lownamepenalty=\count168
-\c@maxparens=\count169
-\c@parenlevel=\count170
-\blx@tempcnta=\count171
-\blx@tempcntb=\count172
-\blx@tempcntc=\count173
-\blx@maxsection=\count174
-\blx@maxsegment@0=\count175
-\blx@notetype=\count176
-\blx@parenlevel@text=\count177
-\blx@parenlevel@foot=\count178
-\blx@sectionciteorder@0=\count179
-\blx@entrysetcounter=\count180
-\labelnumberwidth=\skip62
-\labelalphawidth=\skip63
-\biblabelsep=\skip64
-\bibitemsep=\skip65
-\bibnamesep=\skip66
-\bibinitsep=\skip67
-\bibparsep=\skip68
-\bibhang=\skip69
-\blx@bcfin=\read2
-\blx@bcfout=\write4
-\c@mincomprange=\count181
-\c@maxcomprange=\count182
-\c@mincompwidth=\count183
-Package biblatex Info: Trying to load biblatex default data model...
-Package biblatex Info: ... file 'blx-dm.def' found.
-
-("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\biblatex\blx-dm
-.def"
-File: blx-dm.def 2018/11/02 v3.12 biblatex localization (PK/MW)
-)
-Package biblatex Info: Trying to load biblatex custom data model...
-Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
-\c@afterword=\count184
-\c@savedafterword=\count185
-\c@annotator=\count186
-\c@savedannotator=\count187
-\c@author=\count188
-\c@savedauthor=\count189
-\c@bookauthor=\count190
-\c@savedbookauthor=\count191
-\c@commentator=\count192
-\c@savedcommentator=\count193
-\c@editor=\count194
-\c@savededitor=\count195
-\c@editora=\count196
-\c@savededitora=\count197
-\c@editorb=\count198
-\c@savededitorb=\count199
-\c@editorc=\count266
-\c@savededitorc=\count267
-\c@foreword=\count268
-\c@savedforeword=\count269
-\c@holder=\count270
-\c@savedholder=\count271
-\c@introduction=\count272
-\c@savedintroduction=\count273
-\c@namea=\count274
-\c@savednamea=\count275
-\c@nameb=\count276
-\c@savednameb=\count277
-\c@namec=\count278
-\c@savednamec=\count279
-\c@translator=\count280
-\c@savedtranslator=\count281
-\c@shortauthor=\count282
-\c@savedshortauthor=\count283
-\c@shorteditor=\count284
-\c@savedshorteditor=\count285
-\c@labelname=\count286
-\c@savedlabelname=\count287
-\c@institution=\count288
-\c@savedinstitution=\count289
-\c@lista=\count290
-\c@savedlista=\count291
-\c@listb=\count292
-\c@savedlistb=\count293
-\c@listc=\count294
-\c@savedlistc=\count295
-\c@listd=\count296
-\c@savedlistd=\count297
-\c@liste=\count298
-\c@savedliste=\count299
-\c@listf=\count300
-\c@savedlistf=\count301
-\c@location=\count302
-\c@savedlocation=\count303
-\c@organization=\count304
-\c@savedorganization=\count305
-\c@origlocation=\count306
-\c@savedoriglocation=\count307
-\c@origpublisher=\count308
-\c@savedorigpublisher=\count309
-\c@publisher=\count310
-\c@savedpublisher=\count311
-\c@language=\count312
-\c@savedlanguage=\count313
-\c@origlanguage=\count314
-\c@savedoriglanguage=\count315
-\c@pageref=\count316
-\c@savedpageref=\count317
-\shorthandwidth=\skip70
-\shortjournalwidth=\skip71
-\shortserieswidth=\skip72
-\shorttitlewidth=\skip73
-\shortauthorwidth=\skip74
-\shorteditorwidth=\skip75
-\locallabelnumberwidth=\skip76
-\locallabelalphawidth=\skip77
-\localshorthandwidth=\skip78
-\localshortjournalwidth=\skip79
-\localshortserieswidth=\skip80
-\localshorttitlewidth=\skip81
-\localshortauthorwidth=\skip82
-\localshorteditorwidth=\skip83
-Package biblatex Info: Trying to load compatibility code...
-Package biblatex Info: ... file 'blx-compat.def' found.
-
-("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\biblatex\blx-co
-mpat.def"
-File: blx-compat.def 2018/11/02 v3.12 biblatex compatibility (PK/MW)
-)
-Package biblatex Info: Trying to load generic definitions...
-Package biblatex Info: ... file 'biblatex.def' found.
-
-("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\biblatex\biblat
-ex.def"
-File: biblatex.def 2018/11/02 v3.12 biblatex compatibility (PK/MW)
-\c@textcitecount=\count318
-\c@textcitetotal=\count319
-\c@textcitemaxnames=\count320
-\c@biburlnumpenalty=\count321
-\c@biburlucpenalty=\count322
-\c@biburllcpenalty=\count323
-\c@smartand=\count324
-)
-Package biblatex Info: Trying to load bibliography style 'numeric'...
-Package biblatex Info: ... file 'numeric.bbx' found.
-
-("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\biblatex\bbx\nu
-meric.bbx"
-File: numeric.bbx 2018/11/02 v3.12 biblatex bibliography style (PK/MW)
-Package biblatex Info: Trying to load bibliography style 'standard'...
-Package biblatex Info: ... file 'standard.bbx' found.
-
-("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\biblatex\bbx\st
-andard.bbx"
-File: standard.bbx 2018/11/02 v3.12 biblatex bibliography style (PK/MW)
-\c@bbx:relatedcount=\count325
-\c@bbx:relatedtotal=\count326
-))
-Package biblatex Info: Trying to load citation style 'numeric'...
-Package biblatex Info: ... file 'numeric.cbx' found.
-
-("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\biblatex\cbx\nu
-meric.cbx"
-File: numeric.cbx 2018/11/02 v3.12 biblatex citation style (PK/MW)
-Package biblatex Info: Redefining '\cite'.
-Package biblatex Info: Redefining '\parencite'.
-Package biblatex Info: Redefining '\footcite'.
-Package biblatex Info: Redefining '\footcitetext'.
-Package biblatex Info: Redefining '\smartcite'.
-Package biblatex Info: Redefining '\supercite'.
-Package biblatex Info: Redefining '\textcite'.
-Package biblatex Info: Redefining '\textcites'.
-Package biblatex Info: Redefining '\cites'.
-Package biblatex Info: Redefining '\parencites'.
-Package biblatex Info: Redefining '\smartcites'.
-)
-Package biblatex Info: Trying to load configuration file...
-Package biblatex Info: ... file 'biblatex.cfg' found.
-
-("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\biblatex\biblat
-ex.cfg"
-File: biblatex.cfg 
-))
-Package biblatex Info: Trying to load language 'english'...
-Package biblatex Info: ... file 'english.lbx' found.
-
-("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\biblatex\lbx\en
-glish.lbx"
-File: english.lbx 2018/11/02 v3.12 biblatex localization (PK/MW)
-)
-\@quotelevel=\count327
-\@quotereset=\count328
-(03_main_manuscript.aux)
-\openout1 = `03_main_manuscript.aux'.
-
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 130.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 130.
-
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 83.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 83.
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 130.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 83.
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\t1lmr.fd"
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Info: Redefining \microtypecontext on input line 130.
+LaTeX Info: Redefining \microtypecontext on input line 83.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
@@ -1015,17 +710,17 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\context\base\supp-pdf
 .mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count329
-\scratchdimen=\dimen158
-\scratchbox=\box37
-\nofMPsegments=\count330
-\nofMParguments=\count331
-\everyMPshowfont=\toks29
-\MPscratchCnt=\count332
-\MPscratchDim=\dimen159
-\MPnumerator=\count333
-\makeMPintoPDFobject=\count334
-\everyMPtoPDFconversion=\toks30
+\scratchcounter=\count126
+\scratchdimen=\dimen142
+\scratchbox=\box33
+\nofMPsegments=\count127
+\nofMParguments=\count128
+\everyMPshowfont=\toks26
+\MPscratchCnt=\count129
+\MPscratchDim=\dimen143
+\MPnumerator=\count130
+\makeMPintoPDFobject=\count131
+\everyMPtoPDFconversion=\toks27
 )
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\epstop
 df-base.sty"
@@ -1042,8 +737,8 @@ Package grfext Info: Graphics extension search list:
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 )
-\AtBeginShipoutBox=\box38
-Package hyperref Info: Link coloring OFF on input line 130.
+\AtBeginShipoutBox=\box34
+Package hyperref Info: Link coloring OFF on input line 83.
 
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\hyperref\namere
 f.sty"
@@ -1053,11 +748,11 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 itlestring.sty"
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count335
+\c@section@level=\count132
 )
-LaTeX Info: Redefining \ref on input line 130.
-LaTeX Info: Redefining \pageref on input line 130.
-LaTeX Info: Redefining \nameref on input line 130.
+LaTeX Info: Redefining \ref on input line 83.
+LaTeX Info: Redefining \pageref on input line 83.
+LaTeX Info: Redefining \nameref on input line 83.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -1092,51 +787,31 @@ LaTeX Info: Redefining \nameref on input line 130.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package caption Info: Begin \AtBeginDocument code.
-Package caption Info: float package is loaded.
-Package caption Info: End \AtBeginDocument code.
-Package biblatex Info: Input encoding 'utf8' detected.
-Package biblatex Info: Automatic encoding selection.
-(biblatex)             Assuming data encoding 'utf8'.
-\openout4 = `03_main_manuscript.bcf'.
-
-Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file '03_main_manuscript.bbl' not found.
-No file 03_main_manuscript.bbl.
-Package biblatex Info: Reference section=0 on input line 130.
-Package biblatex Info: Reference segment=0 on input line 130.
-LaTeX Font Info:    Try loading font information for T1+lmss on input line 132.
-
-("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\t1lmss.fd"
-File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 132.
-
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 85.
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\ot1lmr.fd"
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 132.
-
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 85.
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\omllmm.fd"
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 132
-.
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 85.
+
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\omslmsy.fd"
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 132
-.
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 85.
+
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\omxlmex.fd"
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 132.
+(Font)              <14.4> on input line 85.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 132.
+(Font)              <10> on input line 85.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 132.
-LaTeX Font Info:    Try loading font information for U+msa on input line 132.
+(Font)              <7> on input line 85.
+LaTeX Font Info:    Try loading font information for U+msa on input line 85.
 
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsa.f
 d"
@@ -1146,7 +821,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 a.cfg"
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 132.
+LaTeX Font Info:    Try loading font information for U+msb on input line 85.
 
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsb.f
 d"
@@ -1155,100 +830,51 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\microtype\mt-ms
 b.cfg"
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
-) [1
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 108.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 108.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 108.
+[1
 
 {C:/Users/az64mycy/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 120.
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[2] [3] [4]
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 190.
-
-("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\t1lmtt.fd"
-File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [5] [6]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 205.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 205.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 205.
-[7] [8] [9] [10] [11]
-LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 246.
-LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 255
-.
-("C:\Users\az64mycy\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\ts1lmtt.fd"
-File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-Underfull \vbox (badness 10000) detected at line 272
- []
-
-[12] [13]
-<ms_figures/figure_empirical_results.jpg, id=106, 578.16pt x 578.16pt>
-File: ms_figures/figure_empirical_results.jpg Graphic file (type jpg)
-<use ms_figures/figure_empirical_results.jpg>
-Package pdftex.def Info: ms_figures/figure_empirical_results.jpg  used on input
- line 287.
-(pdftex.def)             Requested size: 433.61893pt x 433.61893pt.
-[14]
-<ms_figures/figure_empirical_results_spatial_projection_adapted.pdf, id=116, 54
-7.04375pt x 586.54436pt>
-File: ms_figures/figure_empirical_results_spatial_projection_adapted.pdf Graphi
-c file (type pdf)
-<use ms_figures/figure_empirical_results_spatial_projection_adapted.pdf>
-Package pdftex.def Info: ms_figures/figure_empirical_results_spatial_projection
-_adapted.pdf  used on input line 291.
-(pdftex.def)             Requested size: 433.62057pt x 464.9312pt.
-[15 <./ms_figures/figure_empirical_results.jpg>] [16 <./ms_figures/figure_empir
-ical_results_spatial_projection_adapted.pdf>] [17] [18] [19] [20] [21]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 441.
-[22]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 441.
-(03_main_manuscript.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 441.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 441.
-Package logreq Info: Writing requests to '03_main_manuscript.run.xml'.
-\openout1 = `03_main_manuscript.run.xml'.
-
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.120 \end{document}
+                     [2]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 120.
+(02_title_page.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 120.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 120.
  ) 
 Here is how much of TeX's memory you used:
- 21608 strings out of 492970
- 351586 string characters out of 3125262
- 810695 words of memory out of 3000000
- 24954 multiletter control sequences out of 15000+200000
- 77008 words of font info for 134 fonts, out of 3000000 for 9000
+ 13311 strings out of 492970
+ 197055 string characters out of 3125262
+ 306510 words of memory out of 3000000
+ 16942 multiletter control sequences out of 15000+200000
+ 51615 words of font info for 72 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 36i,12n,43p,2155b,745s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ts
-1.enc}{C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/lm/l
-m-ec.enc}{C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/l
-m/lm-rm.enc}{C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvip
-s/lm/lm-mathex.enc}{C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/e
-nc/dvips/lm/lm-mathsy.enc}{C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/
-fonts/enc/dvips/lm/lm-mathit.enc}<C:/Users/az64mycy/AppData/Local/Programs/MiKT
-eX 2.9/fonts/type1/public/lm/lmbx12.pfb><C:/Users/az64mycy/AppData/Local/Progra
-ms/MiKTeX 2.9/fonts/type1/public/lm/lmex10.pfb><C:/Users/az64mycy/AppData/Local
-/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmmi12.pfb><C:/Users/az64mycy/AppDat
-a/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmmi8.pfb><C:/Users/az64mycy/
-AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmr10.pfb><C:/Users/az6
-4mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmr12.pfb><C:/Use
-rs/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmr17.pfb><
-C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmr8.
-pfb><C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/
-lmri12.pfb><C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pub
-lic/lm/lmss8.pfb><C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/typ
-e1/public/lm/lmsy10.pfb><C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fo
-nts/type1/public/lm/lmtk10.pfb><C:/Users/az64mycy/AppData/Local/Programs/MiKTeX
- 2.9/fonts/type1/public/lm/lmtt12.pfb><C:/Users/az64mycy/AppData/Local/Programs
-/MiKTeX 2.9/fonts/type1/public/lm/lmtti10.pfb><C:/Users/az64mycy/AppData/Local/
-Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on 03_main_manuscript.pdf (22 pages, 784562 bytes).
+ 35i,11n,43p,814b,351s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec
+.enc}<C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm
+/lmbx12.pfb><C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
+blic/lm/lmr10.pfb><C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fonts/ty
+pe1/public/lm/lmr12.pfb><C:/Users/az64mycy/AppData/Local/Programs/MiKTeX 2.9/fo
+nts/type1/public/lm/lmr17.pfb>
+Output written on 02_title_page.pdf (2 pages, 114129 bytes).
 PDF statistics:
- 351 PDF objects out of 1000 (max. 8388607)
- 102 named destinations out of 1000 (max. 500000)
- 14443 words of extra memory for PDF output out of 17280 (max. 10000000)
+ 51 PDF objects out of 1000 (max. 8388607)
+ 12 named destinations out of 1000 (max. 500000)
+ 12305 words of extra memory for PDF output out of 14400 (max. 10000000)
 

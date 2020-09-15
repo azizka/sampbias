@@ -117,7 +117,7 @@ map_bias <- function(x,
       scale_fill_viridis(na.value = "transparent",
                          option = "viridis",
                          direction = 1,
-                         name = "Sampling rate",
+                         name = "Estimated\nsampling rate",
                          discrete = FALSE)+
       theme(axis.title = element_blank())+
       facet_wrap(split~ .)
@@ -135,7 +135,7 @@ map_bias <- function(x,
       scale_fill_viridis(na.value = "transparent",
                          option = "viridis",
                          direction = 1,
-                         name = "Log Sampling rate",
+                         name = "Estimated\nsampling\nrate [log10]",
                          discrete = FALSE)+
       theme(axis.title = element_blank())+
       facet_wrap(split~ .)

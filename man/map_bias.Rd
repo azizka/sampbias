@@ -17,7 +17,7 @@ used.}
 \item{sealine}{logical. Should the coastline be added to the plots? Default is
 to TRUE.}
 
-\item{type}{character vector. ONe of c("sampling_rate", "log_sampling_rate", "diff_to_max"). If "sampling_rate".
+\item{type}{character vector. One of c("sampling_rate", "log_sampling_rate", "diff_to_max"). If "sampling_rate".
 the plot shows the raw projected sampling rate depending on the
 biasing factors, if "log_sampling_rate", the plot shows the log10 transformed sampling rate, and if
 "diff_to_max", the relative deviation of sampling rate from the maximum

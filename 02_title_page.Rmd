@@ -1,0 +1,41 @@
+---
+title: "sampbias, a method for quantifying geographic sampling biases in species distribution data"
+author: "Alexander Zizka^1,2^, Alexandre Antonelli^3,4,5^, Daniele Silvestro^3,4,6^"
+output: 
+  bookdown::pdf_document2:
+  #word_document:
+    toc: false
+    toc_depth: 1
+    number_sections: false
+    keep_tex: true
+header-includes: |
+    \usepackage{fancyhdr}
+    \pagestyle{fancy}
+    \fancyhead[L]{sampbias}
+    \fancyhead[R]{ }
+    \pagenumbering{gobble}
+linestretch: 1.3
+fontsize: 12pt
+---
+
+
+<!-- Affiliations -->
+1. German Centre for Integrative Biodiversity Research Halle-Jena-Leipzig (iDiv), University of Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany
+2. Naturalis Biodiversity Center, Leiden University, Leiden, Darwinweg 2, 2333 CR Leiden The Netherlands
+3. Gothenburg Global Biodiversity Centre, University of Gothenburg, Box 461, 405 30 Gothenburg, Sweden
+4. Department for Biological and Environmental Sciences, University of Gothenburg, Box 461, 405 30 Gothenburg, Sweden
+5. Royal Botanic Gardens Kew, TW9 3AE, Richmond, Surrey, United Kingdom
+6. Department of Biology, University of Fribourg, Ch. du Musée 10, 1700 Fribourg, Switzerland
+
+
+**Running head** -- Quantifying sampling biases
+
+**Word count** -- Abstract: 207 words; Main text (excluding abstract & references): 3223 words, 2 figures
+
+**Corresponding author** -- alexander.zizka@idiv.de
+
+# Acknowledgements
+We thank the organizers of the 2016 Ebben Nielsen challenge for inspiring and recognizing this research. We thank all data collectors and contributors to GBIF for their effort. AZ is thankful for funding by iDiv via the German Research Foundation (DFG FZT 118), specifically through sDiv, the Synthesis Centre of iDiv. AA is supported by grants from the Swedish Research Council, the Knut and Alice Wallenberg Foundation, the Swedish Foundation for Strategic Research and the Royal Botanic Gardens, Kew. DS received funding from the Swedish Research Council (2015-04748) and from the Swiss National Science Foundation (PCEFP3_187012).
+
+# Author contributions
+All authors conceived this study, AZ and DS developed the statistical algorithm and wrote the R-package, AZ and DS wrote the manuscript with contributions from AA.

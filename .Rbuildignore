@@ -21,3 +21,4 @@ title_page.log
 ^empirical_analyses$
 08_empirical_analyses_rarefaction.R
 09_empirical_analyses_simulation.R
+^proofs$

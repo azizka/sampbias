@@ -136,7 +136,7 @@ calculate_bias <- function(x,
                           use_hyperprior = TRUE) {
 
   #convert x to SpatialPoints
-  dat.pts <- sp::SpatialPoints(x[, c("decimalLongitude", "decimalLatitude")])
+  # dat.pts <- sp::SpatialPoints(x[, c("decimalLongitude", "decimalLatitude")])
   dat.pts <- sp::SpatialPoints(x[, c("decimalLatitude", "decimalLongitude")])
 
   # create dummy raster if no raster is supplied

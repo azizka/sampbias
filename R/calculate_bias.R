@@ -137,10 +137,12 @@ calculate_bias <- function(x,
 
   #convert x to SpatialPoints
   dat.pts <- sp::SpatialPoints(x[, c("decimalLongitude", "decimalLatitude")])
+  dat.pts <- sp::SpatialPoints(x[, c("decimalLatitude", "decimalLongitude")])
 
   # create dummy raster if no raster is supplied
   if(!is.null(inp_raster)){
     dum.ras <- inp_raster
+	raster::projection(dat.pts) <- raster::projection(dum.ras)
   }else{
     dum.ras <- raster::raster(round(extent(dat.pts), .DecimalPlaces(res)))
     res(dum.ras) <- res

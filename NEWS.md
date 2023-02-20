@@ -1,3 +1,10 @@
+sampbias 1.0.5 (2023-02-20)
+=========================
+
+### MINOR IMPROVEMENTS
+  * Bug-fix on the use of custom extent for bias calcualtion
+
+
 sampbias 1.0.4 (2020-07-21)
 =========================
 

@@ -156,8 +156,13 @@ calculate_bias <- function(x,
     message("Creating occurrence raster...")
   }
   occ.out <- .OccRast(x = dat.pts, ras = dum.ras)
-  occ.out <-  raster::trim(occ.out)
 
+  #Trim raster to remove outer NA cells
+  if(is.null(inp_raster)){
+    occ.out <-  raster::trim(occ.out)
+  }
+
+  #Replace NAs
   occ.out[is.na(occ.out)] <- 0
 
   ## adapt occurrence raster to terrestrial surface
@@ -167,7 +172,7 @@ calculate_bias <- function(x,
     ## Get landmass
     if(!is.null(inp_raster)){
       wrld <- spTransform(sampbias::landmass, CRSobj = proj4string(inp_raster))
-      wrld <- raster::crop(wrld, extent(occ.out))
+      wrld <- raster::crop(wrld, extent(inp_raster))
       wrld <- raster::rasterize(wrld, occ.out)
     }else{
       wrld <- raster::crop(sampbias::landmass, extent(occ.out))

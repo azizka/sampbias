@@ -1,8 +1,5 @@
 {
-  "@context": [
-    "https://doi.org/10.5063/schema/codemeta-2.0",
-    "http://schema.org"
-  ],
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "identifier": "sampbias",
   "description": "Evaluating the biasing impact of geographic features such as airports, cities, roads, rivers in datasets of coordinates based biological collection datasets, by Bayesian estimation of the parameters of a Poisson process. Enables also spatial visualization of sampling bias and includes a set of convenience functions for publication level plotting. Also available as shiny app.",
@@ -10,13 +7,13 @@
   "codeRepository": "https://github.com/azizka/sampbias",
   "issueTracker": "https://github.com/azizka/sampbias/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.0.2 (2020-06-22)",
+  "runtimePlatform": "R version 4.2.1 (2022-06-23 ucrt)",
   "author": [
     {
       "@type": "Person",
@@ -30,9 +27,6 @@
       "familyName": "Silvestro"
     }
   ],
-  "contributor": {},
-  "copyrightHolder": {},
-  "funder": {},
   "maintainer": [
     {
       "@type": "Person",
@@ -89,16 +83,28 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=rgdal"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "rmarkdown",
+      "name": "rmarkdown",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
     }
   ],
-  "softwareRequirements": [
-    {
+  "softwareRequirements": {
+    "1": {
       "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
       "version": ">= 3.5.0"
     },
-    {
+    "2": {
       "@type": "SoftwareApplication",
       "identifier": "rgeos",
       "name": "rgeos",
@@ -110,7 +116,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rgeos"
     },
-    {
+    "3": {
       "@type": "SoftwareApplication",
       "identifier": "sp",
       "name": "sp",
@@ -122,7 +128,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=sp"
     },
-    {
+    "4": {
       "@type": "SoftwareApplication",
       "identifier": "cowplot",
       "name": "cowplot",
@@ -134,7 +140,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=cowplot"
     },
-    {
+    "5": {
       "@type": "SoftwareApplication",
       "identifier": "dplyr",
       "name": "dplyr",
@@ -146,7 +152,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=dplyr"
     },
-    {
+    "6": {
       "@type": "SoftwareApplication",
       "identifier": "forcats",
       "name": "forcats",
@@ -158,7 +164,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=forcats"
     },
-    {
+    "7": {
       "@type": "SoftwareApplication",
       "identifier": "ggplot2",
       "name": "ggplot2",
@@ -170,17 +176,17 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=ggplot2"
     },
-    {
+    "8": {
       "@type": "SoftwareApplication",
       "identifier": "graphics",
       "name": "graphics"
     },
-    {
+    "9": {
       "@type": "SoftwareApplication",
       "identifier": "grDevices",
       "name": "grDevices"
     },
-    {
+    "10": {
       "@type": "SoftwareApplication",
       "identifier": "magrittr",
       "name": "magrittr",
@@ -192,12 +198,12 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=magrittr"
     },
-    {
+    "11": {
       "@type": "SoftwareApplication",
       "identifier": "methods",
       "name": "methods"
     },
-    {
+    "12": {
       "@type": "SoftwareApplication",
       "identifier": "raster",
       "name": "raster",
@@ -209,7 +215,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=raster"
     },
-    {
+    "13": {
       "@type": "SoftwareApplication",
       "identifier": "rlang",
       "name": "rlang",
@@ -221,7 +227,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rlang"
     },
-    {
+    "14": {
       "@type": "SoftwareApplication",
       "identifier": "tidyr",
       "name": "tidyr",
@@ -233,7 +239,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=tidyr"
     },
-    {
+    "15": {
       "@type": "SoftwareApplication",
       "identifier": "viridis",
       "name": "viridis",
@@ -244,12 +250,13 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=viridis"
-    }
-  ],
+    },
+    "SystemRequirements": null
+  },
+  "fileSize": "9944.318KB",
+  "relatedLink": "https://ropensci.github.io/sampbias/",
+  "releaseNotes": "https://github.com/azizka/sampbias/blob/master/NEWS.md",
   "readme": "https://github.com/azizka/sampbias/blob/master/README.md",
   "contIntegration": ["https://travis-ci.org/azizka/sampbias", "https://codecov.io/github/azizka/sampbias"],
-  "developmentStatus": "https://www.repostatus.org/#active",
-  "fileSize": "37717.556KB",
-  "releaseNotes": "https://github.com/azizka/sampbias/blob/master/NEWS.md",
-  "relatedLink": "https://ropensci.github.io/sampbias/"
+  "developmentStatus": "https://www.repostatus.org/#active"
 }

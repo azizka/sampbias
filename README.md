@@ -16,19 +16,21 @@ The results of *sampbias* can be used to identify priority for further collectio
 Example datasets for *sampbias* and a tutorial on how to use it are provided with the package.
 
 # For the impatient
-```{r}
+
+```
 #installing the package
-install.packages("devtools")
+install.packages("devtools")  
 require("devtools")
 install_github("azizka/sampbias")
 library(sampbias)
 
 #reading a csv file as downloaded from GBIF and provided in the example data folder
-example.in <- read.csv(system.file("extdata", "mammals_borneo.csv", package="sampbias"), sep = "\t")
+example.in <- read.csv(system.file("extdata", "mammals_borneo.csv",
+package="sampbias"), sep = "\t")
 
 #running sampbias
-example.out <- calculate_bias(x = example.in, res = 0.1)
-
+example.out <- calculate_bias(x = example.in)
 summary(example.out)
 plot(example.out)
+
 ```

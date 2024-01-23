@@ -4,12 +4,18 @@ title: "Using the sampbias R package"
 output: rmarkdown::pdf_document
 vignette: >
   %\VignetteIndexEntry{Using the sampbias R package}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, eval = TRUE, warning = FALSE, message = FALSE, fig.pos = 'H')
+knitr::opts_chunk$set(echo = TRUE, 
+                      warning = FALSE, 
+                      message = FALSE, 
+                      fig.pos = 'H',
+                      eval = TRUE)
 ```
 
 
@@ -20,9 +26,7 @@ To install *sampbias*, you can use the `devtools` package:
 require(devtools)
 install_github(repo = "azizka/sampbias")
 library(sampbias)
-library(maptools)
-library(rgdal)
-library(raster)
+library(terra)
 ```
 
 ```{r, echo = FALSE}
@@ -47,28 +51,28 @@ The input data can be easily loaded into R from a .txt. or .csv file, for instan
 
 ```{r}
 #loading a text file to R
-occ <-read.csv(system.file("extdata", 
+occ <- read.csv(system.file("extdata", 
                            "mammals_borneo.csv", 
-                           package="sampbias"),
+                           package = "sampbias"),
                sep = "\t")
 ```
 
 **Note**: *sampbias* evaluates the bias by comparing the observed records to a random sampling. This means that the tool is designed for multi-species data sets and **not** single species data sets where the distribution of records might reflect ecological preferences. In general, the more species and the more records, the more reliable the results will be, but the package is also capable of dealing with sparsely sampled data sets (see main text for simulation results).
 
 ## 2. Geographic gazetteers
-*sampbias* evaluates the distribution of the sampled species occurrences in relation to geographic features that might bias sampling effort. These are usually related to accessibility or means of travel. *sampbias* includes a set of default gazetteers for cities, airports, roads and rivers (from https://www.naturalearthdata.com/), which can give an estimate of bias for large and medium scale analyses. For higher resolutions custom gazetteers will yield better results, and should be provided via the `gaz` option of `calculate_bias` function as a list of `SpatialPointsDataFrame` and `SpatialLinesDataFrame` objects. These can be easily loaded into R from standard shape files using the `rgdal` package: 
+*sampbias* evaluates the distribution of the sampled species occurrences in relation to geographic features that might bias sampling effort. These are usually related to accessibility or means of travel. *sampbias* includes a set of default gazetteers for cities, airports, roads and rivers (from https://www.naturalearthdata.com/), which can give an estimate of bias for large and medium scale analyses. For higher resolutions custom gazetteers will yield better results, and should be provided via the `gaz` option of `calculate_bias` function as a list of `SpatVectors` objects. These can be easily loaded into R from standard shape files using the `terra` package: 
 
 ```{r, warning = FALSE, message = FALSE}
-cit <- readOGR(dsn = system.file("extdata", package="sampbias"), 
-               layer = "Borneo_major_cities", verbose = FALSE)
-roa <- readOGR(dsn = system.file("extdata", package="sampbias"), 
-               layer = "Borneo_major_roads", verbose = FALSE)
+cit <- terra::vect(system.file("extdata/Borneo_major_cities.shp",
+                               package = "sampbias"))
+roa <- terra::vect(system.file("extdata/Borneo_major_roads.shp",
+                               package = "sampbias"))
 
 gazetteers <- list(cities = cit,
                    roads = roa)
 ```
 
-See https://cran.r-project.org/web/packages/sp/vignettes/intro_sp.pdf and `?SpatialPointsDataFrame` or `?SpatialLinesDataFrame` on how to create a these object from a table of coordinates.
+See `?terra::vect` on how to create a these object from a table of coordinates.
 
 # Running an analysis
 A *sampbias* analysis is run in one line of code via the `calculate_bias` function:
@@ -98,10 +102,10 @@ The output of `calculate_bias` is a list of different R objects.
 |summa|A list of summary statistics, including the total number of occurrence points in x, the total number of species in x, the extent of the output rasters as well as the settings for res, binsize, and restrict_area used in the analyses.|
 |occurrences|a raster indicating occurrence records per grid cell, with resolution `res`.|
 |bias_estimate| A `data.frame` with the posterior estimates of the model parameters, including bias weights|
-|distance_raster|A raster or RasterStack, with the calculated distances for all bias factors (e.g. cities, roads, etc.) as used in the model|
+|distance_raster|A `SpatRaster`, with the calculated distances for all bias factors (e.g. cities, roads, etc.) as used in the model|
 
 The package includes summary and plot methods for an easy exploration of the results. The plot method generates a boxplot of the posterior estimates of the weights for each biasing factor (Fig. 1).
-```{r, eval = TRUE, fig.height=7, fig.cap = "Output of a sampbias analysis. A) Posterior estimates of the bias weights for cities and roads, B) the decay of the sampling rate with increasing distance from cities and roads."}
+```{r, fig.height=7, fig.cap = "Output of a sampbias analysis. A) Posterior estimates of the bias weights for cities and roads, B) the decay of the sampling rate with increasing distance from cities and roads."}
 summary(bias.out)
 plot(bias.out)
 ```
@@ -119,7 +123,7 @@ map_bias(proj, type = "log_sampling_rate")
 The `calculate_bias` function provides various options to customize analyses (see above). For two important options---providing a custom study area and using an equal area grid---we provide examples below.
 
 ## Custom study area
-By default *sampbias* uses a rectangle defined by the minimum and maximum longitude and latitude values in the input point records to define the study area. It may be desirable to change this, for instance if this rectangle comprises a set of different habitats such as rainforest and desert, which may differ in species richness and therefore the number of records expected. *sampbias* enables user-defined study areas via the `restrict_sample` option of the `calculate_bias` function, which uses objects of the class `SpatialPolygonsDataFrame` or `SpatialPolygons`. If the user provides a custom study area, all occurrence records in the dataset falling outside this area will be disregarded. This could be simple custom polygons as in the `area_example` dataset provided with *sampbias*:
+By default *sampbias* uses a rectangle defined by the minimum and maximum longitude and latitude values in the input point records to define the study area. It may be desirable to change this, for instance if this rectangle comprises a set of different habitats such as rainforest and desert, which may differ in species richness and therefore the number of records expected. *sampbias* enables user-defined study areas via the `restrict_sample` option of the `calculate_bias` function, which uses objects of the class `SpatVector`. If the user provides a custom study area, all occurrence records in the dataset falling outside this area will be disregarded. This could be simple custom polygons as in the `area_example` dataset provided with *sampbias*:
 
 ```{r, fig.cap="Example of a customized study area which can be provided to the calculate_bias function via the restrict_sample option. Only grid cells within the red areas are included in the sampling bias calculation."}
 data(area_example)
@@ -153,28 +157,32 @@ By default *sampbias* uses a latitude/longitude grid. This is a reasonable appro
 
 ```{r, eval = FALSE}
 #projection
-wgs84 <- CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
+wgs84 <- "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
 
 # an example for an equal area raster
 data(ea_raster)
+ea_raster <- terra::unwrap(ea_raster)
 
 # reproject the occurrence coordinates
 ## select coordinates from the occ data.frame and create spatial object
-ea_occ <- SpatialPoints(occ[,c(3,2)], 
-                        proj4string = wgs84)
+ea_occ <- terra::vect(occ, geom = c("decimalLongitude", "decimalLatitude"),
+                      crs="+proj=longlat +datum=WGS84")
 ## transform to the same CRS as the equal area grid
-ea_occ <- spTransform(ea_occ, CRSobj = proj4string(ea_raster))
+ea_occ <- terra::project(ea_occ, terra::crs(ea_raster))
+
 ## retransform into a data.frame
-ea_occ <- data.frame(species = occ[,1], coordinates(ea_occ))
+ea_occ <- data.frame(species = occ[, 1],
+                     terra::crds(ea_occ))
 
 # reproject gazetteers
 ## set the CRS in case it is not defined. Make sure to know the correct CRS.
-proj4string(gazetteers[[1]]) <- 
-  proj4string(gazetteers[[2]]) <- 
+terra::crs(gazetteers[[1]]) <- 
+  terra::crs(gazetteers[[2]]) <- 
   wgs84
 
 #transform to the new CRS
-ea_gaz <- lapply(gazetteers, "spTransform", CRSobj = proj4string(ea_raster))
+ea_gaz <- lapply(gazetteers, terra::project, 
+                 y = terra::crds(ea_raster))
 
 # run sampbias
 ea_bias <- calculate_bias(x = ea_occ, 

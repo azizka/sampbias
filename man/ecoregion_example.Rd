@@ -5,7 +5,7 @@
 \alias{ecoregion_example}
 \title{Detailed Example for a Custom Study Area}
 \format{
-An object of class \code{SpatialPolygonsDataFrame} with 7 rows and 21 columns.
+An object of class \code{sf} (inherits from \code{data.frame}) with 7 rows and 22 columns.
 }
 \source{
 \url{https://www.worldwildlife.org/publications/terrestrial-ecoregions-of-the-world}

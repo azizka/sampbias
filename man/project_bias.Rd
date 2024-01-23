@@ -12,36 +12,26 @@ project_bias(x, factors = NULL)
 \item{factors}{a character vector indicating which biasing factors to project}
 }
 \value{
-A raster stack, with the same length as the number of biasing factors used
-in \code{\link{calculate_bias}}. The names indicate the factors included for each layer.
+A raster stack, with the same length as the number of biasing factors
+  used in \code{\link{calculate_bias}}. The names indicate the factors
+  included for each layer.
 }
 \description{
-Uses the the estimated bias weights from a \code{sampbias} object to project the
-bias through space, using the same raster as used for the distance calculation.#'
+Uses the the estimated bias weights from a \code{sampbias} object to project
+the bias through space, using the same raster as used for the distance
+calculation.#'
 }
 \examples{
 
-#simulate data
-occ <- data.frame(species = rep(sample(x = LETTERS, size = 5), times = 10),
-                  decimalLongitude = runif(n = 50, min = -5, max = 5),
-                  decimalLatitude = runif(n = 50, min = -4, max = 4))
+\dontrun{
+  #simulate data
+  occ <- data.frame(species = rep(sample(x = LETTERS, size = 5), times = 10),
+                   decimalLongitude = runif(n = 50, min = 12, max = 20),
+                   decimalLatitude = runif(n = 50, min = -4, max = 4))
 
-
-#create point gazetteer
-pts <- data.frame(long = runif(n = 5, min = -5, max = 5),
-                  lat = runif(n = 5, min = -4, max = 4),
-                  dat = rep("A", 5))
-pts <- SpatialPointsDataFrame(coords = pts[,1:2], data = data.frame(pts[,3]))
-
-lin <- data.frame(long = seq(-5, 5, by = 1),
-                  lat = rep(2, times = 11))
-lin <- SpatialLinesDataFrame(sl = SpatialLines(list(Lines(Line(lin), ID="B1"))),
-                             data = data.frame("B", row.names = "B1"))
-
-gaz <- list(lines.strucutre = lin, point.structure = pts)
-
-out <- calculate_bias(x = occ, gaz = gaz, terrestrial = FALSE)
-out <- project_bias(out)
+  out <- calculate_bias(x = occ, terrestrial = TRUE)
+  proj <- project_bias(out)
+}
 
 }
 \seealso{

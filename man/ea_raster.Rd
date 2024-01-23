@@ -5,18 +5,18 @@
 \alias{ea_raster}
 \title{Equal Area Raster}
 \format{
-An object of class \code{RasterLayer} of dimension 142 x 360 x 1.
+An object of class \code{PackedSpatRaster} of length 1.
 }
 \usage{
 ea_raster
 }
 \description{
-An example for an global equal area raster (in Behrmann projection) for the format needed for
-a custom grid provided to \code{\link{calculate_bias}}.
+An example for an global equal area raster (in Behrmann projection) for the
+format needed for a custom grid provided to \code{\link{calculate_bias}}.
 }
 \examples{
 
 data(ea_raster)
-
+ea_raster <- terra::unwrap(ea_raster)
 }
 \keyword{datasets}

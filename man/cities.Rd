@@ -6,10 +6,9 @@
 \title{Global Major Populated Places}
 \format{
 A data frame with 7322 observations on the following 4 variables.
-\describe{ \item{list("nameascii")}{a factor; city name.}
-\item{list("adm0_a3")}{a factor; ISO-3 code of country name.}
-\item{list("longitude")}{a numeric vector.} \item{list("latitude")}{a
-numeric vector.} }
+\describe{ \item{nameascii}{a factor; city name.}
+\item{adm0_a3}{a factor; ISO-3 code of country name.}
+\item{geometry}{sfc_POINT object.} }
 }
 \source{
 \url{http://www.naturalearthdata.com/downloads/10m-cultural-vectors/}

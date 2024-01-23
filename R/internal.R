@@ -1,32 +1,26 @@
-#'@importFrom raster rasterize
+#'@importFrom terra rasterize
 #'@importFrom stats dgamma dpois rnorm runif rgamma
 
 #Occurrence raster
 .OccRast <- function(x, ras){
-  rast <- raster::rasterize(x, ras, fun = "count")
+  rast <- terra::rasterize(x, ras, fun = "count")
   return(rast)
 }
 
 #get number of decimal places
 .DecimalPlaces <- function(x) {
   if ((x %% 1) != 0) {
-    nchar(strsplit(sub('0+$', '', as.character(x)), ".", fixed = TRUE)[[1]][[2]])
+    nchar(strsplit(sub('0+$', '', 
+                       as.character(x)),
+                   ".", fixed = TRUE)[[1]][[2]])
   } else {
     return(0)
   }
 }
 
-# get_lambda_ij_old <- function(q, w, X) {
-#   if (class(X) == "numeric") {
-#     return(q * exp(-w * X))
-#   } else {
-#     return(q * exp(-apply(FUN = sum, w * X, 2)))
-#   }
-# }
-
 
 get_lambda_ij <- function(q, w, X) {
-  if (class(X) == "numeric") {
+  if (is.numeric(X)) {
     return(q * exp(-w * X))
   } else {
     return(as.vector(q * exp(-(w %*% t(X)))))
@@ -63,12 +57,13 @@ get_post_rate <- function(w,alpha){
                          prior_q = c(1, 0.01),
                          prior_w = c(1, 1),
                          run_null_model = FALSE,
-                         use_hyperprior = TRUE) {
+                         use_hyperprior = TRUE,
+                         verbose = FALSE) {
 
   indx <- c(3:ncol(x))
 
   # X is the distance matrix with 1 row for each cell and 1 col for each predictor
-  X <- x[, indx]/rescale_distances
+  X <- x[, indx] / rescale_distances
   # if (length(indx) > 1) {
   #   X <- t(X)
   # }
@@ -80,13 +75,13 @@ get_post_rate <- function(w,alpha){
 
   # init weigths of predictors
   wA <- abs(rnorm(length(indx), 0.01, 0.01))
-  if (run_null_model == TRUE){
+  if (run_null_model == TRUE) {
     wA = rep(0, length(indx))
   }
-  if (use_hyperprior & length(indx) > 1){
+  if (use_hyperprior & length(indx) > 1) {
     # hp only used with more than one bias factor
     hp_update_freq = 0.01
-  }else{
+  } else {
     hp_update_freq = 0
   }
 
@@ -95,24 +90,30 @@ get_post_rate <- function(w,alpha){
 
   likA <- sum(get_poi_likelihood(Xcounts, lambdas))
 
-  priorA <- dgamma(qA, prior_q[1], rate=prior_q[2], log = TRUE)
-  if (!run_null_model){
-    priorA <- priorA + sum(dgamma(wA, prior_w[1], rate=prior_w[2], log = TRUE))
+  priorA <- dgamma(qA, prior_q[1], rate = prior_q[2], log = TRUE)
+  if (!run_null_model) {
+    priorA <- priorA + sum(dgamma(wA, prior_w[1], 
+                                  rate = prior_w[2], log = TRUE))
   }
 
   names_b <- paste("w", names(x[, indx]), sep = "_")
-
-
   out <- data.frame()
 
-  if (!is.null(outfile)){
-    outfile <- paste("mcmc", paste(names_b[indx - 2], collapse = "_"), ".log", sep = "_")
-    cat(c("it", "likA", "priorA", "q", names_b[indx - 2], "hp_rate", "\n"), file = outfile, sep = "\t")
+  if (!is.null(outfile)) {
+    outfile <-
+      paste("mcmc", paste(names_b[indx - 2], collapse = "_"), ".log", sep = "_")
+    cat(
+      c("it", "likA", "priorA", "q", names_b[indx - 2], "hp_rate", "\n"),
+      file = outfile,
+      sep = "\t"
+    )
   }
 
   # print to screen
-  message(paste(c("it", "likA", "priorA", "q", names_b[indx - 2]), collapse = " "))
-
+  if (verbose) {
+  message(paste(c("it", "likA", "priorA", "q", names_b[indx - 2]),
+                collapse = " "))
+  }
   for (it in 1:iterations) {
     w <- wA
     q <- qA
@@ -134,15 +135,16 @@ get_post_rate <- function(w,alpha){
     }
 
     lambdas <- get_lambda_ij(q, w, X)
-    if (mh){
+    if (mh) {
     	lik <- sum(get_poi_likelihood(Xcounts, lambdas))
-    }else{
-	lik <- likA
+    } else {
+	    lik <- likA
     }
 
-    prior <- dgamma(q, prior_q[1], rate=prior_q[2], log = TRUE)
-    if (run_null_model == FALSE){
-      prior <- prior + sum(dgamma(w, prior_w[1], rate=prior_w[2], log = TRUE))
+    prior <- dgamma(q, prior_q[1], rate = prior_q[2], log = TRUE)
+    if (!run_null_model) {
+      prior <- prior + sum(dgamma(w, prior_w[1], rate = prior_w[2], 
+                                  log = TRUE))
     }
 
     if (mh == FALSE | (lik + prior) - (likA + priorA) + hastings >= log(runif(1))) {
@@ -152,18 +154,24 @@ get_post_rate <- function(w,alpha){
       qA <- q
     }
 
-    if (it > burnin & it%%100 == 0) {
-      message(paste(round(c(it, likA, priorA, qA, wA), 3), collapse = " "))
-
+    if (it > burnin & it %% 100 == 0) {
+      if (verbose) {
+        message(paste(round(c(it, likA, priorA, qA, wA), 3), collapse = " "))
+      }
       out <- rbind(out, c(it, likA, priorA, qA, wA, prior_w[2]))
 
-      if (!is.null(outfile)){
-        cat(c(it, likA, priorA, qA, wA, prior_w[2], "\n"), file = outfile, sep = "\t", append = TRUE)
+      if (!is.null(outfile)) {
+        cat(
+          c(it, likA, priorA, qA, wA, prior_w[2], "\n"),
+          file = outfile,
+          sep = "\t",
+          append = TRUE
+        )
       }
     }
   }
 
-  if (is.null(outfile)){
+  if (is.null(outfile)) {
     names(out) <- (c("it", "likA", "priorA", "q", names_b[indx - 2],"hp_rate"))
     return(out)
   }

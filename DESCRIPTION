@@ -1,19 +1,34 @@
 Package: sampbias
 Type: Package
 Title: Evaluating Geographic Sampling Bias in Biological Collections
-Version: 1.0.5
+Version: 2.0.0
 Authors@R: c(person("Alexander", "Zizka", email = "alexander.zizka@idiv.de",
              role = c("aut", "cre")),
-             person("Daniele", "Silvestro", role = "aut"))
+             person("Daniele", "Silvestro", role = "aut"),
+             person(given = "Bruno", family = "Vilela", role = "ctb",
+             comment = "Bruno updated the code to use new spatial packages"))
 Description: Evaluating the biasing impact of geographic features such as airports, cities, roads, rivers in datasets of coordinates based biological collection datasets, by Bayesian estimation of the parameters of a Poisson process. Enables also spatial visualization of sampling bias and includes a set of convenience functions for publication level plotting. Also available as shiny app.
 Language: en-gb
 License: GPL-3
 URL: https://ropensci.github.io/sampbias/
 BugReports: https://github.com/azizka/sampbias/issues
-Depends: R(>= 3.5.0), rgeos, sp
-Imports: cowplot, dplyr, forcats, ggplot2, graphics, grDevices, magrittr, methods, raster, rlang, tidyr, viridis
-Suggests: geosphere, knitr, maptools, rgdal, rmarkdown
+Depends: R(>= 3.5.0)
+Imports: cowplot,
+          dplyr,
+          forcats,
+          ggplot2,
+          graphics,
+          magrittr,
+          methods,
+          rlang,
+          tidyr,
+          viridis,
+          terra,
+          sf
+Suggests: knitr, 
+          rmarkdown
 LazyData: TRUE
-RoxygenNote: 7.1.1
+LazyDataCompression:xz
+RoxygenNote: 7.2.3
 VignetteBuilder: knitr
 Encoding: UTF-8

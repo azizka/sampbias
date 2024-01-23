@@ -7,10 +7,9 @@
 #'
 #' @name airports
 #' @docType data
-#' @format A data frame with 891 observations on the following 4 variables.
-#' \describe{ \item{list("code")}{a factor, IATA-3 code.} \item{list("name")}{a
-#' character vector, airport names.} \item{list("longitude")}{a numeric
-#' vector.} \item{list("latitude")}{a numeric vector.} }
+#' @format A \code{sf} object with 891 observations on the following 4 variables.
+#' \describe{ \item{code}{a factor, IATA-3 code.} \item{name}{a
+#' character vector, airport names.} \item{geometry}{sfc_POINT object.} }
 #' @source \url{http://www.naturalearthdata.com/}
 #' @keywords datasets
 #' @examples
@@ -33,10 +32,9 @@ NULL
 #' @name cities
 #' @docType data
 #' @format A data frame with 7322 observations on the following 4 variables.
-#' \describe{ \item{list("nameascii")}{a factor; city name.}
-#' \item{list("adm0_a3")}{a factor; ISO-3 code of country name.}
-#' \item{list("longitude")}{a numeric vector.} \item{list("latitude")}{a
-#' numeric vector.} }
+#' \describe{ \item{nameascii}{a factor; city name.}
+#' \item{adm0_a3}{a factor; ISO-3 code of country name.}
+#' \item{geometry}{sfc_POINT object.} }
 #' @source
 #' \url{http://www.naturalearthdata.com/downloads/10m-cultural-vectors/}
 #' @keywords datasets
@@ -142,8 +140,8 @@ NULL
 
 #' Equal Area Raster
 #'
-#' An example for an global equal area raster (in Behrmann projection) for the format needed for
-#' a custom grid provided to \code{\link{calculate_bias}}.
+#' An example for an global equal area raster (in Behrmann projection) for the
+#' format needed for a custom grid provided to \code{\link{calculate_bias}}.
 #'
 #' @name ea_raster
 #' @docType data
@@ -151,7 +149,8 @@ NULL
 #' @examples
 #'
 #' data(ea_raster)
-#'
+#' ea_raster <- terra::unwrap(ea_raster)
+#' @importFrom terra unwrap
 "ea_raster"
 
 #' Borneo

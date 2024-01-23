@@ -5,7 +5,7 @@
 \alias{area_example}
 \title{Example Dataset for a Custom Study Area}
 \format{
-An object of class \code{SpatialPolygons} of length 2.
+An object of class \code{sf} (inherits from \code{data.frame}) with 2 rows and 1 columns.
 }
 \usage{
 area_example

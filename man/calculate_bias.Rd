@@ -19,7 +19,7 @@ calculate_bias(
   prior_q = c(1, 0.01),
   prior_w = c(1, 1),
   plot_raster = FALSE,
-  verbose = TRUE,
+  verbose = FALSE,
   run_null_model = FALSE,
   use_hyperprior = TRUE
 )
@@ -29,35 +29,34 @@ calculate_bias(
 occurrence record per line, and at least three columns, named
 \sQuote{species}, \sQuote{decimalLongitude}, and \sQuote{decimalLatitude}.}
 
-\item{gaz}{a list of geographic gazetteers as \code{SpatialPointDataFrame}
-or \code{SpatialLinesDataFrame}.  If NULL, a set of default gazetteers,
-representing large scale occurrence of airports, cities, rivers and roads is
-used.  See Details.}
+\item{gaz}{a list of geographic gazetteers as \code{SpatVector} or \code{sf}.
+If NULL, a set of default gazetteers, representing large scale occurrence
+of airports, cities, rivers, and roads is used. See Details.}
 
 \item{res}{numerical.  The raster resolution for the distance calculation to
 the geographic features and the data visualization, in decimal degrees. The
 default is to one degree, but higher resolution will be desirable for most
-analyses. \code{Res} together with the extent of the input data determine
+analyses. \code{res} together with the extent of the input data determine
 computation time and memory requirements.}
 
-\item{buffer}{numerical.  The size of the geographic buffer around the
-extent of \code{ras} for the distance calculations in degrees, to account
-for geographic structures neighbouring the study area (such as a road right
-outside the study area). Should be a multiple of \code{res}.  Default is to \code{res}.
-See Details.}
+\item{buffer}{numerical.  The size of the geographic buffer around the extent
+of \code{ras} for the distance calculations in degrees, to account for
+geographic structures neighbouring the study area (such as a road right
+outside the study area). Should be a multiple of \code{res}.  Default is to
+\code{res} * 10. See Details.}
 
-\item{restrict_sample}{a SpatialPolygons or SpatialPolygonDataframe.
-If provided the area for the bias test will be restricted to raster cells
-within these polygons (and the extent of the sampled points in x).
-Make sure to use adequate values for \code{res}. Default = NULL.}
+\item{restrict_sample}{a \code{SpatVector} object. If provided the area for
+the bias test will be restricted to raster cells within these polygons (and
+the extent of the sampled points in x). Make sure to use adequate values
+for \code{res}. Default = NULL.}
 
 \item{terrestrial}{logical.  If TRUE, the empirical distribution (and the
 output maps) are restricted to terrestrial areas.  Uses the
 \code{\link{landmass}} to define what is terrestrial.  Default = TRUE.}
 
-\item{inp_raster}{an object of class raster. A template raster for the
-counts and distance calculation. Can be used to provide a special resolution, or
-for different coordinate reference systems. See vignette.}
+\item{inp_raster}{an object of class \code{SpatRaster}. A template raster for
+the counts and distance calculation. Can be used to provide a special
+resolution, or for different coordinate reference systems. See vignette.}
 
 \item{mcmc_rescale_distances}{numerical. rescaling factor for the
 distance calculation}
@@ -82,12 +81,13 @@ In the format c(shape,rate).}
 \item{plot_raster}{logical. If TRUE, a plot of the occurrence raster is shown
 for diagnostic purposes. Default = FALSE}
 
-\item{verbose}{logical.  If TRUE, progress is reported.  Default = TRUE.}
+\item{verbose}{logical.  If TRUE, progress is reported.  Default = FALSE.}
 
-\item{run_null_model}{logical. Run a null model with bias weights set to zero.}
+\item{run_null_model}{logical. Run a null model with bias weights set to
+zero.}
 
-\item{use_hyperprior}{logical. If TRUE a hyperprior on the bias weights is used for
-regularization to avoid over-parametrization.}
+\item{use_hyperprior}{logical. If TRUE a hyperprior on the bias weights is
+used for regularization to avoid over-parametrization.}
 }
 \value{
 An object of the S3-class \sQuote{sampbias}, which is a list
@@ -95,10 +95,10 @@ including the following objects: \item{summa}{A list of summary statistics
 for the sampbias analyses, including the total number of occurrence points
 in \code{x}, the total number of species in \code{x}, the extent of the
 output rasters as well as the settings for \code{res}, \code{binsize}, and
-\code{convexhull} used in the analyses.} \item{occurrences}{a \code{raster}
+\code{convexhull} used in the analyses.} \item{occurrences}{a \code{SpatRaster}
 indicating occurrence records per grid cell, with resolution res.}
-\item{species}{a \code{raster} with indicating the number of species per
-grid cell, with resolution res.} \item{biasmaps}{a list of \code{rasters},
+\item{species}{a \code{SpatRaster} with indicating the number of species per
+grid cell, with resolution res.} \item{biasmaps}{a list of \code{SpatRaster},
 with the same length as gaz. Each element is the spatial projection of the
 bias effect for a sources of bias in \code{gaz}. The last raster in the list
 is the average over all bias sources.} \item{biastable}{a \code{data.frame},
@@ -127,33 +127,22 @@ distance calculation and the algorithm behind sampbias.
 }
 \note{
 Check \url{https://github.com/azizka/sampbias/wiki} for a tutorial on
-sampbias.
+  sampbias.
 }
 \examples{
+\dontrun{
+  #simulate data
+  occ <- data.frame(species = rep(sample(x = LETTERS, size = 5), times = 10),
+                   decimalLongitude = runif(n = 50, min = 12, max = 20),
+                   decimalLatitude = runif(n = 50, min = -4, max = 4))
 
-#simulate data
-occ <- data.frame(species = rep(sample(x = LETTERS, size = 5), times = 10),
-                  decimalLongitude = runif(n = 50, min = -5, max = 5),
-                  decimalLatitude = runif(n = 50, min = -4, max = 4))
-
-
-
-#create point gazetteer
-pts <- data.frame(long = runif(n = 5, min = -5, max = 5),
-                  lat = runif(n = 5, min = -4, max = 4),
-                  dat = rep("A", 5))
-pts <- sp::SpatialPointsDataFrame(coords = pts[,1:2], data = data.frame(pts[,3]))
-
-lin <- data.frame(long = seq(-5, 5, by = 1),
-                  lat = rep(2, times = 11))
-lin <- sp::SpatialLinesDataFrame(sl = sp::SpatialLines(list(sp::Lines(sp::Line(lin), ID="B1"))),
-                             data = data.frame("B", row.names = "B1"))
-
-gaz <- list(lines.strucutre = lin, point.structure = pts)
-
-out <- calculate_bias(x = occ, gaz = gaz, terrestrial = FALSE)
-summary(out)
-
+  out <- calculate_bias(x = occ, terrestrial = TRUE)
+  summary(out)
+  plot(out)
+  
+  
+  
+}
 }
 \seealso{
 \code{\link{summary.sampbias}} \code{\link{is.sampbias}}

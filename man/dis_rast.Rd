@@ -8,10 +8,9 @@ dis_rast(gaz, ras, buffer = NULL)
 }
 \arguments{
 \item{gaz}{an object of the class \code{list}, including one or more
-geographic gazetteers of the class \code{SpatialPointsDataFrame} or
-\code{SpatialLinesDataFrame}.}
+geographic gazetteers of the class \code{SpatVector}.}
 
-\item{ras}{an object of the class \code{raster}. Defining the extent and
+\item{ras}{an object of the class \code{SpatRaster}. Defining the extent and
 resolution of the distances rasters.}
 
 \item{buffer}{numerical.  The size of the geographic buffer around the
@@ -20,15 +19,15 @@ geographic structures neighbouring the study area (such as a road right
 outside the study area) Default is to the resolution of \code{ras}.}
 }
 \value{
-a \code{list} of \code{raster} objects of the same length as
+a \code{list} of \code{SpatRaster} objects of the same length as
 \code{gaz}. The values in each raster correspond to the planar geographic
 distance to the next feature in \code{gaz}, given the resolution of
 \code{ras}
 }
 \description{
 Creates a list of distances rasters based on a list of geographic
-gazetteers, as SpatialPoints or SpatialLines objects, and a template raster,
-indicating the desired extent and resolution
+gazetteers, as SpatVector objects, and a template SpatRaster,
+indicating the desired extent and resolution.
 }
 \note{
 Check https://github.com/azizka/sampbias/wiki for a tutorial on
@@ -37,19 +36,18 @@ sampbias.
 \examples{
 
 #create raster for resolution and extent
-ras <- raster::raster(raster::extent(-5,5,-4,4), res = 1)
+ras <- terra::rast(terra::ext(-5,5,-4,4), res = 1)
 
 #create point gazeteer
 pts <- data.frame(long = runif(n = 5, min = -5, max = 5),
                   lat = runif(n = 5, min = -4, max = 4),
                   dat = rep("A", 5))
 
-pts <- sp::SpatialPointsDataFrame(coords = pts[,1:2], data = data.frame(pts[,3]))
+pts <- terra::vect(pts, geom = c("long", "lat"))
 
-lin <- data.frame(long = seq(-5, 5, by = 1),
-                  lat = rep(2, times = 11))
-lin <- sp::SpatialLinesDataFrame(sl = sp::SpatialLines(list(sp::Lines(sp::Line(lin), ID="B1"))),
-                             data = data.frame("B", row.names = "B1"))
+lin <- as.matrix(data.frame(long = seq(-5, 5, by = 1),
+                  lat = rep(2, times = 11)))
+lin <- terra::vect(lin, type = "line")
 
 gaz <- list(point.structure = pts, lines.strucutre = lin)
 

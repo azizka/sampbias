@@ -22,3 +22,6 @@ title_page.log
 08_empirical_analyses_rarefaction.R
 09_empirical_analyses_simulation.R
 ^proofs$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

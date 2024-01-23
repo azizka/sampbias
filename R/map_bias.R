@@ -24,34 +24,23 @@
 #' @seealso \code{\link{calculate_bias}}, \code{\link{project_bias}}
 #' @keywords methods
 #' @examples
+#' \dontrun{
+#'   #simulate data
+#'   occ <- data.frame(species = rep(sample(x = LETTERS, size = 5), times = 10),
+#'                    decimalLongitude = runif(n = 50, min = 12, max = 20),
+#'                    decimalLatitude = runif(n = 50, min = -4, max = 4))
 #'
-#' #simulate data
-#' occ <- data.frame(species = rep(sample(x = LETTERS, size = 5), times = 10),
-#'                   decimalLongitude = runif(n = 50, min = -5, max = 5),
-#'                   decimalLatitude = runif(n = 50, min = -4, max = 4))
-#'
-#'
-#' #create point gazetteer
-#' pts <- data.frame(long = runif(n = 5, min = -5, max = 5),
-#'                   lat = runif(n = 5, min = -4, max = 4),
-#'                   dat = rep("A", 5))
-#' pts <- SpatialPointsDataFrame(coords = pts[,1:2], data = data.frame(pts[,3]))
-#'
-#' lin <- data.frame(long = seq(-5, 5, by = 1),
-#'                   lat = rep(2, times = 11))
-#' lin <- SpatialLinesDataFrame(sl = SpatialLines(list(Lines(Line(lin), ID="B1"))),
-#'                              data = data.frame("B", row.names = "B1"))
-#'
-#' gaz <- list(lines.strucutre = lin, point.structure = pts)
-#'
-#' out <- calculate_bias(x = occ, gaz = gaz, terrestrial = FALSE)
-#' proj <- project_bias(out)
-#' map_bias(proj)
+#'   out <- calculate_bias(x = occ, terrestrial = TRUE)
+#'   proj <- project_bias(out)
+#'   map_bias(proj)
+#' }
 #'
 #'@export
 #'@importFrom dplyr rename bind_cols filter
-#'@importFrom ggplot2 aes coord_fixed element_blank facet_wrap fortify geom_path geom_point geom_polygon geom_raster ggplot ggtitle labs theme theme_bw
-#'@importFrom raster as.data.frame coordinates
+#'@importFrom ggplot2 aes coord_fixed element_blank facet_wrap fortify geom_path
+#'  geom_point geom_polygon geom_raster ggplot ggtitle labs theme theme_bw
+#'  geom_sf
+#'@importFrom terra as.data.frame crds
 #'@importFrom rlang .data
 #'@importFrom viridis scale_fill_viridis
 #'
@@ -64,7 +53,7 @@ map_bias <- function(x,
 
   # prepare gazetteers to be included for plotting
   if (!is.null(gaz)) {
-    gaz.plo <- lapply(gaz, function(k) raster::crop(x = k, y = x$occurrences))
+    gaz.plo <- lapply(gaz, function(k) terra::crop(x = k, y = x$occurrences))
 
     # find which gazetteers are points and which are list
     list.condition <- sapply(gaz.plo, function(x) class(x) == "SpatialPointsDataFrame")
@@ -94,18 +83,18 @@ map_bias <- function(x,
   # Bias rasters
   message("Plotting bias rasters")
   coords <- x %>%
-    coordinates() %>%
+    terra::crds() %>%
     as.data.frame() %>%
     rename(geo_lon = .data$x, geo_lat = .data$y)
 
 
-  plo <-as.data.frame(x) %>%
+  plo <- terra::as.data.frame(x) %>%
     bind_cols(coords) %>%
     pivot_longer(cols = -contains("geo"), values_to = "val", names_to = "split") %>%
     filter(split != "occurrences")
 
 
-  if(type == "sampling_rate"){
+  if (type == "sampling_rate") {
     plo <- plo %>%
       filter(split != "Total_percentage")
 
@@ -123,7 +112,7 @@ map_bias <- function(x,
       facet_wrap(split~ .)
   }
 
-  if(type == "log_sampling_rate"){
+  if (type == "log_sampling_rate") {
     plo <- plo %>%
       filter(split != "Total_percentage")
 
@@ -141,35 +130,31 @@ map_bias <- function(x,
       facet_wrap(split~ .)
   }
 
-  if(type == "diff_to_max"){
+  if (type == "diff_to_max") {
     plo <- plo %>%
       filter(split == "Total_percentage")
 
-    out <- ggplot(plo)+
-      geom_raster(aes(x = .data$geo_lon, y = .data$geo_lat, fill = .data$val))+
-      coord_fixed()+
-      theme_bw()+
+    out <- ggplot(plo) +
+      geom_raster(aes(x = .data$geo_lon, y = .data$geo_lat, fill = .data$val)) +
+      coord_fixed() +
+      theme_bw() +
       scale_fill_viridis(na.value = "transparent",
                          option = "viridis",
                          direction = 1,
                          name = "Relative change\nto the mean\n[%]",
-                         discrete = FALSE)+
+                         discrete = FALSE) +
       theme(axis.title = element_blank())
   }
 
   if (sealine == TRUE) {
     message("Adding sealine")
-    wrld <- raster::crop(sampbias::landmass,
-                         raster::extent(x$occurrences))
-    wrld <- fortify(wrld)
+    wrld <- sf::st_crop(sampbias::landmass,
+                        terra::ext(x$occurrences))
     out <- out +
-      geom_polygon(data = wrld,
-                   aes(x = .data$long,
-                       y = .data$lat,
-                       group = .data$group),
-                   lwd = 0.5,
-                   col = "grey40",
-                   fill = "transparent")
+      geom_sf(data = wrld,
+              lwd = 0.5,
+              col = "grey40",
+              fill = "transparent")
   }
 
   # add gazetteers to plots
@@ -178,12 +163,12 @@ map_bias <- function(x,
     out <- out +
       geom_path(mapping = aes(x = .data$long, y = .data$lat,
                               linetype = .data$bias, group = .data$group),
-                data = line.gaz, col = "grey40")+
+                data = line.gaz, col = "grey40") +
       geom_point(mapping = aes(x = .data$long,
                                y = .data$lat,
                                shape = .data$bias),
                  data = point.gaz,
-                 col = "grey10")+
+                 col = "grey10") +
       labs(shape = "", color = "Bias Effect", linetype = "")
   }
 

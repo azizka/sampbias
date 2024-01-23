@@ -5,10 +5,9 @@
 \alias{airports}
 \title{Global Airport Coordinates}
 \format{
-A data frame with 891 observations on the following 4 variables.
-\describe{ \item{list("code")}{a factor, IATA-3 code.} \item{list("name")}{a
-character vector, airport names.} \item{list("longitude")}{a numeric
-vector.} \item{list("latitude")}{a numeric vector.} }
+A \code{sf} object with 891 observations on the following 4 variables.
+\describe{ \item{code}{a factor, IATA-3 code.} \item{name}{a
+character vector, airport names.} \item{geometry}{sfc_POINT object.} }
 }
 \source{
 \url{http://www.naturalearthdata.com/}

@@ -1,3 +1,10 @@
+sampbias 2.0.0 (2024-01-23)
+=========================
+
+### MAJOR IMPROVEMENTS
+  * Update the code to new spatial packages terra and sf
+
+
 sampbias 1.0.5 (2023-02-20)
 =========================
 

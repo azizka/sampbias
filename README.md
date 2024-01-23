@@ -2,6 +2,7 @@
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![Build Status](https://travis-ci.org/azizka/sampbias.svg?branch=master)](https://travis-ci.org/azizka/sampbias)
 [![codecov.io](https://codecov.io/github/azizka/sampbias/graphs/badge.svg?branch=master)](https://codecov.io/github/azizka/sampbias)
+
 **Sampbias has been updated to version 2.0 on github to adapt to the retirement of sp and raster. The update may not be compatible with analysis-pipelines build with version <= 1.x**
 
 

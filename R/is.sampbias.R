@@ -24,5 +24,6 @@
 #'@importFrom methods is
 #'@export
 #'
-is.sampbias <- function(object, class2){
-  inherits(object, "sampbias")}
+is.sampbias <- function(object, class2 = "sampbias"){
+  inherits(object, class2)
+}

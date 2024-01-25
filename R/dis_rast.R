@@ -121,9 +121,25 @@ dis_rast <- function(gaz, ras, buffer = NULL) {
     }
   }
   ## rasterize gazetteers
-  dist.r <- lapply(gaz.crop, function(k) terra::rasterize(x = k, y = r,
-                                                          field = 1,
-                                                          fun = "count"))
+  dist.r <-
+    suppressWarnings(lapply(gaz.crop, function(k)
+      terra::rasterize(
+        x = k,
+        y = r,
+        field = 1,
+        fun = "count"
+      )))
+  for (i in seq_along(dist.r)) {
+    if (all(is.na(terra::values(dist.r[[i]])))) {
+      dist.r[[i]] <- terra::rasterize(
+        x = gaz.crop[[i]],
+        y = r,
+        field = 1,
+        touches = TRUE
+      )
+    }
+  }
+  
   # calculate distance for all gazeteers
   dist.d <- lapply(dist.r, function(k) suppressWarnings(terra::distance(k)))
 

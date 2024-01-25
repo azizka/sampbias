@@ -1,4 +1,3 @@
-
 library(goodpractice)
 gp("C:/Users/az64mycy/Dropbox (iDiv)/research_projects/16_spatial_bias_package/sampbias")
 

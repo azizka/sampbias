@@ -40,7 +40,8 @@
 #'   for \code{res}. Default = NULL.
 #' @param terrestrial logical.  If TRUE, the empirical distribution (and the
 #'   output maps) are restricted to terrestrial areas.  Uses the
-#'   \code{\link{landmass}} to define what is terrestrial.  Default = TRUE.
+#'   \code{rnaturalearth:::ne_countries} to define what is
+#'   terrestrial.  Default = TRUE.
 #' @param inp_raster an object of class \code{SpatRaster}. A template raster for
 #'   the counts and distance calculation. Can be used to provide a special
 #'   resolution, or for different coordinate reference systems. See vignette.
@@ -87,11 +88,11 @@
 #' @examples
 #' \dontrun{
 #'   #simulate data
-#'   occ <- data.frame(species = rep(sample(x = LETTERS, size = 5), times = 10),
-#'                    decimalLongitude = runif(n = 50, min = 12, max = 20),
-#'                    decimalLatitude = runif(n = 50, min = -4, max = 4))
+#'   x <- data.frame(species = rep(sample(x = LETTERS, size = 5), times = 20),
+#'                    decimalLongitude = runif(n = 100, min = 0, max = 20),
+#'                    decimalLatitude = runif(n = 100, min = -4, max = 4))
 #'
-#'   out <- calculate_bias(x = occ, terrestrial = TRUE)
+#'   out <- calculate_bias(x, terrestrial = TRUE, buffer = 0)
 #'   summary(out)
 #'   plot(out)
 #'   
@@ -104,6 +105,7 @@
 #' @importFrom rlang .data
 #' @importFrom stats complete.cases
 #' @importFrom sf st_transform st_crop
+#' @importFrom rnaturalearth ne_download ne_file_name ne_countries ne_coastlines
 #'
 calculate_bias <- function(x,
                           gaz = NULL,
@@ -147,7 +149,7 @@ calculate_bias <- function(x,
   }
   occ.out <- .OccRast(x = dat.pts, ras = dum.ras)
 
-  #Trim raster to remove outer NA cells
+  # Trim raster to remove outer NA cells
   if (is.null(inp_raster)) {
     occ.out <- terra::trim(occ.out)
   }
@@ -162,20 +164,35 @@ calculate_bias <- function(x,
     }
     
     ## Get landmass
+    if (verbose) {
+      message("Downloadinf landmass shapefile...")
+    }
+    
+    landmass <-
+      try(suppressWarnings(rnaturalearth::ne_countries(returnclass = "sf")),
+          silent = TRUE)
+    if (inherits(landmass, "try-error")) { 
+      stop(paste("landmass could not be downloaded using rnaturalearth."),
+           "Please, check your internet connection.")
+      }
+    landmass <- terra::vect(landmass)
     if (!is.null(inp_raster)) {
-      wrld <- sf::st_transform(sampbias::landmass, 
-                           crs = terra::crs(inp_raster))
-      wrld <- sf::st_crop(wrld, terra::ext(inp_raster))
+      wrld <- terra::project(landmass, inp_raster)
+      wrld <- terra::crop(wrld, inp_raster)
       wrld <- terra::rasterize(wrld, occ.out)
+      
     }else{
-      wrld <- sf::st_crop(sampbias::landmass, terra::ext(occ.out))
+      wrld <- terra::crop(landmass, occ.out)
       wrld <- terra::rasterize(wrld, occ.out)
     }
     ## adjust raster
     occ.out <-  terra::mask(occ.out, wrld)
     occ.out <-  terra::trim(occ.out)
-    occ.out[is.na(occ.out)] <- 0
+    if (all(is.na(terra::values(occ.out)))) {
+      stop("No points left after keeping ")
     }
+    occ.out[is.na(occ.out)] <- 0
+  }
 
   ## Adapt occurrence raster to custom study extent if provided
   if (!is.null(restrict_sample)) {
@@ -183,7 +200,7 @@ calculate_bias <- function(x,
     if (verbose) {
       message("Adjusting to custom study extent...")
     }
-    ## Get landmass
+
     restrict_sample <- terra::crop(restrict_sample, terra::ext(occ.out))
     cust <- terra::rasterize(restrict_sample, occ.out)
 
@@ -199,12 +216,59 @@ calculate_bias <- function(x,
   }
   if (is.null(gaz)) {
     if (verbose) {
-      message("'gaz' not found, using standard gazetteers")
+      message(
+          "'gaz' not found, using standard gazetteers.",
+          "Gazetteers will be downloaded using rnaturalearth package."
+      )
     }
-    gaz <- list(airports = terra::vect(sampbias::airports),
-                cities = terra::vect(sampbias::cities),
-                rivers = terra::vect(sampbias::waterbodies), 
-                roads = terra::vect(sampbias::roads))
+    
+    gaz_type <- c("roads",
+                  "urban_areas", 
+                  "rivers_lake_centerlines",
+                  "airports")
+    category <- c("cultural", "physical")[c(1, 1, 2, 1)]
+    scales <- "large"
+    names_gaz <- c("roads", "cities", "waterbodies", "airports")
+    gaz <- list()
+    counter <- 0
+    for (i in seq_along(gaz_type)) {
+      ref <-
+        try(suppressWarnings(terra::vect(
+          rnaturalearth::ne_download(
+            scale = scales,
+            type = gaz_type[i],
+            category = category[i],
+            returnclass = "sf"
+          )
+        )),
+        silent = TRUE)
+      if (inherits(ref, "try-error")) {
+        a <- paste("Gazetteer for", gaz_type[i], "not found at\n%s")
+        warning(sprintf(
+          a,
+          rnaturalearth::ne_file_name(
+            scale = scales,
+            type = gaz_type[i],
+            full_url = TRUE
+          )
+        ))
+        warning(paste("Skipping", gaz_type[i], "from bias analysis"))
+      } else {
+        counter <- counter + 1
+        gaz[[counter]] <- ref
+        names(gaz)[[counter]] <- names_gaz[[counter]]
+      }
+    }
+    if (length(gaz) == 0) {
+      stop(
+        paste(
+          "Gazetteers could not be downloaded using rnaturalearth package.",
+          "Check your internet connection or input the gazetteers using",
+          "the argument gaz."
+        )
+      )
+    }
+    
   }
 
   ## check if gaz are provided as distance rasters, if so, this function will
@@ -232,7 +296,11 @@ calculate_bias <- function(x,
       stop("No valid distances found. Consider setting terrestrial = F")
     }
   }
-
+  ## Name rasters
+  if (is.null(names(dis.ras))) {
+    names(dis.ras) <- paste0("X", seq_along(dis.ras))
+  }
+  
   # Plot the occurrence and distance rasters for diagnostics
   if (plot_raster) {
     terra::plot(occ.out, main = "Occurrence raster")

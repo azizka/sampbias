@@ -43,6 +43,7 @@
 #'@importFrom terra as.data.frame crds
 #'@importFrom rlang .data
 #'@importFrom viridis scale_fill_viridis
+#'@importFrom sf st_agr st_crop
 #'
 map_bias <- function(x,
                      gaz = NULL,
@@ -148,7 +149,16 @@ map_bias <- function(x,
 
   if (sealine == TRUE) {
     message("Adding sealine")
-    wrld <- sf::st_crop(sampbias::landmass,
+    landmass <-
+      try(suppressWarnings(
+        rnaturalearth::ne_coastline(returnclass = "sf")
+      ), silent = TRUE)
+    if (inherits(landmass, "try-error")) { 
+      stop(paste("landmass could not be downloaded using rnaturalearth."),
+           "Please, check your internet connection.")
+    }
+    sf::st_agr(landmass) <- "constant"
+    wrld <- sf::st_crop(landmass,
                         terra::ext(x$occurrences))
     out <- out +
       geom_sf(data = wrld,

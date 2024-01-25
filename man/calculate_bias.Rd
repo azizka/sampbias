@@ -52,7 +52,8 @@ for \code{res}. Default = NULL.}
 
 \item{terrestrial}{logical.  If TRUE, the empirical distribution (and the
 output maps) are restricted to terrestrial areas.  Uses the
-\code{\link{landmass}} to define what is terrestrial.  Default = TRUE.}
+\code{rnaturalearth:::ne_coastline} to define what is
+terrestrial.  Default = TRUE.}
 
 \item{inp_raster}{an object of class \code{SpatRaster}. A template raster for
 the counts and distance calculation. Can be used to provide a special

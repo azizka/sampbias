@@ -24,7 +24,8 @@ Imports: cowplot,
           tidyr,
           viridis,
           terra,
-          sf
+          sf,
+          rnaturalearth
 Suggests: knitr, 
           rmarkdown
 LazyData: TRUE

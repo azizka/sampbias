@@ -25,16 +25,13 @@ To install *sampbias*, you can use the `devtools` package:
 ```{r, eval = FALSE}
 require(devtools)
 install_github(repo = "azizka/sampbias")
+```
+
+```{r load_packages}
 library(sampbias)
 library(terra)
 ```
 
-```{r, echo = FALSE}
-library(sampbias)
-library(maptools)
-library(rgdal)
-library(raster)
-```
 
 # Input data
 *sampbias* calculates spatial bias in a species occurrence data set based on two input files:
@@ -77,7 +74,7 @@ See `?terra::vect` on how to create a these object from a table of coordinates.
 # Running an analysis
 A *sampbias* analysis is run in one line of code via the `calculate_bias` function:
 
-```{r}
+```{r, message=FALSE}
 bias.out <- calculate_bias(x = occ, gaz = gazetteers)
 ```
 
@@ -89,7 +86,7 @@ In addition to the input from above, `calculate_bias` offers options to customiz
 |res|the raster resolution for the distance calculation to the geographic features and the data visualization in decimal degrees. The default is to one degree, but higher resolution will be desirable for most analyses. `res` together with the extent of the study area determine computation time and memory requirements.|
 |restrict_sample|a `SpatialPolygons` or `SpatialPolygonsDataFrame` object. If provided the area for the bias test will be restricted to raster cells within these polygons (and the extent of the sampled points in x). Make sure to use adequate values for `res`. Default = NULL.|
 |terrestrial|logical. If TRUE, the empirical distribution (and the output maps) are restricted to terrestrial areas.  Default = TRUE.|
-|inp_raster|a raster object. This option enables to directly provide the grid for the bias calculation, instead of specifying a resolution. This can be used to work with equal area grids or other coordinate references systems.
+|inp_raster|a `SpatRaster` object. This option enables to directly provide the grid for the bias calculation, instead of specifying a resolution. This can be used to work with equal area grids or other coordinate references systems.
 
 The *sampbias* model uses a Markov chain Monte Carlo approach to estimate the model parameters. The default MCMC runs for 100,000 generations with a 20% burn-in, which has proven sufficient for most analyses. We suggest users to verify that the effective sample size of the posterior estimates is large enough (e.g. > 200) using the `ESS` function of the `LaplacesDemon` package (`LaplacesDemon::ESS(bias.out$bias_estimate)`).
 
@@ -132,9 +129,13 @@ data(borneo)
 plot(borneo)
 plot(area_example, col = "red", add = TRUE)
 
+```
+
+```{r, message = FALSE}
 bias.out <- calculate_bias(x = occ, 
                            gaz = gazetteers, 
                            restrict_sample = area_example)
+
 ```
 
 More complex restrictions are possible, for instance limiting the study area to the ecoregion "Borneo montane rain forests" (Olson, et al. 2001). For diagnostics the sample raster can be plotted using the `plot_raster` argument.
@@ -145,11 +146,13 @@ data(ecoregion_example)
 plot(borneo)
 plot(ecoregion_example, col = "red", add = TRUE)
 
+```
+
+```{r, message = FALSE}
 bias.out <- calculate_bias(x = occ, 
                            gaz = gazetteers, 
                            restrict_sample = ecoregion_example)
 ```
-
 
 ## Equal area grid
 By default *sampbias* uses a latitude/longitude grid. This is a reasonable approximation for local and regional scales. However, since the area of the cells in such a grid differs with latitude, an equal area grid---for instance using a Behrmann projection---is often a better choice for large-scale studies. When using an equal area grid, it is necessary for the input occurrence records as well as the gazetteer files to share the same projection and coordinate reference system.

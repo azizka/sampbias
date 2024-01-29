@@ -5,14 +5,14 @@
 \alias{borneo}
 \title{Borneo}
 \format{
-An object of class \code{SpatialPolygonsDataFrame} with 1 rows and 2 columns.
+An object of class \code{sf} (inherits from \code{data.frame}) with 1 rows and 3 columns.
 }
 \usage{
 borneo
 }
 \description{
 The outline of Borneo, as example data for the user-defined study area option
-of \code{\link{calculate_bias}}. From \url{www.naturalearth.org}.
+of \code{\link{calculate_bias}}. From \url{https://www.naturalearthdata.com}.
 }
 \examples{
 

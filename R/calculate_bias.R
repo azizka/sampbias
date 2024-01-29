@@ -105,7 +105,7 @@
 #' @importFrom rlang .data
 #' @importFrom stats complete.cases
 #' @importFrom sf st_transform st_crop
-#' @importFrom rnaturalearth ne_download ne_file_name ne_countries ne_coastlines
+#' @importFrom rnaturalearth ne_download ne_file_name ne_countries ne_coastline
 #'
 calculate_bias <- function(x,
                           gaz = NULL,

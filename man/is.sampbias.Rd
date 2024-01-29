@@ -4,7 +4,7 @@
 \alias{is.sampbias}
 \title{Is Method for Class sampbias}
 \usage{
-\method{is}{sampbias}(object, class2)
+\method{is}{sampbias}(object, class2 = "sampbias")
 }
 \arguments{
 \item{object}{an object of the class \code{sampbias}}

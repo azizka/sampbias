@@ -52,7 +52,7 @@ for \code{res}. Default = NULL.}
 
 \item{terrestrial}{logical.  If TRUE, the empirical distribution (and the
 output maps) are restricted to terrestrial areas.  Uses the
-\code{rnaturalearth:::ne_coastline} to define what is
+\code{rnaturalearth:::ne_countries} to define what is
 terrestrial.  Default = TRUE.}
 
 \item{inp_raster}{an object of class \code{SpatRaster}. A template raster for
@@ -133,11 +133,11 @@ Check \url{https://github.com/azizka/sampbias/wiki} for a tutorial on
 \examples{
 \dontrun{
   #simulate data
-  occ <- data.frame(species = rep(sample(x = LETTERS, size = 5), times = 10),
-                   decimalLongitude = runif(n = 50, min = 12, max = 20),
-                   decimalLatitude = runif(n = 50, min = -4, max = 4))
+  x <- data.frame(species = rep(sample(x = LETTERS, size = 5), times = 20),
+                   decimalLongitude = runif(n = 100, min = 0, max = 20),
+                   decimalLatitude = runif(n = 100, min = -4, max = 4))
 
-  out <- calculate_bias(x = occ, terrestrial = TRUE)
+  out <- calculate_bias(x, terrestrial = TRUE, buffer = 0)
   summary(out)
   plot(out)
   

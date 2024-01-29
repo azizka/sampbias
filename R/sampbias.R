@@ -46,7 +46,7 @@
 #' Borneo
 #'
 #' The outline of Borneo, as example data for the user-defined study area option
-#' of \code{\link{calculate_bias}}. From \url{www.naturalearth.org}.
+#' of \code{\link{calculate_bias}}. From \url{https://www.naturalearthdata.com}.
 #'
 #' @name borneo
 #' @docType data

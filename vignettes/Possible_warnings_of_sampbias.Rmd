@@ -39,4 +39,4 @@ Sampbias might return warning messages depending on input data and settings. All
 
 7.*"Gazetteers have NA values in first column, the corresponding entries will be ignored"*
 
->Occurs if there are any NA entries in the `data` slot of the `SpatialPointsDataFrame` or `SpatialLinesDataFrame` objects used as gazetteers. Check the gazetteers and consider revising or excluding problematic entries.
+>Occurs if there are any NA entries in the first feature of the `SpatVector` object used as gazetteers. Check the gazetteers and consider revising or excluding problematic entries.

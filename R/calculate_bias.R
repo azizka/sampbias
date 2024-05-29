@@ -196,7 +196,7 @@ calculate_bias <- function(x,
 
   ## Adapt occurrence raster to custom study extent if provided
   if (!is.null(restrict_sample)) {
-    restrict_sample <- terra::vect(restrict_sample)
+    if (!inherits(restrict_sample, 'SpatVector')) restrict_sample <- terra::vect(restrict_sample)
     if (verbose) {
       message("Adjusting to custom study extent...")
     }
